@@ -1,0 +1,17 @@
+Complex.phar
+unitTests/codeCoverage
+analysis
+
+## IDE support
+*.buildpath
+*.project
+/.settings
+/.idea
+
+## Don't commit personal PHPCS rulesets.
+phpcs.xml
+.phpcs.xml
+
+## Don't commit the vendor directory nor the lock file (as this is a library).
+/vendor/
+composer.lock
