@@ -16,7 +16,7 @@ abstract class BaseTestAbstract extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals($grid, $matrixObject->toArray());
         $this->assertEquals(count($grid), $matrixObject->rows);
-        $this->assertEquals(count($grid[0]), $matrixObject->columns);    
+        $this->assertEquals(count($grid[0]), $matrixObject->columns);
     }
 
     protected function assertMatrixValues(Matrix $matrixObject, $rows, $columns, array $grid)

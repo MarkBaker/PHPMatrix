@@ -276,9 +276,11 @@ class Functions
 
     /**
      * Return the minors of the matrix
-     * The minor of a matrix A is the determinant of some smaller square matrix, cut down from A by removing one or more of its rows or columns.
-     * Minors obtained by removing just one row and one column from square matrices (first minors) are required for calculating matrix cofactors,
-     *   which in turn are useful for computing both the determinant and inverse of square matrices.
+     * The minor of a matrix A is the determinant of some smaller square matrix, cut down from A by removing one or
+     *     more of its rows or columns.
+     * Minors obtained by removing just one row and one column from square matrices (first minors) are required for
+     *     calculating matrix cofactors, which in turn are useful for computing both the determinant and inverse of
+     *     square matrices.
      *
      * @param Matrix $matrix The matrix whose minors we wish to calculate
      * @return Matrix
@@ -295,7 +297,8 @@ class Functions
 
     /**
      * Return the trace of this matrix
-     * The trace is defined as the sum of the elements on the main diagonal (the diagonal from the upper left to the lower right) of the matrix
+     * The trace is defined as the sum of the elements on the main diagonal (the diagonal from the upper left to the lower right)
+     *     of the matrix
      *
      * @param Matrix $matrix The matrix whose trace we wish to calculate
      * @return float

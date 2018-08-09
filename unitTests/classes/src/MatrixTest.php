@@ -223,7 +223,6 @@ class MatrixTest extends BaseTestAbstract
             [ 9,  6,  7, 12],
             [ 4, 15, 14,  1]
         ];
-        
     }
 
     protected function buildArray($size, $columns = null)

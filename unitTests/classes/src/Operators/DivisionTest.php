@@ -77,6 +77,8 @@ class DivisionTest extends \PHPUnit_Framework_TestCase
 
     public function testDivideMatrix()
     {
+        $expected = [[13 / 60, -1 / 30, 13 / 60], [5 / 12, 1 / 6, 5 / 12], [37 / 60, 11 / 30, 37 / 60]];
+
         $matrix = $this->getTestMatrix1();
         $original = $matrix->toArray();
 
@@ -88,7 +90,7 @@ class DivisionTest extends \PHPUnit_Framework_TestCase
         // Test that the request returns a Matrix object as a result
         $this->assertTrue(is_object($result));
         $this->assertTrue(is_a($result, 'Matrix\\Matrix'));
-        $this->assertEquals([[13 / 60, -1 / 30, 13 / 60], [5 / 12, 1 / 6, 5 / 12], [37 / 60, 11 / 30, 37 / 60]], $result->toArray());
+        $this->assertEquals($expected, $result->toArray());
         // Ensure that original matrix remains unchanged (Immutable object)
         $this->assertEquals($original, $matrix->toArray(), 'Original Matrix has mutated');
     }

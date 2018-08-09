@@ -195,7 +195,8 @@ class Matrix
     }
 
     /**
-     * Return a new matrix as a subset of rows from this matrix, dropping rows starting at row number $row, and $rowCount rows
+     * Return a new matrix as a subset of rows from this matrix, dropping rows starting at row number $row,
+     *     and $rowCount rows
      * A negative $rowCount value will drop rows until that many rows from the end of the matrix
      * A $rowCount value of 0 will remove all rows of the matrix from $row
      *
@@ -220,7 +221,8 @@ class Matrix
     }
 
     /**
-     * Return a new matrix as a subset of columns from this matrix, dropping columns starting at column number $column, and $columnCount columns
+     * Return a new matrix as a subset of columns from this matrix, dropping columns starting at column number $column,
+     *     and $columnCount columns
      * A negative $columnCount value will drop columns until that many columns from the end of the matrix
      * A $columnCount value of 0 will remove all columns of the matrix from $column
      *
