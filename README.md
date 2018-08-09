@@ -34,4 +34,10 @@ together with functions for
  - trace
  - transpose
  
- 
+---
+
+## TO DO
+
+ - EigenValues
+ - EigenVectors
+ - Decomposition
