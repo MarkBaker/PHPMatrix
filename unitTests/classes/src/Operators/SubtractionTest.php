@@ -3,8 +3,9 @@
 namespace Matrix\Operators;
 
 use \Matrix\Matrix;
+use \Matrix\BaseTestAbstract;
 
-class SubtractionTest extends \PHPUnit_Framework_TestCase
+class SubtractionTest extends BaseTestAbstract
 {
     protected function getTestMatrix1()
     {
