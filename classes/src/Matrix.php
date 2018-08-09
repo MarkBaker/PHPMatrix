@@ -57,23 +57,23 @@ class Matrix
     protected function buildFromArray(array $grid)
     {
         $this->rows = count($grid);
-        $this->columns = array_reduce(
+        $columns = array_reduce(
             $grid,
             function ($carry, $value) {
                 return max($carry, is_array($value) ? count($value) : 1);
             },
             0
         );
+        $this->columns = $columns;
 
         array_walk(
             $grid,
-            function (&$value, $key, $columns) {
+            function (&$value) use ($columns) {
                 if (!is_array($value)) {
                     $value = [$value];
                 }
                 $value = array_pad(array_values($value), $columns, null);
-            },
-            $this->columns
+            }
         );
 
         $this->grid = $grid;
@@ -241,9 +241,12 @@ class Matrix
         }
         
         $grid = $this->grid;
-        foreach ($grid as $row => $rowData) {
-            array_splice($grid[$row], $column - 1, $columnCount);
-        }
+        array_walk(
+            $grid,
+            function(&$row) use ($column, $columnCount) {
+                array_splice($row, $column - 1, $columnCount);
+            }
+        );
 
         return new static($grid);
     }
