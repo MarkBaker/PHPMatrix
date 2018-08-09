@@ -243,7 +243,7 @@ class Matrix
         $grid = $this->grid;
         array_walk(
             $grid,
-            function(&$row) use ($column, $columnCount) {
+            function (&$row) use ($column, $columnCount) {
                 array_splice($row, $column - 1, $columnCount);
             }
         );
