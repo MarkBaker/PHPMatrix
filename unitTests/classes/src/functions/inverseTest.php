@@ -59,6 +59,7 @@ class inverseTest extends BaseTestAbstract
     public function dataProvider()
     {
         return [
+            // phpcs:disable Generic.Files.LineLength
             [
                 [[-2, 1], [1.5, -0.5]],
                 [[1, 2], [3, 4]],
@@ -103,6 +104,7 @@ class inverseTest extends BaseTestAbstract
                 [[30 / 217, -41 / 434, -39 / 434, 76 / 217], [37 / 217, 29 / 434, 17 / 434, -22 / 217], [-39 / 217, 75 / 434, 29 / 434, -12 / 217], [-12 / 217, -27 / 434, 59 / 434, 13 / 217]],
                 [[1, 4, -1, 0], [2, 3, 5, -2], [0, 3, 1, 6], [3, 0, 2, 1]],
             ],
+            // phpcs:enable
         ];
     }
 
