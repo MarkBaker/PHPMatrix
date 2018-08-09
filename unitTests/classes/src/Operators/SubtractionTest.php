@@ -3,17 +3,18 @@
 namespace Matrix\Operators;
 
 use \Matrix\Matrix;
+use Matrix\Exception;
 use \Matrix\BaseTestAbstract;
 
 class SubtractionTest extends BaseTestAbstract
 {
-    protected function getTestMatrix1()
+    protected function getTestGrid1()
     {
-        return new Matrix([
+        return [
             [1, 2, 3],
             [4, 5, 6],
             [7, 8, 9],
-        ]);
+        ];
     }
 
     protected function getTestMatrix2()
@@ -35,72 +36,78 @@ class SubtractionTest extends BaseTestAbstract
 
     public function testGetResult()
     {
-        $matrix = $this->getTestMatrix1();
+        $original = $this->getTestGrid1();
+        $matrix = new Matrix($original);
 
         $result = (new Subtraction($matrix))
             ->result();
 
-        // Test that the request returns a Matrix object as a result
-        $this->assertTrue(is_object($result));
-        $this->assertTrue(is_a($result, 'Matrix\\Matrix'));
-        $this->assertEquals($matrix, $result);
+        //    Must return an object of the correct type...
+        $this->assertIsMatrixObject($result);
+        //    ... containing the correct data
+        $this->assertMatrixValues($result, count($original), count($original[0]), $original);
     }
 
     public function testSubtractInvalid()
     {
-        $matrix = $this->getTestMatrix1();
+        $original = $this->getTestGrid1();
+        $matrix = new Matrix($original);
 
         $subtractor = new Subtraction($matrix);
 
-        $this->expectException('Matrix\\Exception');
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('Invalid argument for subtraction');
+
         $result = $subtractor->execute("ElePHPant")
             ->result();
     }
 
     public function testSubtractScalar()
     {
-        $matrix = $this->getTestMatrix1();
-        $original = $matrix->toArray();
+        $expected = [[-4, -3, -2], [-1, 0, 1], [2, 3, 4]];
+        $original = $this->getTestGrid1();
+        $matrix = new Matrix($original);
 
         $subtractor = new Subtraction($matrix);
 
         $result = $subtractor->execute(5)
             ->result();
 
-        // Test that the request returns a Matrix object as a result
-        $this->assertTrue(is_object($result));
-        $this->assertTrue(is_a($result, 'Matrix\\Matrix'));
-        $this->assertEquals([[-4, -3, -2], [-1, 0, 1], [2, 3, 4]], $result->toArray());
+        //    Must return an object of the correct type...
+        $this->assertIsMatrixObject($result);
+        //    ... containing the correct data
+        $this->assertMatrixValues($result, 3, 3, $expected);
         // Ensure that original matrix remains unchanged (Immutable object)
-        $this->assertEquals($original, $matrix->toArray(), 'Original Matrix has mutated');
+        $this->assertOriginalMatrixIsUnchanged($original, $matrix, 'Original Matrix has mutated');
     }
 
     public function testSubtractMatrix()
     {
-        $matrix = $this->getTestMatrix1();
-        $original = $matrix->toArray();
+        $expected = [[-1, -5, -3], [-5, 0, 5], [3, 5, 1]];
+        $original = $this->getTestGrid1();
+        $matrix = new Matrix($original);
 
         $subtractor = new Subtraction($matrix);
 
         $result = $subtractor->execute($this->getTestMatrix2())
             ->result();
 
-        // Test that the request returns a Matrix object as a result
-        $this->assertTrue(is_object($result));
-        $this->assertTrue(is_a($result, 'Matrix\\Matrix'));
-        $this->assertEquals([[-1, -5, -3], [-5, 0, 5], [3, 5, 1]], $result->toArray());
+        //    Must return an object of the correct type...
+        $this->assertIsMatrixObject($result);
+        //    ... containing the correct data
+        $this->assertMatrixValues($result, 3, 3, $expected);
         // Ensure that original matrix remains unchanged (Immutable object)
         $this->assertEquals($original, $matrix->toArray(), 'Original Matrix has mutated');
     }
 
     public function testSubtractMismatchedMatrices()
     {
-        $matrix = $this->getTestMatrix1();
+        $original = $this->getTestGrid1();
+        $matrix = new Matrix($original);
 
         $subtractor = new Subtraction($matrix);
 
-        $this->expectException('Matrix\\Exception');
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('Matrices have mismatched dimensions');
         $result = $subtractor->execute($this->getTestMatrix3())
             ->result();

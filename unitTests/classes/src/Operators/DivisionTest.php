@@ -3,17 +3,18 @@
 namespace Matrix\Operators;
 
 use \Matrix\Matrix;
+use Matrix\Exception;
 use \Matrix\BaseTestAbstract;
 
 class DivisionTest extends BaseTestAbstract
 {
-    protected function getTestMatrix1()
+    protected function getTestGrid1()
     {
-        return new Matrix([
+        return [
             [1, 2, 3],
             [4, 5, 6],
             [7, 8, 9],
-        ]);
+        ];
     }
 
     protected function getTestMatrix2()
@@ -35,76 +36,79 @@ class DivisionTest extends BaseTestAbstract
 
     public function testGetResult()
     {
-        $matrix = $this->getTestMatrix1();
+        $original = $this->getTestGrid1();
+        $matrix = new Matrix($original);
 
         $result = (new Division($matrix))
             ->result();
 
-        // Test that the request returns a Matrix object as a result
-        $this->assertTrue(is_object($result));
-        $this->assertTrue(is_a($result, 'Matrix\\Matrix'));
-        $this->assertEquals($matrix, $result);
+        //    Must return an object of the correct type...
+        $this->assertIsMatrixObject($result);
+        //    ... containing the correct data
+        $this->assertMatrixValues($result, count($original), count($original[0]), $original);
     }
 
     public function testDivideInvalid()
     {
-        $matrix = $this->getTestMatrix1();
+        $original = $this->getTestGrid1();
+        $matrix = new Matrix($original);
 
-        $multiplier = new Division($matrix);
+        $divisor = new Division($matrix);
 
-        $this->expectException('Matrix\\Exception');
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('Invalid argument for division');
-        $result = $multiplier->execute("ElePHPant")
+        $result = $divisor->execute("ElePHPant")
             ->result();
     }
 
     public function testDivideScalar()
     {
-        $matrix = $this->getTestMatrix1();
-        $original = $matrix->toArray();
+        $expected = [[0.2, 0.4, 0.6], [0.8, 1.0, 1.2], [1.4, 1.6, 1.8]];
+        $original = $this->getTestGrid1();
+        $matrix = new Matrix($original);
 
-        $multiplier = new Division($matrix);
+        $divisor = new Division($matrix);
 
-        $result = $multiplier->execute(5)
+        $result = $divisor->execute(5)
             ->result();
 
-        // Test that the request returns a Matrix object as a result
-        $this->assertTrue(is_object($result));
-        $this->assertTrue(is_a($result, 'Matrix\\Matrix'));
-        $this->assertEquals([[0.2, 0.4, 0.6], [0.8, 1.0, 1.2], [1.4, 1.6, 1.8]], $result->toArray());
+        //    Must return an object of the correct type...
+        $this->assertIsMatrixObject($result);
+        //    ... containing the correct data
+        $this->assertMatrixValues($result, 3, 3, $expected);
         // Ensure that original matrix remains unchanged (Immutable object)
-        $this->assertEquals($original, $matrix->toArray(), 'Original Matrix has mutated');
+        $this->assertOriginalMatrixIsUnchanged($original, $matrix, 'Original Matrix has mutated');
     }
 
     public function testDivideMatrix()
     {
         $expected = [[13 / 60, -1 / 30, 13 / 60], [5 / 12, 1 / 6, 5 / 12], [37 / 60, 11 / 30, 37 / 60]];
+        $original = $this->getTestGrid1();
+        $matrix = new Matrix($original);
 
-        $matrix = $this->getTestMatrix1();
-        $original = $matrix->toArray();
+        $divisor = new Division($matrix);
 
-        $multiplier = new Division($matrix);
-
-        $result = $multiplier->execute($this->getTestMatrix2())
+        $result = $divisor->execute($this->getTestMatrix2())
             ->result();
 
-        // Test that the request returns a Matrix object as a result
-        $this->assertTrue(is_object($result));
-        $this->assertTrue(is_a($result, 'Matrix\\Matrix'));
-        $this->assertEquals($expected, $result->toArray());
+        //    Must return an object of the correct type...
+        $this->assertIsMatrixObject($result);
+        //    ... containing the correct data
+        $this->assertMatrixValues($result, 3, 3, $expected);
         // Ensure that original matrix remains unchanged (Immutable object)
         $this->assertEquals($original, $matrix->toArray(), 'Original Matrix has mutated');
     }
 
     public function testDivideMismatchedMatrices()
     {
-        $matrix = $this->getTestMatrix1();
+        $original = $this->getTestGrid1();
+        $matrix = new Matrix($original);
 
-        $multiplier = new Division($matrix);
+        $divisor = new Division($matrix);
 
-        $this->expectException('Matrix\\Exception');
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('Matrices have mismatched dimensions');
-        $result = $multiplier->execute($this->getTestMatrix3())
+        $result = $divisor->execute($this->getTestMatrix3())
             ->result();
     }
 }
