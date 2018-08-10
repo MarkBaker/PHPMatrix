@@ -84,9 +84,11 @@ class DivisionTest extends BaseTestAbstract
     public function scalarDivisionProvider()
     {
         return [
+            // phpcs:disable Generic.Files.LineLength
             [$this->getTestGrid1(), 5, [[0.2, 0.4, 0.6], [0.8, 1.0, 1.2], [1.4, 1.6, 1.8]]],
             [$this->getTestGrid1(), -12, [[-1 / 12, -1 / 6, -1 / 4], [-1 / 3, -5 / 12, -1 / 2], [-7 / 12, -2 / 3, -3 / 4]]],
             [$this->getTestGrid1(), 0.25, [[4, 8, 12], [16, 20, 24], [28, 32, 36]]],
+            // phpcs:enable
         ];
     }
 
@@ -113,9 +115,11 @@ class DivisionTest extends BaseTestAbstract
     public function matrixDivisionProvider()
     {
         return [
+            // phpcs:disable Generic.Files.LineLength
             [$this->getTestGrid1(), $this->getTestMatrix2()->toArray(), [[13 / 60, -1 / 30, 13 / 60], [5 / 12, 1 / 6, 5 / 12], [37 / 60, 11 / 30, 37 / 60]]],
             [[[13, 26], [39, 13]], [[7, 4], [2, 3]], [[-1, 10], [7, -5]]],
             [[[7, 4], [2, 3]], [[13, 26], [39, 13]], [[1 / 13, 2/ 13], [7 / 65, 1 / 65]]],
+            // phpcs:enable
         ];
     }
 

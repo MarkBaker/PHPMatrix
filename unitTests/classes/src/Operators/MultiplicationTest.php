@@ -85,8 +85,10 @@ class MultiplicationTest extends BaseTestAbstract
     public function scalarMultiplicationProvider()
     {
         return [
+            // phpcs:disable Generic.Files.LineLength
             [$this->getTestGrid1(), 5, [[5, 10, 15], [20, 25, 30], [35, 40, 45]]],
             [[[-1.1, 2.2, -3.3], [4.4, -5.5, 6.6]], -12.34, [[13.574, -27.148, 40.722], [-54.296, 67.87, -81.444]]],
+            // phpcs:enable
         ];
     }
 
@@ -113,6 +115,7 @@ class MultiplicationTest extends BaseTestAbstract
     public function matrixMultiplicationProvider()
     {
         return [
+            // phpcs:disable Generic.Files.LineLength
             [$this->getTestGrid1(), $this->getTestMatrix2()->toArray(), [[32, 26, 32], [77, 71, 77], [122, 116, 122]]],
             [[[1.1, 2.2, 3.3], [4.4, 5.5, 6.6]], [[9.9, 8.8], [7.7, 6.6], [5.5, 4.4]], [[45.98, 38.72], [122.21, 104.06]]],
             [[[1.1, 2.2], [3.3, 4.4], [5.5, 6.6]], [[9.9, 8.8, 7.7], [6.6, 5.5, 4.4]], [[25.41, 21.78, 18.15], [61.71, 53.24, 44.77], [98.01, 84.70, 71.39]]],
@@ -121,6 +124,7 @@ class MultiplicationTest extends BaseTestAbstract
             [[[9.9, 8.8, 7.7], [6.6, 5.5, 4.4]], [[1.1, 2.2], [3.3, 4.4], [5.5, 6.6]], [[82.28, 111.32], [49.61, 67.76]]],
             [[[9.9, 8.8], [7.7, 6.6], [5.5, 4.4]], [[1.1, 2.2, 3.3], [4.4, 5.5, 6.6]], [[49.61, 70.18, 90.75], [37.51, 53.24, 68.97], [25.41, 36.30, 47.19]]],
             [[[1, 2, 3, 4], [5, 6, 7, 8]], [[9, 8], [7, 6], [5, 4], [3, 2]], [[50, 40], [146, 120]]],
+            // phpcs:enable
         ];
     }
 
