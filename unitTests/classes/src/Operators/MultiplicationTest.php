@@ -62,42 +62,66 @@ class MultiplicationTest extends BaseTestAbstract
             ->result();
     }
 
-    public function testMultiplyScalar()
+    /**
+     * @dataProvider scalarMultiplicationProvider
+     */
+    public function testMultiplyScalar($original, $multiplicand, $expected)
     {
-        $expected = [[5, 10, 15], [20, 25, 30], [35, 40, 45]];
-        $original = $this->getTestGrid1();
         $matrix = new Matrix($original);
 
         $multiplier = new Multiplication($matrix);
 
-        $result = $multiplier->execute(5)
+        $result = $multiplier->execute($multiplicand)
             ->result();
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
         //    ... containing the correct data
-        $this->assertMatrixValues($result, 3, 3, $expected);
+        $this->assertMatrixValues($result, count($expected), count($expected[0]), $expected);
         // Ensure that original matrix remains unchanged (Immutable object)
         $this->assertOriginalMatrixIsUnchanged($original, $matrix, 'Original Matrix has mutated');
     }
 
-    public function testMultiplyMatrix()
+    public function scalarMultiplicationProvider()
     {
-        $expected = [[32, 26, 32], [77, 71, 77], [122, 116, 122]];
-        $original = $this->getTestGrid1();
+        return [
+            [$this->getTestGrid1(), 5, [[5, 10, 15], [20, 25, 30], [35, 40, 45]]],
+            [[[-1.1, 2.2, -3.3], [4.4, -5.5, 6.6]], -12.34, [[13.574, -27.148, 40.722], [-54.296, 67.87, -81.444]]],
+        ];
+    }
+
+    /**
+     * @dataProvider matrixMultiplicationProvider
+     */
+    public function testMultiplyMatrix($original, $multiplicand, $expected)
+    {
         $matrix = new Matrix($original);
 
         $multiplier = new Multiplication($matrix);
 
-        $result = $multiplier->execute($this->getTestMatrix2())
+        $result = $multiplier->execute($multiplicand)
             ->result();
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
         //    ... containing the correct data
-        $this->assertMatrixValues($result, 3, 3, $expected);
+        $this->assertMatrixValues($result, count($expected), count($expected[0]), $expected);
         // Ensure that original matrix remains unchanged (Immutable object)
         $this->assertEquals($original, $matrix->toArray(), 'Original Matrix has mutated');
+    }
+
+    public function matrixMultiplicationProvider()
+    {
+        return [
+            [$this->getTestGrid1(), $this->getTestMatrix2()->toArray(), [[32, 26, 32], [77, 71, 77], [122, 116, 122]]],
+            [[[1.1, 2.2, 3.3], [4.4, 5.5, 6.6]], [[9.9, 8.8], [7.7, 6.6], [5.5, 4.4]], [[45.98, 38.72], [122.21, 104.06]]],
+            [[[1.1, 2.2], [3.3, 4.4], [5.5, 6.6]], [[9.9, 8.8, 7.7], [6.6, 5.5, 4.4]], [[25.41, 21.78, 18.15], [61.71, 53.24, 44.77], [98.01, 84.70, 71.39]]],
+            [[[-1.1, 2.2, -3.3], [4.4, -5.5, 6.6]], [[9.9, -8.8], [-7.7, 6.6], [5.5, -4.4]], [[-45.98, 38.72], [122.21, -104.06]]],
+            [[[1.1, -2.2], [-3.3, 4.4], [5.5, -6.6]], [[9.9, -8.8, 7.7], [-6.6, 5.5, -4.4]], [[25.41, -21.78, 18.15], [-61.71, 53.24, -44.77], [98.01, -84.70, 71.39]]],
+            [[[9.9, 8.8, 7.7], [6.6, 5.5, 4.4]], [[1.1, 2.2], [3.3, 4.4], [5.5, 6.6]], [[82.28, 111.32], [49.61, 67.76]]],
+            [[[9.9, 8.8], [7.7, 6.6], [5.5, 4.4]], [[1.1, 2.2, 3.3], [4.4, 5.5, 6.6]], [[49.61, 70.18, 90.75], [37.51, 53.24, 68.97], [25.41, 36.30, 47.19]]],
+            [[[1, 2, 3, 4], [5, 6, 7, 8]], [[9, 8], [7, 6], [5, 4], [3, 2]], [[50, 40], [146, 120]]],
+        ];
     }
 
     public function testMultiplyMismatchedMatrices()

@@ -80,23 +80,31 @@ class DivisionTest extends BaseTestAbstract
         $this->assertOriginalMatrixIsUnchanged($original, $matrix, 'Original Matrix has mutated');
     }
 
-    public function testDivideMatrix()
+    /**
+     * @dataProvider matrixDivisionProvider
+     */
+    public function testDivideMatrix($original, $dividend, $expected)
     {
-        $expected = [[13 / 60, -1 / 30, 13 / 60], [5 / 12, 1 / 6, 5 / 12], [37 / 60, 11 / 30, 37 / 60]];
-        $original = $this->getTestGrid1();
         $matrix = new Matrix($original);
 
         $divisor = new Division($matrix);
 
-        $result = $divisor->execute($this->getTestMatrix2())
+        $result = $divisor->execute($dividend)
             ->result();
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
         //    ... containing the correct data
-        $this->assertMatrixValues($result, 3, 3, $expected);
+        $this->assertMatrixValues($result, count($expected), count($expected[0]), $expected);
         // Ensure that original matrix remains unchanged (Immutable object)
         $this->assertEquals($original, $matrix->toArray(), 'Original Matrix has mutated');
+    }
+
+    public function matrixDivisionProvider()
+    {
+        return [
+            [$this->getTestGrid1(), $this->getTestMatrix2()->toArray(), [[13 / 60, -1 / 30, 13 / 60], [5 / 12, 1 / 6, 5 / 12], [37 / 60, 11 / 30, 37 / 60]]],
+        ];
     }
 
     public function testDivideMismatchedMatrices()

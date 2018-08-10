@@ -17,6 +17,10 @@ class Division extends Multiplication
      **/
     public function execute($value)
     {
+        if (is_array($value)) {
+            $value = new Matrix($value);
+        }
+
         if (is_object($value) && ($value instanceof Matrix)) {
             return $this->multiplyMatrix(
                 Functions::inverse($value)

@@ -62,42 +62,60 @@ class SubtractionTest extends BaseTestAbstract
             ->result();
     }
 
-    public function testSubtractScalar()
+    /**
+     * @dataProvider scalarSubtractionProvider
+     */
+    public function testSubtractScalar($original, $subtraction, $expected)
     {
-        $expected = [[-4, -3, -2], [-1, 0, 1], [2, 3, 4]];
-        $original = $this->getTestGrid1();
         $matrix = new Matrix($original);
 
         $subtractor = new Subtraction($matrix);
 
-        $result = $subtractor->execute(5)
+        $result = $subtractor->execute($subtraction)
             ->result();
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
         //    ... containing the correct data
-        $this->assertMatrixValues($result, 3, 3, $expected);
+        $this->assertMatrixValues($result, count($expected), count($expected[0]), $expected);
         // Ensure that original matrix remains unchanged (Immutable object)
         $this->assertOriginalMatrixIsUnchanged($original, $matrix, 'Original Matrix has mutated');
     }
 
-    public function testSubtractMatrix()
+    public function scalarSubtractionProvider()
     {
-        $expected = [[-1, -5, -3], [-5, 0, 5], [3, 5, 1]];
-        $original = $this->getTestGrid1();
+        return [
+            [$this->getTestGrid1(), 5, [[-4, -3, -2], [-1, 0, 1], [2, 3, 4]]],
+            [[[-1.1, 2.2, -3.3], [4.4, -5.5, 6.6]], -3.21, [[2.11, 5.41, -0.09], [7.61, -2.29, 9.81]]],
+        ];
+    }
+
+    /**
+     * @dataProvider matrixSubtractionProvider
+     */
+    public function testSubtractMatrix($original, $subtraction, $expected)
+    {
         $matrix = new Matrix($original);
 
         $subtractor = new Subtraction($matrix);
 
-        $result = $subtractor->execute($this->getTestMatrix2())
+        $result = $subtractor->execute($subtraction)
             ->result();
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
         //    ... containing the correct data
-        $this->assertMatrixValues($result, 3, 3, $expected);
+        $this->assertMatrixValues($result, count($expected), count($expected[0]), $expected);
         // Ensure that original matrix remains unchanged (Immutable object)
         $this->assertEquals($original, $matrix->toArray(), 'Original Matrix has mutated');
+    }
+
+    public function matrixSubtractionProvider()
+    {
+        return [
+            [$this->getTestGrid1(), $this->getTestMatrix2(), [[-1, -5, -3], [-5, 0, 5], [3, 5, 1]]],
+            [[[-1.1, 2.2, -3.3], [4.4, -5.5, 6.6]], [[7.7, -8.8, 9.9], [0.0, 1.1, -2.2]], [[-8.8, 11.0, -13.2], [4.4, -6.6, 8.8]]],
+        ];
     }
 
     public function testSubtractMismatchedMatrices()

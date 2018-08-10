@@ -17,7 +17,7 @@ Currently provides the following operations:
  - addition
  - subtraction
  - multiplication
- - division
+ - division (using [A].[B]<sup>-1</sup>)
     - division by
     - division into
 
@@ -38,6 +38,7 @@ together with functions for
 
 ## TO DO
 
+ - power()
  - EigenValues
  - EigenVectors
  - Decomposition
