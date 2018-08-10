@@ -22,9 +22,13 @@ class Division extends Multiplication
         }
 
         if (is_object($value) && ($value instanceof Matrix)) {
-            return $this->multiplyMatrix(
-                Functions::inverse($value)
-            );
+            try {
+                $value = Functions::inverse($value);
+            } catch (Exception $e) {
+                throw new Exception('Division can only be calculated using a matrix with a non-zero determinant');
+            }
+
+            return $this->multiplyMatrix($value);
         } elseif (is_numeric($value)) {
             return $this->multiplyScalar(1 / $value);
         }

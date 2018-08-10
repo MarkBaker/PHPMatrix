@@ -118,7 +118,7 @@ class DivisionTest extends BaseTestAbstract
             // phpcs:disable Generic.Files.LineLength
             [$this->getTestGrid1(), $this->getTestMatrix2()->toArray(), [[13 / 60, -1 / 30, 13 / 60], [5 / 12, 1 / 6, 5 / 12], [37 / 60, 11 / 30, 37 / 60]]],
             [[[13, 26], [39, 13]], [[7, 4], [2, 3]], [[-1, 10], [7, -5]]],
-            [[[7, 4], [2, 3]], [[13, 26], [39, 13]], [[1 / 13, 2/ 13], [7 / 65, 1 / 65]]],
+            [[[7, 4], [2, 3]], [[13, 26], [39, 13]], [[1 / 13, 2 / 13], [7 / 65, 1 / 65]]],
             // phpcs:enable
         ];
     }
@@ -133,6 +133,18 @@ class DivisionTest extends BaseTestAbstract
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Matrices have mismatched dimensions');
         $result = $divisor->execute($this->getTestMatrix3())
+            ->result();
+    }
+
+    public function testDivideZeroDeterminant()
+    {
+        $matrix = $this->getTestMatrix2();
+
+        $divisor = new Division($matrix);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Division can only be calculated using a matrix with a non-zero determinant');
+        $result = $divisor->execute(new Matrix($this->getTestGrid1()))
             ->result();
     }
 }
