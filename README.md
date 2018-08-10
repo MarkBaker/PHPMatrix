@@ -39,6 +39,7 @@ together with functions for
 ## TO DO
 
  - power()
+ - Direct Sum operation
  - EigenValues
  - EigenVectors
  - Decomposition
