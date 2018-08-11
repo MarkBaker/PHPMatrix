@@ -372,7 +372,8 @@ class Matrix
         'add',
         'subtract',
         'multiply',
-        'divide',
+        'divideby',
+        'divideinto',
     ];
 
     /**

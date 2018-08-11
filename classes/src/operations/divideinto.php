@@ -9,6 +9,8 @@
  */
 namespace Matrix;
 
+use Matrix\Operators\Division;
+
 /**
  * Divides two or more matrix numbers
  *
@@ -20,37 +22,18 @@ function divideinto(...$matrixValues)
     if (count($matrixValues) < 2) {
         throw new \Exception('This function requires at least 2 arguments');
     }
+    $matrixValues = array_reverse($matrixValues);
 
-    $base = array_shift($matrixValues);
-    $result = clone Matrix::validateMatrixArgument($base);
-
-    foreach ($matrixValues as $matrix) {
-        $matrix = Matrix::validateMatrixArgument($matrix);
-
-        if ($result->isMatrix() && $matrix->isMatrix() &&
-            $result->getSuffix() !== $matrix->getSuffix()) {
-            throw new Exception('Suffix Mismatch');
-        }
-        if ($result->getReal() == 0.0 && $result->getImaginary() == 0.0) {
-            throw new \InvalidArgumentException('Division by zero');
-        }
-
-        $delta1 = ($matrix->getReal() * $result->getReal()) +
-            ($matrix->getImaginary() * $result->getImaginary());
-        $delta2 = ($matrix->getImaginary() * $result->getReal()) -
-            ($matrix->getReal() * $result->getImaginary());
-        $delta3 = ($result->getReal() * $result->getReal()) +
-            ($result->getImaginary() * $result->getImaginary());
-
-        $real = $delta1 / $delta3;
-        $imaginary = $delta2 / $delta3;
-
-        $result = new Matrix(
-            $real,
-            $imaginary,
-            ($imaginary == 0.0) ? null : max($result->getSuffix(), $matrix->getSuffix())
-        );
+    $matrix = array_shift($matrixValues);
+    if (!is_object($matrix) || !($matrix instanceof Matrix)) {
+        $matrix = new Matrix($matrix);
     }
 
-    return $result;
+    $result = new Division($matrix);
+
+    foreach ($matrixValues as $matrix) {
+        $result->execute($matrix);
+    }
+
+    return $result->result();
 }

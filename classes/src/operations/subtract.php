@@ -24,7 +24,12 @@ function subtract(...$matrixValues)
         throw new Exception('This operation requires at least 2 arguments');
     }
 
-    $result = new Subtraction(array_shift($matrixValues));
+    $matrix = array_shift($matrixValues);
+    if (!is_object($matrix) || !($matrix instanceof Matrix)) {
+        $matrix = new Matrix($matrix);
+    }
+
+    $result = new Subtraction($matrix);
 
     foreach ($matrixValues as $matrix) {
         $result->execute($matrix);

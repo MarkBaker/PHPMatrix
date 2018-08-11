@@ -23,7 +23,12 @@ function divideby(...$matrixValues)
         throw new \Exception('This function requires at least 2 arguments');
     }
 
-    $result = new Division(array_shift($matrixValues));
+    $matrix = array_shift($matrixValues);
+    if (!is_object($matrix) || !($matrix instanceof Matrix)) {
+        $matrix = new Matrix($matrix);
+    }
+
+    $result = new Division($matrix);
 
     foreach ($matrixValues as $matrix) {
         $result->execute($matrix);

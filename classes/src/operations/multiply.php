@@ -24,7 +24,12 @@ function multiply(...$matrixValues)
         throw new Exception('This operation requires at least 2 arguments');
     }
 
-    $result = new Multiplication(array_shift($matrixValues));
+    $matrix = array_shift($matrixValues);
+    if (!is_object($matrix) || !($matrix instanceof Matrix)) {
+        $matrix = new Matrix($matrix);
+    }
+
+    $result = new Multiplication($matrix);
 
     foreach ($matrixValues as $matrix) {
         $result->execute($matrix);
