@@ -148,15 +148,8 @@ class Functions
         }
 
         $dimensions = $matrix->rows;
-        $grid = array_fill(
-            0,
-            $dimensions,
-            array_fill(
-                0,
-                $dimensions,
-                null
-            )
-        );
+        $grid = Matrix::createFilledMatrix(0, $dimensions, $dimensions)
+            ->toArray();
 
         for ($i = 0; $i < $dimensions; ++$i) {
             $grid[$i][$i] = $matrix->getValue($i + 1, $i + 1);
@@ -179,15 +172,8 @@ class Functions
         }
 
         $dimensions = $matrix->rows;
-        $grid = array_fill(
-            0,
-            $dimensions,
-            array_fill(
-                0,
-                $dimensions,
-                null
-            )
-        );
+        $grid = Matrix::createFilledMatrix(0, $dimensions, $dimensions)
+            ->toArray();
 
         for ($i = 0; $i < $dimensions; ++$i) {
             $grid[$i][$dimensions - $i - 1] = $matrix->getValue($i + 1, $dimensions - $i);
@@ -240,15 +226,6 @@ class Functions
 
         return self::getAdjoint($matrix)
             ->multiply(1 / $determinant);
-    }
-
-    public static function pseudoInverse(Matrix $matrix)
-    {
-        $result = $matrix->multiply(
-            self::transpose($matrix)
-        );
-
-        return $result;
     }
 
     /**
