@@ -86,7 +86,7 @@ class Matrix
      * @return int
      * @throws Exception
      */
-    protected static function validateRow($row)
+    public static function validateRow($row)
     {
         if ((!is_numeric($row)) || (intval($row) < 1)) {
             throw new Exception('Invalid Row');
@@ -102,7 +102,7 @@ class Matrix
      * @return int
      * @throws Exception
      */
-    protected static function validateColumn($column)
+    public static function validateColumn($column)
     {
         if ((!is_numeric($column)) || (intval($column) < 1)) {
             throw new Exception('Invalid Column');
@@ -328,57 +328,6 @@ class Matrix
     public function toArray()
     {
         return $this->grid;
-    }
-
-    /**
-     * Create a new matrix of specified dimensions, and filled with a specified value
-     * If the column argument isn't provided, then a square matri will be created
-     *
-     * @param $value
-     * @param $rows
-     * @param null $columns
-     * @return Matrix
-     * @throws Exception
-     */
-    public static function createFilledMatrix($value, $rows, $columns = null)
-    {
-        if ($columns === null) {
-            $columns = $rows;
-        }
-
-        $rows = static::validateRow($rows);
-        $columns = static::validateColumn($columns);
-
-        return new static(
-            array_fill(
-                0,
-                $rows,
-                array_fill(
-                    0,
-                    $columns,
-                    $value
-                )
-            )
-        );
-    }
-
-    /**
-     * Create a new identity matrix of specified dimensions
-     * This will always be a square matrix, with the number of rows and columns matching the provided dimension
-     *
-     * @param int $dimensions
-     * @return Matrix
-     * @throws Exception
-     */
-    public static function createIdentityMatrix($dimensions)
-    {
-        $grid = static::createFilledMatrix(null, $dimensions)->toArray();
-
-        for ($x = 0; $x < $dimensions; ++$x) {
-            $grid[$x][$x] = 1;
-        }
-
-        return new static($grid);
     }
 
     protected static $getters = [

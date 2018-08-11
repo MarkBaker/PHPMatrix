@@ -3,6 +3,7 @@
 namespace Matrix\Operators;
 
 use Matrix\Matrix;
+use \Matrix\Builder;
 use Matrix\Exception;
 
 class Multiplication extends Operator
@@ -59,7 +60,7 @@ class Multiplication extends Operator
 
         $newRows = $this->rows;
         $newColumns = $value->columns;
-        $matrix = Matrix::createFilledMatrix(0, $newRows, $newColumns)
+        $matrix = Builder::createFilledMatrix(0, $newRows, $newColumns)
             ->toArray();
         for ($row = 0; $row < $newRows; ++$row) {
             for ($column = 0; $column < $newColumns; ++$column) {

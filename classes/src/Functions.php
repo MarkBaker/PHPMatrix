@@ -148,7 +148,7 @@ class Functions
         }
 
         $dimensions = $matrix->rows;
-        $grid = Matrix::createFilledMatrix(0, $dimensions, $dimensions)
+        $grid = Builder::createFilledMatrix(0, $dimensions, $dimensions)
             ->toArray();
 
         for ($i = 0; $i < $dimensions; ++$i) {
@@ -172,7 +172,7 @@ class Functions
         }
 
         $dimensions = $matrix->rows;
-        $grid = Matrix::createFilledMatrix(0, $dimensions, $dimensions)
+        $grid = Builder::createFilledMatrix(0, $dimensions, $dimensions)
             ->toArray();
 
         for ($i = 0; $i < $dimensions; ++$i) {
@@ -199,7 +199,7 @@ class Functions
 
         $dimensions = $matrix->rows;
 
-        return Matrix::createIdentityMatrix($dimensions);
+        return Builder::createIdentityMatrix($dimensions);
     }
 
     /**
