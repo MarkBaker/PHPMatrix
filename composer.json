@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Complex\\": "classes/src/"
+            "Matrix\\": "classes/src/"
         },
         "files": [
             "classes/src/functions/adjoint.php",
