@@ -362,7 +362,6 @@ class Matrix
         'diagonal',
         'identity',
         'inverse',
-        'pseudoinverse',
         'minors',
         'trace',
         'transpose',
