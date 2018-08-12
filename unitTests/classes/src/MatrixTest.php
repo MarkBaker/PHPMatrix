@@ -171,42 +171,6 @@ class MatrixTest extends BaseTestAbstract
         ];
     }
 
-    public function testRowIterator()
-    {
-        $matrixObject = new Matrix($this->getMagic());
-        $rowIteratorObject = $matrixObject->rows();
-
-        //    Must return an object...
-        $this->assertTrue(is_object($rowIteratorObject));
-        //    ... of the correct type
-        $this->assertTrue(is_a($rowIteratorObject, 'Generator'));
-
-//        $rowReference = 1;
-        foreach($rowIteratorObject as $row => $rowObject) {
-//            $this->assertEquals($rowReference++, $row, 'Row index mismatched');
-            //    Must return an object of the correct type...
-            $this->assertIsMatrixObject($rowObject);
-        }
-    }
-
-    public function testColumnIterator()
-    {
-        $matrixObject = new Matrix($this->getMagic());
-        $columnIteratorObject = $matrixObject->columns();
-
-        //    Must return an object...
-        $this->assertTrue(is_object($columnIteratorObject));
-        //    ... of the correct type
-        $this->assertTrue(is_a($columnIteratorObject, 'Generator'));
-
-        $columnReference = 1;
-        foreach($columnIteratorObject as $column => $columnObject) {
-//            $this->assertEquals($columnReference++, $column, 'Column index mismatched');
-            //    Must return an object of the correct type...
-            $this->assertIsMatrixObject($columnObject);
-        }
-    }
-
     /**
      * @dataProvider isSquareDataProvider
      */
@@ -249,6 +213,74 @@ class MatrixTest extends BaseTestAbstract
             [ false,  [[1, 2, 3], [4, 5, 6], [7, 8, 9]]],
             [ false, [[1, 2, 3], [4, 5, 6]]],
         ];
+    }
+
+    public function testRowColumnIterator()
+    {
+        $grid = $this->getMagic();
+        $matrixObject = new Matrix($grid);
+        $rowIteratorObject = $matrixObject->rows();
+
+        //    Must return an object...
+        $this->assertTrue(is_object($rowIteratorObject));
+        //    ... of the correct type
+        $this->assertTrue(is_a($rowIteratorObject, 'Generator'));
+
+        $rowReference = 1;
+        foreach ($rowIteratorObject as $row => $rowObject) {
+            $this->assertEquals($rowReference++, $row, 'Row index mismatched');
+            //    Must return an object of the correct type...
+            $this->assertIsMatrixObject($rowObject);
+            $this->assertTrue($rowObject->isVector());
+
+            $columnIteratorObject = $rowObject->columns();
+
+            //    Must return an object...
+            $this->assertTrue(is_object($columnIteratorObject));
+            //    ... of the correct type
+            $this->assertTrue(is_a($columnIteratorObject, 'Generator'));
+
+            $columnReference = 1;
+            foreach ($columnIteratorObject as $column => $columnValue) {
+                $this->assertEquals($columnReference++, $column, 'Column index mismatched against row vector');
+                $this->assertTrue(is_scalar($columnValue));
+                $this->assertEquals($grid[$row - 1][$column - 1], $columnValue);
+            }
+        }
+    }
+
+    public function testColumnRowIterator()
+    {
+        $grid = $this->getMagic();
+        $matrixObject = new Matrix($grid);
+        $columnIteratorObject = $matrixObject->columns();
+
+        //    Must return an object...
+        $this->assertTrue(is_object($columnIteratorObject));
+        //    ... of the correct type
+        $this->assertTrue(is_a($columnIteratorObject, 'Generator'));
+
+        $columnReference = 1;
+        foreach ($columnIteratorObject as $column => $columnObject) {
+            $this->assertEquals($columnReference++, $column, 'Column index mismatched');
+            //    Must return an object of the correct type...
+            $this->assertIsMatrixObject($columnObject);
+            $this->assertTrue($columnObject->isVector());
+
+            $rowIteratorObject = $columnObject->rows();
+
+            //    Must return an object...
+            $this->assertTrue(is_object($rowIteratorObject));
+            //    ... of the correct type
+            $this->assertTrue(is_a($rowIteratorObject, 'Generator'));
+
+            $rowReference = 1;
+            foreach ($rowIteratorObject as $row => $rowValue) {
+                $this->assertEquals($rowReference++, $row, 'Row index mismatched against column vector');
+                $this->assertTrue(is_scalar($rowValue));
+                $this->assertEquals($grid[$row - 1][$column - 1], $rowValue);
+            }
+        }
     }
 
     protected function getMagic()

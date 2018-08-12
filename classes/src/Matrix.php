@@ -276,8 +276,8 @@ class Matrix
      */
     public function rows()
     {
-        foreach ($this->grid as $row) {
-            yield ($this->columns == 1)
+        foreach ($this->grid as $i => $row) {
+            yield $i + 1 => ($this->columns == 1)
                 ? $row[0]
                 : new static([$row]);
         }
@@ -292,7 +292,7 @@ class Matrix
     public function columns()
     {
         for ($i = 0; $i < $this->columns; ++$i) {
-            yield ($this->rows == 1)
+            yield $i + 1 => ($this->rows == 1)
                 ? $this->grid[0][$i]
                 : new static(array_column($this->grid, $i));
         }
