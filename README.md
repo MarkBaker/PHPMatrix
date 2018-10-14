@@ -41,8 +41,7 @@ together with functions for
  - Direct Sum operation
  - EigenValues
  - EigenVectors
- - De
- - composition
+ - Decomposition
 
 ---
 
