@@ -373,6 +373,7 @@ class Matrix
         'multiply',
         'divideby',
         'divideinto',
+        'directsum',
     ];
 
     /**

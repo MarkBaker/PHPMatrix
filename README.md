@@ -10,6 +10,7 @@ Master: [![Build Status](https://travis-ci.org/MarkBaker/PHPMatrix.png?branch=ma
 Develop: [![Build Status](https://travis-ci.org/MarkBaker/PHPMatrix.png?branch=develop)](http://travis-ci.org/MarkBaker/PHPMatrix)
 
 [![Matrix Transform](https://imgs.xkcd.com/comics/matrix_transform.png)](https://xkcd.com/184/)
+
 Matrix Transform
 
 ---
@@ -17,6 +18,7 @@ Matrix Transform
 This library currently provides the following operations:
 
  - addition
+ - direct sum
  - subtraction
  - multiplication
  - division (using [A].[B]<sup>-1</sup>)
@@ -40,7 +42,6 @@ together with functions for
 ## TO DO
 
  - power()
- - Direct Sum operation
  - EigenValues
  - EigenVectors
  - Decomposition
