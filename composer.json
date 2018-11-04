@@ -40,6 +40,7 @@
             "classes/src/functions/trace.php",
             "classes/src/functions/transpose.php",
             "classes/src/operations/add.php",
+            "classes/src/operations/directsum.php",
             "classes/src/operations/subtract.php",
             "classes/src/operations/multiply.php",
             "classes/src/operations/divideby.php",
