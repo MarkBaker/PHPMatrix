@@ -2,18 +2,18 @@
 
 include __DIR__ . '/../classes/Bootstrap.php';
 
-$grid = [
-    [1, -3, 3],
-    [3, -5, 3],
-    [6, -6, 4],
+$grid1 = [
+    [1, 3, 2],
+    [2, 3, 1],
 ];
 
-$matrix = new Matrix\Matrix($grid);
+$grid2 = [
+    [1, 6],
+    [0, 1],
+];
 
-$lambdaI = Matrix\multiply($matrix->diagonal(), -1);
+$matrix = new Matrix\Matrix($grid1);
 
-var_dump($lambdaI);
-
-$new = $matrix->subtract($lambdaI);
+$new = $matrix->directsum(new Matrix\Matrix($grid2));
 
 var_dump($new);

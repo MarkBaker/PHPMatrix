@@ -48,8 +48,11 @@ class DirectSumTest extends BaseTestAbstract
     public function matrixDirectSumProvider()
     {
         return [
-            [$this->getTestGrid1(), $this->getTestMatrix2(), [[1, 2, 3, 0, 0], [4, 5, 6, 0, 0], [7, 8, 9, 0, 0], [0, 0, 0, 1, 2], [0, 0, 0, 3, 4]]],
+            [
+                $this->getTestGrid1(),
+                $this->getTestMatrix2(),
+                [[1, 2, 3, 0, 0], [4, 5, 6, 0, 0], [7, 8, 9, 0, 0], [0, 0, 0, 1, 2], [0, 0, 0, 3, 4]]
+            ],
         ];
     }
-
 }
