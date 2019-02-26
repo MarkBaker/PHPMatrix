@@ -17,14 +17,14 @@ cache:
 
 php:
   - 7.0
-  - 7.2
+  - 7.1
+  - 7.4snapshot
   - nightly
-  - hhvm
 
 matrix:
   fast_finish: true
   include:
-    - php: 7.1
+    - php: 7.2
       env: EXTRA_CHECKS=1
     - php: 7.3
       env: COVERAGE=1
@@ -32,7 +32,6 @@ matrix:
       env: COVERAGE=1
       dist: precise
   allow_failures:
-    - php: hhvm
     - php: nightly
 
 before_install:
@@ -44,7 +43,7 @@ before_install:
 before_script:
   ## Composer
   - composer self-update
-  - composer install --prefer-dist
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist
   ## PHPDocumentor
   ## - mkdir -p build/docs
   ## - mkdir -p build/coverage
