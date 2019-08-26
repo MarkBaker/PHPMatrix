@@ -1,8 +1,8 @@
 <?php
 
-namespace Matrix;
+namespace Matrix\Test;
 
-use Matrix\Matrix as Matrix;
+use Matrix\Matrix;
 
 class transposeTest extends BaseTestAbstract
 {

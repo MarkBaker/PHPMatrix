@@ -1,6 +1,6 @@
 <?php
 
-namespace Matrix;
+namespace Matrix\Test;
 
 use Matrix\Matrix as Matrix;
 

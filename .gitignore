@@ -15,3 +15,7 @@ phpcs.xml
 ## Don't commit the vendor directory nor the lock file (as this is a library).
 /vendor/
 composer.lock
+
+.phpunit.result.cache
+infection.json.dist
+infection.log

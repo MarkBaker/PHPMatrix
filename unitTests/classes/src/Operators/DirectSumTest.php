@@ -1,10 +1,10 @@
 <?php
 
-namespace Matrix\Operators;
+namespace Matrix\Test\Operators;
 
-use \Matrix\Matrix;
-use Matrix\Exception;
-use \Matrix\BaseTestAbstract;
+use Matrix\Matrix;
+use Matrix\Operators\DirectSum;
+use Matrix\Test\BaseTestAbstract;
 
 class DirectSumTest extends BaseTestAbstract
 {

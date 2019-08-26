@@ -1,10 +1,10 @@
 <?php
 
-namespace Matrix;
+namespace Matrix\Test;
 
-use Matrix\Matrix as Matrix;
+use Matrix\Matrix;
 
-class multiplicationTest extends BaseTestAbstract
+class multiplyTest extends BaseTestAbstract
 {
     protected static $operationName = 'multiplication';
 
