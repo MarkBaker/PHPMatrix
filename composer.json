@@ -72,27 +72,15 @@
         ]
     },
     "scripts": {
-        "style": [
-            "phpcs --report-width=200 --report=summary,full -n"
-        ],
-        "test": [
-            "phpunit"
-        ],
-        "mess": [
-            "phpmd classes/src/ xml codesize,unusedcode,design,naming -n"
-        ],
-        "lines": [
-            "phploc classes/src/ -n"
-        ],
-        "cpd": [
-            "phpcpd classes/src/ -n"
-        ],
-        "versions": [
-            "phpcs --report-width=200 --report=summary,full classes/src/ --standard=PHPCompatibility --runtime-set testVersion 5.6- -n"
-        ],
+        "style": "phpcs --report-width=200 --report=summary,full -n",
+        "test": "phpunit -c phpunit.xml.dist",
+        "mess": "phpmd classes/src/ xml codesize,unusedcode,design,naming -n",
+        "lines": "phploc classes/src/ -n",
+        "cpd": "phpcpd classes/src/ -n",
+        "versions": "phpcs --report-width=200 --report=summary,full classes/src/ --standard=PHPCompatibility --runtime-set testVersion 5.6- -n",
         "infection": "infection --min-msi=70 --min-covered-msi=70 --log-verbosity=all",
         "phpstan": "phpstan analyse classes/src/ -c phpstan.neon --level=7 --no-progress -vvv --memory-limit=1024M",
-        "clover": "phpunit --coverage-clover clover.xml"
+        "coverage": "phpunit -c phpunit.xml.dist --coverage-text --coverage-html ./build/coverage"
     },
     "minimum-stability": "dev"
 }
