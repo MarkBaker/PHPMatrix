@@ -1,7 +1,5 @@
 <?php
 
-namespace Matrix\Operators;
-
 namespace Matrix\Test\Operators;
 
 use Matrix\Matrix;

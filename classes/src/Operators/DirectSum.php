@@ -38,24 +38,24 @@ class DirectSum extends Operator
     {
         $originalColumnCount = count($this->matrix[0]);
         $originalRowCount = count($this->matrix);
-        $additionalColumnCount = $value->columns;
-        $additionalRowCount = $value->rows;
+        $valColumnCount = $value->columns;
+        $valRowCount = $value->rows;
         $value = $value->toArray();
 
         for ($row = 0; $row < $this->rows; ++$row) {
-            $this->matrix[$row] = array_merge($this->matrix[$row], array_fill(0, $additionalColumnCount, 0));
+            $this->matrix[$row] = array_merge($this->matrix[$row], array_fill(0, $valColumnCount, 0));
         }
 
         $this->matrix = array_merge(
             $this->matrix,
-            array_fill(0, $additionalRowCount, array_fill(0, $originalColumnCount, 0))
+            array_fill(0, $valRowCount, array_fill(0, $originalColumnCount, 0))
         );
 
-        for ($row = $originalRowCount; $row < $originalRowCount + $additionalRowCount; ++$row) {
+        for ($row = $originalRowCount; $row < $originalRowCount + $valRowCount; ++$row) {
             array_splice(
                 $this->matrix[$row],
                 $originalColumnCount,
-                $additionalColumnCount,
+                $valColumnCount,
                 $value[$row - $originalRowCount]
             );
         }
