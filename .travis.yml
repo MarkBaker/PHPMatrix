@@ -13,18 +13,14 @@ cache:
     # Cache directory for more recent Composer versions.
     - $HOME/.cache/composer/files
 
-php:
-  - 7.0
-  - 7.1
-  - 7.4snapshot
-  - nightly
-
 matrix:
   fast_finish: true
   include:
     - php: 5.6
       env: COVERAGE=1
       dist: precise
+    - php: 7.0
+    - php: 7.1
     - php: 7.2
       env: EXTRA_CHECKS=1
     - php: 7.3
@@ -46,7 +42,7 @@ before_install:
 before_script:
   ## Composer
   - composer self-update
-  - if [[ "EXTRA_CHECKS" == "0" ]]; then composer require --dev infection/infection phpstan/phpstan; fi
+  - if [[ "EXTRA_CHECKS" == "1" ]]; then composer require --dev infection/infection phpstan/phpstan; fi
   - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist $COMPOSER_FLAGS
   ## PHPDocumentor
   ## - mkdir -p build/docs
