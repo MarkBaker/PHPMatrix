@@ -14,6 +14,8 @@ cache:
     - $HOME/.cache/composer/files
 
 php:
+  - 7.0
+  - 7.1
   - 7.4snapshot
   - nightly
 
@@ -21,31 +23,31 @@ matrix:
   fast_finish: true
   include:
     - php: 5.6
-      env: COVERAGE=1 INFECTION=0
+      env: COVERAGE=1
       dist: precise
-    - php: 7.0
-      env: INFECTION=0
-    - php: 7.1
-      env: INFECTION=0
     - php: 7.2
       env: EXTRA_CHECKS=1
     - php: 7.3
-      env: COVERAGE=1
+      env: EXTRA_CHECKS=1
   allow_failures:
     - php: 7.4snapshot
+      env: EXTRA_CHECKS=1
     - php: nightly
+      env: EXTRA_CHECKS=1
 
 before_install:
   # Speed up build time by disabling Xdebug when its not needed.
   - if [[ $COVERAGE != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
+  - test "$TRAVIS_PHP_VERSION" != "nightly" || export COMPOSER_FLAGS="$COMPOSER_FLAGS --ignore-platform-reqs"
   ## Packages
-  - sudo apt-get -qq update
+  ## crashes 5.6
+  # - sudo apt-get -qq update
 
 before_script:
   ## Composer
   - composer self-update
-  - if [[ "$INFECTION" == "0" ]]; then composer remove --dev infection/infection; fi
-  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist
+  - if [[ "EXTRA_CHECKS" == "0" ]]; then composer require --dev infection/infection phpstan/phpstan; fi
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist $COMPOSER_FLAGS
   ## PHPDocumentor
   ## - mkdir -p build/docs
   ## - mkdir -p build/coverage
@@ -70,6 +72,10 @@ script:
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phploc ./classes/src/; fi
   ## PHPDocumentor
   ## - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpdoc -q -d ./classes/src -t ./build/docs --template="responsive-twig"; fi
+  ## PHPStan
+  - if [[ "$EXTRA_CHECKS" == "1" ]]; then composer phpstan; fi
+  ## Infection
+  - if [[ "$EXTRA_CHECKS" == "1" ]]; then composer infection; fi
 
 notifications:
   email: false
