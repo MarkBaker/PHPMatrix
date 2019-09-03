@@ -7,6 +7,7 @@
  * @copyright  Copyright (c) 2018 Mark Baker (https://github.com/MarkBaker/PHPMatrix)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
+
 namespace Matrix;
 
 use Matrix\Operators\Addition;
@@ -14,11 +15,11 @@ use Matrix\Operators\Addition;
 /**
  * Adds two or more matrices
  *
- * @param     mixed[]    $matrixValues   The matrices to add
- * @return    Matrix
- * @throws    Exception
+ * @param array<int, mixed> $matrixValues The matrices to add
+ * @return Matrix
+ * @throws Exception
  */
-function add(...$matrixValues)
+function add(...$matrixValues): Matrix
 {
     if (count($matrixValues) < 2) {
         throw new Exception('This operation requires at least 2 arguments');

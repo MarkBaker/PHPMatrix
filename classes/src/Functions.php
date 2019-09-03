@@ -104,10 +104,10 @@ class Functions
         } elseif ($dimensions == 2) {
             return $matrix->getValue(1, 1) * $matrix->getValue(2, 2) - $matrix->getValue(1, 2) * $matrix->getValue(2, 1);
         }
-        
+
         $determinant = 0;
         for ($i = 1; $i <= $dimensions; ++$i) {
-            $det = $matrix->getValue(1, $i) * self::getDeterminantSegment($matrix, 0, $i-1);
+            $det = $matrix->getValue(1, $i) * self::getDeterminantSegment($matrix, 0, $i - 1);
             if (($i % 2) == 0) {
                 $determinant -= $det;
             } else {
@@ -301,16 +301,13 @@ class Functions
      *
      * @param Matrix $matrix The matrix whose transpose we wish to calculate
      * @return Matrix
-     * @throws Exception
      **/
-    public static function transpose(Matrix $matrix)
+    public static function transpose(Matrix $matrix): Matrix
     {
+        $array = array_values(array_merge([null], $matrix->toArray()));
         $grid = call_user_func_array(
             'array_map',
-            array_merge(
-                [null],
-                $matrix->toArray()
-            )
+            $array
         );
 
         return new Matrix($grid);

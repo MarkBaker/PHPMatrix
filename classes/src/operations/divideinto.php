@@ -7,6 +7,7 @@
  * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPMatrix)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
+
 namespace Matrix;
 
 use Matrix\Operators\Division;
@@ -14,10 +15,11 @@ use Matrix\Operators\Division;
 /**
  * Divides two or more matrix numbers
  *
- * @param     array of string|integer|float|Matrix    $matrixValues   The numbers to divide
- * @return    Matrix
+ * @param array<int, mixed> $matrixValues The numbers to divide
+ * @return Matrix
+ * @throws Exception
  */
-function divideinto(...$matrixValues)
+function divideinto(...$matrixValues): Matrix
 {
     if (count($matrixValues) < 2) {
         throw new \Exception('This function requires at least 2 arguments');
