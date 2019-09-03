@@ -22,12 +22,16 @@ use Matrix\Operators\Multiplication;
 function multiply(...$matrixValues)
 {
     if (count($matrixValues) < 2) {
-        throw new Exception('This operation requires at least 2 arguments');
+        throw new Exception('Multiplication operation requires at least 2 arguments');
     }
 
     $matrix = array_shift($matrixValues);
-    if (!is_object($matrix) || !($matrix instanceof Matrix)) {
+
+    if (is_array($matrix)) {
         $matrix = new Matrix($matrix);
+    }
+    if (!$matrix instanceof Matrix) {
+        throw new Exception('Multiplication arguments must be Matrix or array');
     }
 
     $result = new Multiplication($matrix);

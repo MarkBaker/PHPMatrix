@@ -17,9 +17,9 @@ class FunctionsTest extends BaseTestAbstract
     /** @var Matrix $matrix2x4 */
     private $matrix2x4;
 
-    protected function setUp(): void
+    public function __construct()
     {
-        parent::setUp();
+        parent::__construct();
         $this->matrix1x1 = new Matrix([[1024]]);
         $this->matrix2x2 = new Matrix([[8, 4], [3, 5]]);
         $this->matrix3x3 = new Matrix([[1, 2, 5], [1, 3, 5], [1, 2, 1]]);

@@ -9,8 +9,10 @@ class Functions
      *
      * @param Matrix $matrix The matrix whose adjoint we wish to calculate
      * @return Matrix
-     **/
-    private static function getAdjoint($matrix)
+     *
+     * @throws Exception
+     */
+    private static function getAdjoint(Matrix $matrix)
     {
         return self::transpose(
             self::getCofactors($matrix)
@@ -27,7 +29,7 @@ class Functions
      * @return Matrix
      * @throws Exception
      **/
-    public static function adjoint($matrix)
+    public static function adjoint(Matrix $matrix)
     {
         if (!$matrix->isSquare()) {
             throw new Exception('Adjoint can only be calculated for a square matrix');
@@ -41,8 +43,10 @@ class Functions
      *
      * @param Matrix $matrix The matrix whose cofactors we wish to calculate
      * @return Matrix
-     **/
-    private static function getCofactors($matrix)
+     *
+     * @throws Exception
+     */
+    private static function getCofactors(Matrix $matrix)
     {
         $cofactors = self::getMinors($matrix);
         $dimensions = $matrix->rows;
@@ -68,7 +72,7 @@ class Functions
      *
      * @throws Exception
      */
-    public static function cofactors($matrix)
+    public static function cofactors(Matrix $matrix)
     {
         if (!$matrix->isSquare()) {
             throw new Exception('Cofactors can only be calculated for a square matrix');
@@ -84,7 +88,7 @@ class Functions
      * @return float
      * @throws Exception
      */
-    private static function getDeterminantSegment($matrix, $row, $column)
+    private static function getDeterminantSegment(Matrix $matrix, $row, $column)
     {
         $tmpMatrix = $matrix->toArray();
         unset($tmpMatrix[$row]);
@@ -106,7 +110,7 @@ class Functions
      *
      * @throws Exception
      */
-    private static function getDeterminant($matrix)
+    private static function getDeterminant(Matrix $matrix)
     {
         $dimensions = $matrix->rows;
         $determinant = 0;
@@ -141,7 +145,7 @@ class Functions
      * @return float
      * @throws Exception
      **/
-    public static function determinant($matrix)
+    public static function determinant(Matrix $matrix)
     {
         if (!$matrix->isSquare()) {
             throw new Exception('Determinant can only be calculated for a square matrix');
@@ -157,7 +161,7 @@ class Functions
      * @return Matrix
      * @throws Exception
      **/
-    public static function diagonal($matrix)
+    public static function diagonal(Matrix $matrix)
     {
         if (!$matrix->isSquare()) {
             throw new Exception('Diagonal can only be extracted from a square matrix');
@@ -181,7 +185,7 @@ class Functions
      * @return Matrix
      * @throws Exception
      **/
-    public static function antidiagonal($matrix)
+    public static function antidiagonal(Matrix $matrix)
     {
         if (!$matrix->isSquare()) {
             throw new Exception('Anti-Diagonal can only be extracted from a square matrix');
@@ -207,7 +211,7 @@ class Functions
      * @return Matrix
      * @throws Exception
      **/
-    public static function identity($matrix)
+    public static function identity(Matrix $matrix)
     {
         if (!$matrix->isSquare()) {
             throw new Exception('Identity can only be created for a square matrix');
@@ -225,7 +229,7 @@ class Functions
      * @return Matrix
      * @throws Exception
      **/
-    public static function inverse($matrix)
+    public static function inverse(Matrix $matrix)
     {
         if (!$matrix->isSquare()) {
             throw new Exception('Inverse can only be calculated for a square matrix');
@@ -249,8 +253,10 @@ class Functions
      *
      * @param Matrix $matrix The matrix whose minors we wish to calculate
      * @return array[]
-     **/
-    protected static function getMinors($matrix)
+     *
+     * @throws Exception
+     */
+    protected static function getMinors(Matrix $matrix)
     {
         $minors = $matrix->toArray();
         $dimensions = $matrix->rows;
@@ -279,7 +285,7 @@ class Functions
      * @return Matrix
      * @throws Exception
      **/
-    public static function minors($matrix)
+    public static function minors(Matrix $matrix)
     {
         if (!$matrix->isSquare()) {
             throw new Exception('Minors can only be calculated for a square matrix');
@@ -297,7 +303,7 @@ class Functions
      * @return float
      * @throws Exception
      **/
-    public static function trace($matrix)
+    public static function trace(Matrix $matrix)
     {
         if (!$matrix->isSquare()) {
             throw new Exception('Trace can only be extracted from a square matrix');
@@ -318,7 +324,7 @@ class Functions
      * @param Matrix $matrix The matrix whose transpose we wish to calculate
      * @return Matrix
      **/
-    public static function transpose($matrix)
+    public static function transpose(Matrix $matrix)
     {
         $array = array_values(array_merge([null], $matrix->toArray()));
         $grid = call_user_func_array(
