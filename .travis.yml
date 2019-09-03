@@ -71,7 +71,7 @@ script:
   ## PHPStan
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then composer phpstan; fi
   ## Infection
-  - if [[ "$EXTRA_CHECKS" == "1" ]]; then composer infection; fi
+  # - if [[ "$EXTRA_CHECKS" == "1" ]]; then composer infection; fi
 
 notifications:
   email: false
