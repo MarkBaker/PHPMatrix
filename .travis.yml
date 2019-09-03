@@ -22,13 +22,17 @@ php:
 matrix:
   fast_finish: true
   include:
+    - php: 5.6
+      env: COVERAGE=1 INFECTION=0
+      dist: precise
+    - php: 7.0
+      env: INFECTION=0
+    - php: 7.1
+      env: INFECTION=0
     - php: 7.2
       env: EXTRA_CHECKS=1
     - php: 7.3
       env: COVERAGE=1
-    - php: 5.6
-      env: COVERAGE=1
-      dist: precise
   allow_failures:
     - php: nightly
 
@@ -41,6 +45,7 @@ before_install:
 before_script:
   ## Composer
   - composer self-update
+  - if [[ "$INFECTION" == "0" ]]; then composer remove infection/infection; fi
   - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist
   ## PHPDocumentor
   ## - mkdir -p build/docs
