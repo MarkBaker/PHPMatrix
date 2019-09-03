@@ -1,47 +1,71 @@
+sudo: false
+
+dist: trusty
+
 language: php
 
+## Cache composer downloads.
+cache:
+  apt: true
+  directories:
+    # Cache directory for older Composer versions.
+    - $HOME/.composer/cache/files
+    # Cache directory for more recent Composer versions.
+    - $HOME/.cache/composer/files
+
 php:
-  - 7.2
-  - 7.3
+  - 7.0
+  - 7.1
   - 7.4snapshot
   - nightly
 
-
 matrix:
+  fast_finish: true
+  include:
+    - php: 7.2
+      env: EXTRA_CHECKS=1
+    - php: 7.3
+      env: COVERAGE=1
+    - php: 5.6
+      env: COVERAGE=1
+      dist: precise
   allow_failures:
-    - php: 7.4snapshot
     - php: nightly
 
-cache:
-  directories:
-    - $HOME/.composer/cache
-
 before_install:
-  - composer self-update
-  - test "$TRAVIS_PHP_VERSION" != "nightly" || export COMPOSER_FLAGS="$COMPOSER_FLAGS --ignore-platform-reqs"
+  # Speed up build time by disabling Xdebug when its not needed.
+  - if [[ $COVERAGE != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
+  ## Packages
+  - sudo apt-get -qq update
 
-install:
-  - composer install --prefer-source $COMPOSER_FLAGS
+before_script:
+  ## Composer
+  - composer self-update
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist
+  ## PHPDocumentor
+  ## - mkdir -p build/docs
+  ## - mkdir -p build/coverage
 
 script:
   # Search for PHP syntax errors.
   - find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
   ## PHPUnit
-  - composer test
+  - if [[ "$COVERAGE" == "1" && $TRAVIS_PHP_VERSION == "7.2" ]]; then phpunit -c phpunit.xml.dist --coverage-text --coverage-html ./build/coverage; fi
+  - if [[ "$COVERAGE" == "1" && $TRAVIS_PHP_VERSION != "7.2" ]]; then ./vendor/bin/phpunit -c phpunit.xml.dist --coverage-text --coverage-html ./build/coverage; fi
+  - if [[ "$COVERAGE" != "1" ]]; then ./vendor/bin/phpunit -c phpunit.xml.dist; fi
   # Validate the composer.json file.
   # @link https://getcomposer.org/doc/03-cli.md#validate
-  - composer validate --strict --no-check-lock
+  - composer validate --no-check-all
   ## PHP_CodeSniffer
-  - ./vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1
+  - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1; fi
+  ## PHP Copy/Paste Detector
+  # - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpcpd ./classes/src/; fi
   ## PHP Mess Detector
-  - ./vendor/bin/phpmd ./classes/src/ text ./phpmd.xml.dist
+  - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpmd ./classes/src/ text ./phpmd.xml.dist; fi
   ## PHPLOC
-  - ./vendor/bin/phploc ./classes/src/
-  ## PHPStan
-  - composer phpstan
-  ## Infection
-  - composer infection
-  - composer coverage
+  - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phploc ./classes/src/; fi
+  ## PHPDocumentor
+  ## - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpdoc -q -d ./classes/src -t ./build/docs --template="responsive-twig"; fi
 
 notifications:
   email: false

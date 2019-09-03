@@ -16,9 +16,9 @@
     },
     "require-dev": {
         "infection/infection": "0.13.x-dev",
-        "phpunit/phpunit": "^8.4@dev",
+        "phpunit/phpunit": "^5.7",
         "phpmd/phpmd": "dev-master",
-        "sebastian/phpcpd": "^4.1",
+        "sebastian/phpcpd": "^3.0",
         "phploc/phploc": "^5.0@dev",
         "squizlabs/php_codesniffer": "^3.0@dev",
         "phpcompatibility/php-compatibility": "dev-master",
