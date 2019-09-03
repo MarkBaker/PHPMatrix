@@ -90,12 +90,9 @@
         "versions": [
             "phpcs --report-width=200 --report=summary,full classes/src/ --standard=PHPCompatibility --runtime-set testVersion 5.6- -n"
         ],
-        "infection": [
-            "infection --min-msi=70 --min-covered-msi=70 --log-verbosity=all"
-        ],
-        "phpstan": [
-            "phpstan analyse classes/src/ -c phpstan.neon --level=7 --no-progress -vvv --memory-limit=1024M"
-        ]
+        "infection": "infection --min-msi=70 --min-covered-msi=70 --log-verbosity=all",
+        "phpstan": "phpstan analyse classes/src/ -c phpstan.neon --level=7 --no-progress -vvv --memory-limit=1024M",
+        "clover": "phpunit --coverage-clover clover.xml"
     },
     "minimum-stability": "dev"
 }
