@@ -1,0 +1,14 @@
+{
+    "timeout": 1,
+    "source": {
+        "directories": [
+            "classes\/src"
+        ]
+    },
+    "logs": {
+        "text": "infection.log"
+    },
+    "mutators": {
+        "@default": true
+    }
+}

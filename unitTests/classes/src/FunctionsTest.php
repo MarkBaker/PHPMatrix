@@ -22,7 +22,6 @@ class FunctionsTest extends BaseTestAbstract
             new Matrix([[-3, 6, -3], [6, -12, 6], [-3, 6, -3]]),
             Functions::cofactors($matrix)
         );
-        $this->assertEquals(0, Functions::determinant($matrix));
         $this->assertEquals(
             new Matrix([[1, 0, 0], [0, 5, 0], [0, 0, 9]]),
             Functions::diagonal($matrix)
@@ -40,6 +39,14 @@ class FunctionsTest extends BaseTestAbstract
             new Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9]]),
             Functions::transpose($matrix)
         );
+    }
+
+    public function testDeterminant()
+    {
+        $matrix1 = new Matrix([[6]]);
+        $matrix2 = new Matrix([[8, 4], [3, 5]]);
+        $this->assertEquals(6, Functions::determinant($matrix1));
+        $this->assertEquals(28, Functions::determinant($matrix2));
     }
 
     public function testInverse()
