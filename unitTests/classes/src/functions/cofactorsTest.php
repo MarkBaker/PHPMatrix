@@ -3,6 +3,7 @@
 namespace Matrix\Test;
 
 use Matrix\Matrix;
+use function Matrix\cofactors;
 
 class cofactorsTest extends BaseTestAbstract
 {

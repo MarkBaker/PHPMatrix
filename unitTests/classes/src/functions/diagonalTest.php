@@ -3,6 +3,7 @@
 namespace Matrix\Test;
 
 use Matrix\Matrix;
+use function Matrix\diagonal;
 
 class diagonalTest extends BaseTestAbstract
 {

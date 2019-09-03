@@ -2,7 +2,9 @@
 
 namespace Matrix\Test;
 
+use Matrix\Exception;
 use Matrix\Matrix;
+use function Matrix\determinant;
 
 class determinantTest extends BaseTestAbstract
 {
@@ -125,6 +127,6 @@ class determinantTest extends BaseTestAbstract
         $this->expectExceptionMessage('Determinant can only be calculated for a square matrix');
 
         $matrix = new Matrix([[1, 2, 3], [4, 5, 6]]);
-        $result = $matrix->determinant();
+        $matrix->determinant();
     }
 }

@@ -2,7 +2,9 @@
 
 namespace Matrix\Test;
 
+use Matrix\Functions;
 use Matrix\Matrix;
+use function Matrix\transpose;
 
 class transposeTest extends BaseTestAbstract
 {

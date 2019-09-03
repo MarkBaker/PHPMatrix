@@ -2,6 +2,7 @@
 
 namespace Matrix\Test;
 
+use Matrix\Functions;
 use Matrix\Matrix;
 
 class traceTest extends BaseTestAbstract

@@ -3,6 +3,7 @@
 namespace Matrix\Test;
 
 use Matrix\Matrix;
+use function Matrix\identity;
 
 class identityTest extends BaseTestAbstract
 {
