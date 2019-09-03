@@ -13,6 +13,11 @@ cache:
     # Cache directory for more recent Composer versions.
     - $HOME/.cache/composer/files
 
+php:
+  - 7.4snapshot
+  - nightly
+
+
 matrix:
   fast_finish: true
   include:
@@ -27,14 +32,14 @@ matrix:
       env: EXTRA_CHECKS=1
   allow_failures:
     - php: 7.4snapshot
-      env: EXTRA_CHECKS=1
     - php: nightly
-      env: EXTRA_CHECKS=1
 
 before_install:
+  - if [[ $TRAVIS_PHP_VERSION == "nightly" || $TRAVIS_PHP_VERSION == "7.4snapshot" ]]; then export EXTRA_CHECKS=1; fi
   # Speed up build time by disabling Xdebug when its not needed.
-  - if [[ $COVERAGE != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
+  - if [[ $COVERAGE != "1" && $EXTRA_CHECKS != 1 ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
   - test "$TRAVIS_PHP_VERSION" != "nightly" || export COMPOSER_FLAGS="$COMPOSER_FLAGS --ignore-platform-reqs"
+
   ## Packages
   ## crashes 5.6
   # - sudo apt-get -qq update
