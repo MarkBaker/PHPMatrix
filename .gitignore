@@ -17,6 +17,6 @@ phpcs.xml
 composer.lock
 
 .phpunit.result.cache
-infection.log
+logs
 clover.xml
 build

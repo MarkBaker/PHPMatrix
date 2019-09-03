@@ -2,6 +2,7 @@
 
 namespace Matrix\Test;
 
+use Matrix\Exception;
 use Matrix\Matrix as Matrix;
 
 class MatrixTest extends BaseTestAbstract
@@ -50,9 +51,9 @@ class MatrixTest extends BaseTestAbstract
     public function rowsDataProvider()
     {
         return [
-            [ 2,  2, [[ 5, 10, 11,  8], [ 9,  6,  7, 12]]],
-            [ 2, -1, [[ 5, 10, 11,  8], [ 9,  6,  7, 12]]],
-            [ 3,  0, [[ 9,  6,  7, 12], [ 4, 15, 14,  1]]],
+            [2, 2, [[5, 10, 11, 8], [9, 6, 7, 12]]],
+            [2, -1, [[5, 10, 11, 8], [9, 6, 7, 12]]],
+            [3, 0, [[9, 6, 7, 12], [4, 15, 14, 1]]],
         ];
     }
 
@@ -89,9 +90,9 @@ class MatrixTest extends BaseTestAbstract
     public function columnsDataProvider()
     {
         return [
-            [ 2,  2, [[3,  2], [10, 11], [6,  7], [15, 14]]],
-            [ 2, -1, [[3,  2], [10, 11], [6,  7], [15, 14]]],
-            [ 3,  0, [[2, 13], [11,  8], [7, 12], [14,  1]]],
+            [2, 2, [[3, 2], [10, 11], [6, 7], [15, 14]]],
+            [2, -1, [[3, 2], [10, 11], [6, 7], [15, 14]]],
+            [3, 0, [[2, 13], [11, 8], [7, 12], [14, 1]]],
         ];
     }
 
@@ -127,9 +128,9 @@ class MatrixTest extends BaseTestAbstract
     public function dropRowsDataProvider()
     {
         return [
-            [ 2,  2, [[16,  3,  2, 13], [ 4, 15, 14,  1]]],
-            [ 2, -1, [[16,  3,  2, 13], [ 4, 15, 14,  1]]],
-            [ 3, 0,  [[16,  3,  2, 13], [ 5, 10, 11,  8]]],
+            [2, 2, [[16, 3, 2, 13], [4, 15, 14, 1]]],
+            [2, -1, [[16, 3, 2, 13], [4, 15, 14, 1]]],
+            [3, 0, [[16, 3, 2, 13], [5, 10, 11, 8]]],
         ];
     }
 
@@ -165,9 +166,9 @@ class MatrixTest extends BaseTestAbstract
     public function dropColumnsDataProvider()
     {
         return [
-            [ 2,  2, [[16, 13], [5,  8], [9, 12], [4,  1]]],
-            [ 2, -1, [[16, 13], [5,  8], [9, 12], [4,  1]]],
-            [ 3, 0,  [[16,  3], [5, 10], [9,  6], [4, 15]]],
+            [2, 2, [[16, 13], [5, 8], [9, 12], [4, 1]]],
+            [2, -1, [[16, 13], [5, 8], [9, 12], [4, 1]]],
+            [3, 0, [[16, 3], [5, 10], [9, 6], [4, 15]]],
         ];
     }
 
@@ -185,11 +186,11 @@ class MatrixTest extends BaseTestAbstract
     public function isSquareDataProvider()
     {
         return [
-            [ false, [[1, 2, 3]]],
-            [ false, [[1], [2], [3]]],
-            [ true,  [[1, 2], [3, 4]]],
-            [ true,  [[1, 2, 3], [4, 5, 6], [7, 8, 9]]],
-            [ false, [[1, 2, 3], [4, 5, 6]]],
+            [false, [[1, 2, 3]]],
+            [false, [[1], [2], [3]]],
+            [true, [[1, 2], [3, 4]]],
+            [true, [[1, 2, 3], [4, 5, 6], [7, 8, 9]]],
+            [false, [[1, 2, 3], [4, 5, 6]]],
         ];
     }
 
@@ -207,11 +208,11 @@ class MatrixTest extends BaseTestAbstract
     public function isVectorDataProvider()
     {
         return [
-            [ true, [[1, 2, 3]]],
-            [ true, [[1], [2], [3]]],
-            [ false,  [[1, 2], [3, 4]]],
-            [ false,  [[1, 2, 3], [4, 5, 6], [7, 8, 9]]],
-            [ false, [[1, 2, 3], [4, 5, 6]]],
+            [true, [[1, 2, 3]]],
+            [true, [[1], [2], [3]]],
+            [false, [[1, 2], [3, 4]]],
+            [false, [[1, 2, 3], [4, 5, 6], [7, 8, 9]]],
+            [false, [[1, 2, 3], [4, 5, 6]]],
         ];
     }
 
@@ -286,10 +287,10 @@ class MatrixTest extends BaseTestAbstract
     protected function getMagic()
     {
         return [
-            [16,  3,  2, 13],
-            [ 5, 10, 11,  8],
-            [ 9,  6,  7, 12],
-            [ 4, 15, 14,  1]
+            [16, 3, 2, 13],
+            [5, 10, 11, 8],
+            [9, 6, 7, 12],
+            [4, 15, 14, 1]
         ];
     }
 
@@ -303,5 +304,71 @@ class MatrixTest extends BaseTestAbstract
             range(1, $size),
             $columns
         );
+    }
+
+    public function testValidateRow()
+    {
+        $this->assertEquals(1, Matrix::validateRow(1));
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage('Invalid Row');
+        Matrix::validateRow(0);
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage('Invalid Row');
+        Matrix::validateRow('a');
+    }
+
+    public function testValidateColumn()
+    {
+        $this->assertEquals(1, Matrix::validateColumn(1));
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage('Invalid Column');
+        Matrix::validateColumn(0);
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage('Invalid Column');
+        Matrix::validateColumn('a');
+    }
+
+    public function testGetRows()
+    {
+        $matrix = new Matrix([[1, 2], [3, 4]]);
+        $this->assertEquals(new Matrix([[1, 2]]), $matrix->getRows(1));
+        $this->assertEquals(new Matrix([[3, 4]]), $matrix->getRows(2));
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage('Requested Row exceeds matrix size');
+        $matrix->getRows(3);
+    }
+
+    public function testGetColumns()
+    {
+        $matrix = new Matrix([[1, 2], [3, 4]]);
+        $this->assertEquals(new Matrix([[1], [3]]), $matrix->getColumns(1));
+        $this->assertEquals(new Matrix([[2], [4]]), $matrix->getColumns(2));
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage('Requested Column exceeds matrix size');
+        $matrix->getColumns(3);
+    }
+
+    public function testGetInvalidProperty()
+    {
+        $matrix = new Matrix([[1, 2], [3, 4]]);
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage('Property does not exist');
+        $matrix->unknownProperty;
+    }
+
+    public function testCallInvalidMethod()
+    {
+        $matrix = new Matrix([[1, 2], [3, 4]]);
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage('Function or Operation does not exist');
+        $matrix->unknownMethod();
     }
 }

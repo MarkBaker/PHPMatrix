@@ -11,16 +11,16 @@ class DirectSum extends Operator
      * Execute the addition
      *
      * @param mixed $value The matrix or numeric value to add to the current base value
-     * @throws Exception If the provided argument is not appropriate for the operation
      * @return $this The operation object, allowing multiple additions to be chained
-     **/
+     * @throws Exception If the provided argument is not appropriate for the operation
+     */
     public function execute($value)
     {
         if (is_array($value)) {
             $value = new Matrix($value);
         }
 
-        if (is_object($value) && ($value instanceof Matrix)) {
+        if ($value instanceof Matrix) {
             return $this->directSumMatrix($value);
         }
 
@@ -32,9 +32,8 @@ class DirectSum extends Operator
      *
      * @param Matrix $value The numeric value to concatenate/direct sum with the current base value
      * @return $this The operation object, allowing multiple additions to be chained
-     * @throws Exception If the provided argument is not appropriate for the operation
      **/
-    protected function directSumMatrix(Matrix $value)
+    private function directSumMatrix($value)
     {
         $originalColumnCount = count($this->matrix[0]);
         $originalRowCount = count($this->matrix);
