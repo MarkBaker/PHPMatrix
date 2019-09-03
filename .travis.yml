@@ -14,6 +14,10 @@ cache:
     - $HOME/.cache/composer/files
 
 php:
+  - 7.0
+  - 7.1
+  - 7.2
+  - 7.3
   - 7.4snapshot
   - nightly
 
@@ -24,18 +28,15 @@ matrix:
     - php: 5.6
       env: COVERAGE=1
       dist: precise
-    - php: 7.0
-    - php: 7.1
-    - php: 7.2
-      env: EXTRA_CHECKS=1
-    - php: 7.3
-      env: EXTRA_CHECKS=1
   allow_failures:
     - php: 7.4snapshot
     - php: nightly
 
 before_install:
-  - if [[ $TRAVIS_PHP_VERSION == "nightly" || $TRAVIS_PHP_VERSION == "7.4snapshot" ]]; then export EXTRA_CHECKS=1; fi
+  - |
+    if [[ $TRAVIS_PHP_VERSION == "7.2" ||$TRAVIS_PHP_VERSION == "7.3" || $TRAVIS_PHP_VERSION == "7.4snapshot" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
+     export EXTRA_CHECKS=1
+    fi
   # Speed up build time by disabling Xdebug when its not needed.
   - if [[ $COVERAGE != "1" && $EXTRA_CHECKS != 1 ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
   - test "$TRAVIS_PHP_VERSION" != "nightly" || export COMPOSER_FLAGS="$COMPOSER_FLAGS --ignore-platform-reqs"
@@ -47,7 +48,7 @@ before_install:
 before_script:
   ## Composer
   - composer self-update
-  - if [[ "$EXTRA_CHECKS" == "1" ]]; then composer require --dev infection/infection phpstan/phpstan; fi
+  - if [[ "$EXTRA_CHECKS" == "1" ]]; then mv -f composer.7.2.json composer.json; fi
   - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist $COMPOSER_FLAGS
   ## PHPDocumentor
   ## - mkdir -p build/docs
