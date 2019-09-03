@@ -17,7 +17,7 @@ namespace Matrix;
  * @return float Matrix determinant
  * @throws Exception If argument isn't a valid matrix or array.
  */
-function determinant($matrix): float
+function determinant($matrix)
 {
     if (is_array($matrix)) {
         $matrix = new Matrix($matrix);

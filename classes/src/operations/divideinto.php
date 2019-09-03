@@ -19,7 +19,7 @@ use Matrix\Operators\Division;
  * @return Matrix
  * @throws Exception
  */
-function divideinto(...$matrixValues): Matrix
+function divideinto(...$matrixValues)
 {
     if (count($matrixValues) < 2) {
         throw new \Exception('This function requires at least 2 arguments');

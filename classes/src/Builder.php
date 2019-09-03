@@ -27,7 +27,7 @@ class Builder
      * @return Matrix
      * @throws Exception
      */
-    public static function createFilledMatrix($value, int $rows, ?int $columns = null)
+    public static function createFilledMatrix($value, $rows, $columns = null)
     {
         if ($columns === null) {
             $columns = $rows;

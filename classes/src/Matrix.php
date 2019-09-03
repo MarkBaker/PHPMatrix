@@ -87,7 +87,7 @@ class Matrix
      * @return int
      * @throws Exception
      */
-    public static function validateRow(int $row): int
+    public static function validateRow($row)
     {
         if ((!is_numeric($row)) || (intval($row) < 1)) {
             throw new Exception('Invalid Row');
@@ -103,7 +103,7 @@ class Matrix
      * @return int
      * @throws Exception
      */
-    public static function validateColumn(int $column): int
+    public static function validateColumn($column)
     {
         if ((!is_numeric($column)) || (intval($column) < 1)) {
             throw new Exception('Invalid Column');
@@ -119,7 +119,7 @@ class Matrix
      * @return int
      * @throws Exception
      */
-    protected function validateRowInRange(int $row): int
+    protected function validateRowInRange($row)
     {
         $row = static::validateRow($row);
         if ($row > $this->rows) {
@@ -136,7 +136,7 @@ class Matrix
      * @return int
      * @throws Exception
      */
-    protected function validateColumnInRange(int $column): int
+    protected function validateColumnInRange($column)
     {
         $column = static::validateColumn($column);
         if ($column > $this->columns) {
@@ -158,7 +158,7 @@ class Matrix
      * @return static
      * @throws Exception
      */
-    public function getRows(int $row, int $rowCount = 1)
+    public function getRows($row, $rowCount = 1)
     {
         $row = $this->validateRowInRange($row);
         if ($rowCount === 0) {
@@ -180,7 +180,7 @@ class Matrix
      * @return Matrix
      * @throws Exception
      */
-    public function getColumns(int $column, int $columnCount = 1)
+    public function getColumns($column, $columnCount = 1)
     {
         $column = $this->validateColumnInRange($column);
         if ($columnCount < 1) {
@@ -208,7 +208,7 @@ class Matrix
      * @return static
      * @throws Exception
      */
-    public function dropRows(int $row, int $rowCount = 1)
+    public function dropRows($row, $rowCount = 1)
     {
         $this->validateRowInRange($row);
         if ($rowCount === 0) {
@@ -234,7 +234,7 @@ class Matrix
      * @return static
      * @throws Exception
      */
-    public function dropColumns(int $column, int $columnCount = 1): Matrix
+    public function dropColumns($column, $columnCount = 1)
     {
         $this->validateColumnInRange($column);
         if ($columnCount < 1) {

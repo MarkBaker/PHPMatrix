@@ -19,7 +19,7 @@ use Matrix\Operators\DirectSum;
  * @return Matrix
  * @throws Exception
  */
-function directsum(...$matrixValues): Matrix
+function directsum(...$matrixValues)
 {
     if (count($matrixValues) < 2) {
         throw new Exception('This operation requires at least 2 arguments');

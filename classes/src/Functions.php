@@ -302,7 +302,7 @@ class Functions
      * @param Matrix $matrix The matrix whose transpose we wish to calculate
      * @return Matrix
      **/
-    public static function transpose(Matrix $matrix): Matrix
+    public static function transpose(Matrix $matrix)
     {
         $array = array_values(array_merge([null], $matrix->toArray()));
         $grid = call_user_func_array(
