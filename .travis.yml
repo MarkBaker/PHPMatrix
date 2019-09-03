@@ -47,7 +47,7 @@ before_install:
 before_script:
   ## Composer
   - composer self-update
-  - if [[ "EXTRA_CHECKS" == "1" ]]; then composer require --dev infection/infection phpstan/phpstan; fi
+  - if [[ "$EXTRA_CHECKS" == "1" ]]; then composer require --dev infection/infection phpstan/phpstan; fi
   - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist $COMPOSER_FLAGS
   ## PHPDocumentor
   ## - mkdir -p build/docs
