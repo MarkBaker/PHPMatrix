@@ -62,8 +62,7 @@ class Matrix
             $grid,
             function ($carry, $value) {
                 return max($carry, is_array($value) ? count($value) : 1);
-            },
-            0
+            }
         );
         $this->columns = $columns;
 

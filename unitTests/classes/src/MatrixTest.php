@@ -3,7 +3,7 @@
 namespace Matrix\Test;
 
 use Matrix\Exception;
-use Matrix\Matrix as Matrix;
+use Matrix\Matrix;
 
 class MatrixTest extends BaseTestAbstract
 {
@@ -370,5 +370,15 @@ class MatrixTest extends BaseTestAbstract
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Function or Operation does not exist');
         $matrix->unknownMethod();
+    }
+
+    public function testBuildFromArray()
+    {
+        $matrix1 = new Matrix([]);
+        $matrix2 = new Matrix([[]]);
+        $matrix3 = new Matrix([[], []]);
+        $this->assertEquals([], $matrix1->toArray());
+        $this->assertEquals([[]], $matrix2->toArray());
+        $this->assertEquals([[], []], $matrix3->toArray());
     }
 }
