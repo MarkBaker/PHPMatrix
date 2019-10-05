@@ -2,9 +2,10 @@
     "timeout": 1,
     "source": {
         "directories": [
-            "classes\/src"
+            "classes/src"
         ]
     },
+    "timeout": 600,
     "logs": {
         "text": "build/infection/text.log",
         "summary": "build/infection/summary.log",

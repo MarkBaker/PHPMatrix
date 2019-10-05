@@ -13,7 +13,7 @@ namespace Matrix;
  * Returns the determinant of a matrix or an array.
  *
  * @param     Matrix|array     $matrix    Matrix or an array to treat as a matrix.
- * @return    Matrix           The new matrix
+ * @return    float            The determinant of the matrix
  * @throws    Exception        If argument isn't a valid matrix or array.
  */
 function determinant($matrix)

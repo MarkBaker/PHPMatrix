@@ -21,6 +21,7 @@
         "phploc/phploc": "4.*",
         "squizlabs/php_codesniffer": "^3.5",
         "phpcompatibility/php-compatibility": "^9.0",
+        "phpstan/phpstan": "^0.11",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
         "infection/infection": "^0.11"
     },
@@ -54,7 +55,9 @@
         "lines": "phploc classes/src/ -n",
         "cpd": "phpcpd classes/src/ -n",
         "versions": "phpcs --report-width=200 --report=summary,full classes/src/ --standard=PHPCompatibility --runtime-set testVersion 7.1- -n",
-        "infection": "infection --min-msi=70 --min-covered-msi=70 --log-verbosity=all"
+        "infection": "infection --min-msi=70 --min-covered-msi=70 --log-verbosity=all",
+        "phpstan": "phpstan analyse classes/src/ -c phpstan.neon --level=7 --no-progress -vvv --memory-limit=1024M",
+        "coverage": "phpunit -c phpunit.xml.dist --coverage-text --coverage-html ./build/coverage"
     },
     "minimum-stability": "dev"
 }
