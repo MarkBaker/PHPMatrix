@@ -49,7 +49,7 @@
     },
     "scripts": {
         "style": "phpcs --report-width=200 --report=summary,full -n",
-        "test": "phpunit",
+        "test": "phpunit -c phpunit.xml.dist",
         "mess": "phpmd classes/src/ xml codesize,unusedcode,design,naming -n",
         "lines": "phploc classes/src/ -n",
         "cpd": "phpcpd classes/src/ -n",
