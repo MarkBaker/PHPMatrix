@@ -58,6 +58,6 @@ script:
   ## PHPLOC
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phploc ./classes/src/; fi
   ## Infection
-  - if [[ "$EXTRA_CHECKS" == "1" && "$COVERAGE" == "1"]]; then composer infection; fi
+  ## - if [[ "$EXTRA_CHECKS" == "1" && "$COVERAGE" == "1"]]; then composer infection; fi
 notifications:
   email: false
