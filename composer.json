@@ -48,24 +48,13 @@
         ]
     },
     "scripts": {
-        "style": [
-            "phpcs --report-width=200 --report=summary,full -n"
-        ],
-        "test": [
-            "phpunit"
-        ],
-        "mess": [
-            "phpmd classes/src/ xml codesize,unusedcode,design,naming -n"
-        ],
-        "lines": [
-            "phploc classes/src/ -n"
-        ],
-        "cpd": [
-            "phpcpd classes/src/ -n"
-        ],
-        "versions": [
-            "phpcs --report-width=200 --report=summary,full classes/src/ --standard=PHPCompatibility --runtime-set testVersion 5.6- -n"
-        ]
+        "style": "phpcs --report-width=200 --report=summary,full -n",
+        "test": "phpunit",
+        "mess": "phpmd classes/src/ xml codesize,unusedcode,design,naming -n",
+        "lines": "phploc classes/src/ -n",
+        "cpd": "phpcpd classes/src/ -n",
+        "versions": "phpcs --report-width=200 --report=summary,full classes/src/ --standard=PHPCompatibility --runtime-set testVersion 7.1- -n",
+        "infection": "infection --min-msi=70 --min-covered-msi=70 --log-verbosity=all"
     },
     "minimum-stability": "dev"
 }
