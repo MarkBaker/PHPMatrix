@@ -14,15 +14,15 @@ cache:
     - $HOME/.cache/composer/files
 
 php:
-  - 7.3
+  - 7.2
   - 7.4snapshot
   - nightly
 
 matrix:
   fast_finish: true
   include:
-    - php: 7.2
-      env: EXTRA_CHECKS=1
+    - php: 7.3
+      env: EXTRA_CHECKS=1 COVERAGE=1
     - php: 7.1
       env: COVERAGE=1
   allow_failures:
@@ -58,6 +58,6 @@ script:
   ## PHPLOC
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phploc ./classes/src/; fi
   ## Infection
-  - if [[ "$EXTRA_CHECKS" == "1" ]]; then composer infection; fi
+  - if [[ "$EXTRA_CHECKS" == "1" && $COVERAGE == "1"]]; then composer infection; fi
 notifications:
   email: false
