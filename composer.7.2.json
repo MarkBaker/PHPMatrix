@@ -68,7 +68,8 @@
             "unitTests/classes/src/operations/subtractTest.php",
             "unitTests/classes/src/operations/multiplyTest.php",
             "unitTests/classes/src/operations/dividebyTest.php",
-            "unitTests/classes/src/operations/divideintoTest.php"
+            "unitTests/classes/src/operations/divideintoTest.php",
+            "unitTests/classes/src/Decomposition/LUTest.php"
         ]
     },
     "scripts": {

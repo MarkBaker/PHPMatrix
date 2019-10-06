@@ -1,9 +1,10 @@
 <?php
 
-namespace Matrix;
+namespace Matrix\Test;
 
 use Matrix\Decomposition\LU;
 use Matrix\Matrix as Matrix;
+use Matrix\Test\BaseTestAbstract;
 
 class LUTest extends BaseTestAbstract
 {
@@ -58,7 +59,6 @@ class LUTest extends BaseTestAbstract
         $decomposition = new LU($matrix);
 
         $pivots = $decomposition->getPivot();
-//var_dump($expected['pivots'], $pivots);
         $this->assertEquals($expected['pivots'], $pivots);
     }
 

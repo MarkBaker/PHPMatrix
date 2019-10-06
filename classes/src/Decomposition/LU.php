@@ -126,7 +126,7 @@ class LU
             $this->applyTransformations($column, $LUcolumn);
 
             $pivot = $this->findPivot($column, $LUcolumn);
-            if ($pivot != $column) {
+            if ($pivot !== $column) {
                 $this->pivotExchange($pivot, $column);
             }
 
