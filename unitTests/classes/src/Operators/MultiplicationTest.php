@@ -1,10 +1,11 @@
 <?php
 
-namespace Matrix\Operators;
+namespace Matrix\Test\Operators;
 
-use \Matrix\Matrix;
+use Matrix\Matrix;
 use Matrix\Exception;
-use \Matrix\BaseTestAbstract;
+use Matrix\Operators\Multiplication;
+use Matrix\Test\BaseTestAbstract;
 
 class MultiplicationTest extends BaseTestAbstract
 {

@@ -1,10 +1,11 @@
 <?php
 
-namespace Matrix\Operators;
+namespace Matrix\Test\Operators;
 
-use \Matrix\Matrix;
 use Matrix\Exception;
-use \Matrix\BaseTestAbstract;
+use Matrix\Matrix;
+use Matrix\Operators\DirectSum;
+use Matrix\Test\BaseTestAbstract;
 
 class DirectSumTest extends BaseTestAbstract
 {
@@ -43,6 +44,16 @@ class DirectSumTest extends BaseTestAbstract
         $this->assertMatrixValues($result, count($expected), count($expected[0]), $expected);
         // Ensure that original matrix remains unchanged (Immutable object)
         $this->assertEquals($original, $matrix->toArray(), 'Original Matrix has mutated');
+
+        // Pass array argument into execute
+        $result = $summer->execute([[2, 5], [1, 4], [9, 1]]);
+        $this->assertInstanceOf(DirectSum::class, $result);
+
+        // Pass invalid argument
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage('Invalid argument for addition');
+        $summer->execute(1);
     }
 
     public function matrixDirectSumProvider()

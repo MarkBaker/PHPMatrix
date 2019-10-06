@@ -1,8 +1,10 @@
 <?php
 
-namespace Matrix;
+namespace Matrix\Test;
 
-use Matrix\Matrix as Matrix;
+use Matrix\Exception;
+use Matrix\Matrix;
+use function Matrix\antidiagonal;
 
 class antidiagonalTest extends BaseTestAbstract
 {
@@ -101,7 +103,7 @@ class antidiagonalTest extends BaseTestAbstract
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Anti-Diagonal can only be extracted from a square matrix');
 
-        $matrix = new Matrix([[1,2,3], [4,5,6]]);
-        $result = $matrix->antidiagonal();
+        $matrix = new Matrix([[1, 2, 3], [4, 5, 6]]);
+        $matrix->antidiagonal();
     }
 }
