@@ -1,8 +1,9 @@
 <?php
 
-namespace Matrix;
+namespace Matrix\Test;
 
-use Matrix\Matrix as Matrix;
+use Matrix\Matrix;
+use function Matrix\cofactors;
 
 class cofactorsTest extends BaseTestAbstract
 {

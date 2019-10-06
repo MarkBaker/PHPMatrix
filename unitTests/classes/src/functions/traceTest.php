@@ -1,8 +1,9 @@
 <?php
 
-namespace Matrix;
+namespace Matrix\Test;
 
-use Matrix\Matrix as Matrix;
+use Matrix\Functions;
+use Matrix\Matrix;
 
 class traceTest extends BaseTestAbstract
 {

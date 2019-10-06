@@ -1,19 +1,19 @@
 <?php
 
-namespace Matrix;
+namespace Matrix\Test;
 
-use Matrix\Matrix as Matrix;
+use Matrix\Matrix;
 
-class additionTest extends BaseTestAbstract
+class subtractTest extends BaseTestAbstract
 {
-    protected static $operationName = 'addition';
+    protected static $operationName = 'subtraction';
 
     /**
      * @dataProvider dataProvider
      */
-    public function testAdditionFunction($expected, $value1, $value2)
+    public function testSubtractionFunction($expected, $value1, $value2)
     {
-        $result = add($value1, $value2);
+        $result = subtract($value1, $value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
@@ -24,10 +24,10 @@ class additionTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testAdditionInvoker($expected, $value1, $value2)
+    public function testSubtractionInvoker($expected, $value1, $value2)
     {
         $matrix = new Matrix($value1);
-        $result = $matrix->add($value2);
+        $result = $matrix->subtract($value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($matrix);
@@ -41,7 +41,7 @@ class additionTest extends BaseTestAbstract
     {
         return [
             [
-                [[-1, 6], [-3, 12]],
+                [[3, -2], [9, -4]],
                 [[1, 2], [3, 4]], [[-2, 4], [-6, 8]],
             ],
         ];

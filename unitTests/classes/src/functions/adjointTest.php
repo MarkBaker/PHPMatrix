@@ -1,8 +1,10 @@
 <?php
 
-namespace Matrix;
+namespace Matrix\Test;
 
-use Matrix\Matrix as Matrix;
+use Matrix\Exception;
+use Matrix\Matrix;
+use function Matrix\adjoint;
 
 class adjointTest extends BaseTestAbstract
 {
@@ -118,10 +120,9 @@ class adjointTest extends BaseTestAbstract
 
     public function testAdjointInvalid()
     {
+        $matrix = new Matrix([[1, 2, 3], [4, 5, 6]]);
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Adjoint can only be calculated for a square matrix');
-
-        $matrix = new Matrix([[1, 2, 3], [4, 5, 6]]);
-        $result = $matrix->adjoint();
+        $matrix->adjoint();
     }
 }
