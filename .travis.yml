@@ -51,9 +51,6 @@ before_script:
   - composer self-update
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then mv -f composer.7.2.json composer.json; fi
   - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist $COMPOSER_FLAGS
-  ## PHPDocumentor
-  ## - mkdir -p build/docs
-  ## - mkdir -p build/coverage
 
 script:
   # Search for PHP syntax errors.
