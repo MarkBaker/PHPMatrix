@@ -50,6 +50,9 @@ before_script:
   - composer self-update
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then mv -f composer.7.2.json composer.json; fi
   - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist $COMPOSER_FLAGS
+  ## PHPDocumentor
+  ## - mkdir -p build/docs
+  ## - mkdir -p build/coverage
 
 script:
   # Search for PHP syntax errors.
@@ -64,13 +67,15 @@ script:
   ## PHP_CodeSniffer
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1; fi
   ## PHP Copy/Paste Detector
-  - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpcpd ./classes/src/; fi
+  # - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpcpd ./classes/src/; fi
   ## PHP Mess Detector
-  if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpmd ./classes/src/ text ./phpmd.xml.dist; fi
+  - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpmd ./classes/src/ text ./phpmd.xml.dist; fi
   ## PHPLOC
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phploc ./classes/src/; fi
+  ## PHPDocumentor
+  ## - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpdoc -q -d ./classes/src -t ./build/docs --template="responsive-twig"; fi
   ## PHPStan
-  # - if [[ "$EXTRA_CHECKS" == "1" && $TRAVIS_PHP_VERSION == "7.3" ]]; then composer phpstan; fi
+  - if [[ "$EXTRA_CHECKS" == "1" ]]; then composer phpstan; fi
   ## Infection
   # - if [[ "$EXTRA_CHECKS" == "1" ]]; then composer infection; fi
 
