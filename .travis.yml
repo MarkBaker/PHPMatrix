@@ -34,7 +34,7 @@ matrix:
 
 before_install:
   - |
-    if [[ $TRAVIS_PHP_VERSION == "7.2" ||$TRAVIS_PHP_VERSION == "7.3" || $TRAVIS_PHP_VERSION == "7.4snapshot" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
+    if [[ $TRAVIS_PHP_VERSION == "7.2" || $TRAVIS_PHP_VERSION == "7.3" || $TRAVIS_PHP_VERSION == "7.4snapshot" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
      export EXTRA_CHECKS=1
     fi
   # Speed up build time by disabling Xdebug when its not needed.
@@ -72,8 +72,6 @@ script:
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpmd ./classes/src/ text ./phpmd.xml.dist; fi
   ## PHPLOC
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phploc ./classes/src/; fi
-  ## PHPDocumentor
-  ## - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpdoc -q -d ./classes/src -t ./build/docs --template="responsive-twig"; fi
   ## PHPStan
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then composer phpstan; fi
   ## Infection
