@@ -6,7 +6,7 @@ use Matrix\Decomposition\LU;
 use Matrix\Matrix as Matrix;
 use Matrix\Test\BaseTestAbstract;
 
-class LUTest extends BaseTestAbstract
+class luTest extends BaseTestAbstract
 {
     /**
      * @dataProvider dataProvider

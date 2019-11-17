@@ -134,8 +134,17 @@ class LU
 
             unset($LUcolumn);
         }
-    }
 
+        // Transpose the pivots if we have an asymetric matrix with more rows than columns
+        if ($this->rows > $this->columns) {
+            $this->pivot = array_map(
+                function($row) {
+                    return array_search(1, $row, true);
+                },
+                $this->getP()->transpose()->toArray()
+            );
+        }
+    }
 
     private function localisedReferenceColumn($column)
     {
@@ -147,7 +156,6 @@ class LU
 
         return $LUcolumn;
     }
-
 
     private function applyTransformations($column, array $LUcolumn)
     {
