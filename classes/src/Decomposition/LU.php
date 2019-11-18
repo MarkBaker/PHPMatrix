@@ -138,7 +138,7 @@ class LU
         // Transpose the pivots if we have an asymetric matrix with more rows than columns
         if ($this->rows > $this->columns) {
             $this->pivot = array_map(
-                function($row) {
+                function ($row) {
                     return array_search(1, $row, true);
                 },
                 $this->getP()->transpose()->toArray()
