@@ -5,7 +5,7 @@ namespace Matrix\Test;
 use Matrix\Decomposition\LU;
 use Matrix\Matrix as Matrix;
 
-class LUTest extends BaseTestAbstract
+class luTest extends BaseTestAbstract
 {
     /**
      * @dataProvider dataProvider

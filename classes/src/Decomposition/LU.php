@@ -6,7 +6,7 @@ use Matrix\Matrix;
 
 class LU
 {
-    private $LU;
+    private $luMatrix;
     private $rows;
     private $columns;
 
@@ -14,7 +14,7 @@ class LU
 
     public function __construct(Matrix $matrix)
     {
-        $this->LU = $matrix->toArray();
+        $this->luMatrix = $matrix->toArray();
         $this->rows = $matrix->rows;
         $this->columns = $matrix->columns;
 
@@ -34,7 +34,7 @@ class LU
         for ($row = 0; $row < $this->rows; ++$row) {
             for ($column = 0; $column < $columns; ++$column) {
                 if ($row > $column) {
-                    $lower[$row][$column] = $this->LU[$row][$column];
+                    $lower[$row][$column] = $this->luMatrix[$row][$column];
                 } elseif ($row === $column) {
                     $lower[$row][$column] = 1.0;
                 } else {
@@ -59,7 +59,7 @@ class LU
         for ($row = 0; $row < $rows; ++$row) {
             for ($column = 0; $column < $this->columns; ++$column) {
                 if ($row <= $column) {
-                    $upper[$row][$column] = $this->LU[$row][$column];
+                    $upper[$row][$column] = $this->luMatrix[$row][$column];
                 } else {
                     $upper[$row][$column] = 0.0;
                 }
@@ -76,16 +76,16 @@ class LU
      */
     public function getP()
     {
-        $p = [];
+        $pMatrix = [];
 
         $pivots = $this->pivot;
         $pivotCount = count($pivots);
         foreach ($pivots as $row => $pivot) {
-            $p[$row] = array_fill(0, $pivotCount - 1, 0);
-            $p[$row][$pivot] = 1;
+            $pMatrix[$row] = array_fill(0, $pivotCount, 0);
+            $pMatrix[$row][$pivot] = 1;
         }
 
-        return new Matrix($p);
+        return new Matrix($pMatrix);
     }
 
     /**
@@ -106,7 +106,7 @@ class LU
     public function isNonsingular()
     {
         for ($diagonal = 0; $diagonal < $this->columns; ++$diagonal) {
-            if ($this->LU[$diagonal][$diagonal] === 0.0) {
+            if ($this->luMatrix[$diagonal][$diagonal] === 0.0) {
                 return false;
             }
         }
@@ -151,7 +151,7 @@ class LU
         $LUcolumn = [];
 
         for ($row = 0; $row < $this->rows; ++$row) {
-            $LUcolumn[$row] = &$this->LU[$row][$column];
+            $LUcolumn[$row] = &$this->luMatrix[$row][$column];
         }
 
         return $LUcolumn;
@@ -160,7 +160,7 @@ class LU
     private function applyTransformations($column, array $LUcolumn)
     {
         for ($row = 0; $row < $this->rows; ++$row) {
-            $LUrow = $this->LU[$row];
+            $LUrow = $this->luMatrix[$row];
             // Most of the time is spent in the following dot product.
             $kmax = min($row, $column);
             $s = 0.0;
@@ -186,9 +186,9 @@ class LU
     private function pivotExchange($pivot, $column)
     {
         for ($k = 0; $k < $this->columns; ++$k) {
-            $t = $this->LU[$pivot][$k];
-            $this->LU[$pivot][$k] = $this->LU[$column][$k];
-            $this->LU[$column][$k] = $t;
+            $t = $this->luMatrix[$pivot][$k];
+            $this->luMatrix[$pivot][$k] = $this->luMatrix[$column][$k];
+            $this->luMatrix[$column][$k] = $t;
         }
 
         $l = $this->pivot[$pivot];
@@ -198,9 +198,9 @@ class LU
 
     private function computeMultipliers($diagonal)
     {
-        if (($diagonal < $this->rows) && ($this->LU[$diagonal][$diagonal] != 0.0)) {
+        if (($diagonal < $this->rows) && ($this->luMatrix[$diagonal][$diagonal] != 0.0)) {
             for ($row = $diagonal + 1; $row < $this->rows; ++$row) {
-                $this->LU[$row][$diagonal] /= $this->LU[$diagonal][$diagonal];
+                $this->luMatrix[$row][$diagonal] /= $this->luMatrix[$diagonal][$diagonal];
             }
         }
     }
