@@ -163,11 +163,11 @@ class LU
             $luRow = $this->luMatrix[$row];
             // Most of the time is spent in the following dot product.
             $kmax = min($row, $column);
-            $s = 0.0;
-            for ($k = 0; $k < $kmax; ++$k) {
-                $s += $luRow[$k] * $luColumn[$k];
+            $sValue = 0.0;
+            for ($kValue = 0; $kValue < $kmax; ++$kValue) {
+                $sValue += $luRow[$kValue] * $luColumn[$kValue];
             }
-            $luRow[$column] = $luColumn[$row] -= $s;
+            $luRow[$column] = $luColumn[$row] -= $sValue;
         }
     }
 
@@ -185,15 +185,15 @@ class LU
 
     private function pivotExchange($pivot, $column)
     {
-        for ($k = 0; $k < $this->columns; ++$k) {
-            $t = $this->luMatrix[$pivot][$k];
-            $this->luMatrix[$pivot][$k] = $this->luMatrix[$column][$k];
-            $this->luMatrix[$column][$k] = $t;
+        for ($kValue = 0; $kValue < $this->columns; ++$kValue) {
+            $tValue = $this->luMatrix[$pivot][$kValue];
+            $this->luMatrix[$pivot][$kValue] = $this->luMatrix[$column][$kValue];
+            $this->luMatrix[$column][$kValue] = $tValue;
         }
 
-        $l = $this->pivot[$pivot];
+        $lValue = $this->pivot[$pivot];
         $this->pivot[$pivot] = $this->pivot[$column];
-        $this->pivot[$column] = $l;
+        $this->pivot[$column] = $lValue;
     }
 
     private function computeMultipliers($diagonal)
