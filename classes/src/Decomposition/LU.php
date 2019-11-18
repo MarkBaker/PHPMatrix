@@ -121,18 +121,18 @@ class LU
         }
 
         for ($column = 0; $column < $this->columns; ++$column) {
-            $LUcolumn = $this->localisedReferenceColumn($column);
+            $luColumn = $this->localisedReferenceColumn($column);
 
-            $this->applyTransformations($column, $LUcolumn);
+            $this->applyTransformations($column, $luColumn);
 
-            $pivot = $this->findPivot($column, $LUcolumn);
+            $pivot = $this->findPivot($column, $luColumn);
             if ($pivot !== $column) {
                 $this->pivotExchange($pivot, $column);
             }
 
             $this->computeMultipliers($column);
 
-            unset($LUcolumn);
+            unset($luColumn);
         }
 
         // Transpose the pivots if we have an asymetric matrix with more rows than columns
@@ -148,34 +148,34 @@ class LU
 
     private function localisedReferenceColumn($column)
     {
-        $LUcolumn = [];
+        $luColumn = [];
 
         for ($row = 0; $row < $this->rows; ++$row) {
-            $LUcolumn[$row] = &$this->luMatrix[$row][$column];
+            $luColumn[$row] = &$this->luMatrix[$row][$column];
         }
 
-        return $LUcolumn;
+        return $luColumn;
     }
 
-    private function applyTransformations($column, array $LUcolumn)
+    private function applyTransformations($column, array $luColumn)
     {
         for ($row = 0; $row < $this->rows; ++$row) {
-            $LUrow = $this->luMatrix[$row];
+            $luRow = $this->luMatrix[$row];
             // Most of the time is spent in the following dot product.
             $kmax = min($row, $column);
             $s = 0.0;
             for ($k = 0; $k < $kmax; ++$k) {
-                $s += $LUrow[$k] * $LUcolumn[$k];
+                $s += $luRow[$k] * $luColumn[$k];
             }
-            $LUrow[$column] = $LUcolumn[$row] -= $s;
+            $luRow[$column] = $luColumn[$row] -= $s;
         }
     }
 
-    private function findPivot($column, array $LUcolumn)
+    private function findPivot($column, array $luColumn)
     {
         $pivot = $column;
         for ($row = $column + 1; $row < $this->rows; ++$row) {
-            if (abs($LUcolumn[$row]) > abs($LUcolumn[$pivot])) {
+            if (abs($luColumn[$row]) > abs($luColumn[$pivot])) {
                 $pivot = $row;
             }
         }
