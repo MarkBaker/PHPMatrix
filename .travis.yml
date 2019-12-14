@@ -32,6 +32,10 @@ matrix:
     - php: nightly
 
 before_install:
+  - |
+    if [[ $TRAVIS_PHP_VERSION == "7.2" ||$TRAVIS_PHP_VERSION == "7.3" || $TRAVIS_PHP_VERSION == "7.4" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
+     export EXTRA_CHECKS=1
+    fi
   # Speed up build time by disabling Xdebug when its not needed.
   - if [[ $COVERAGE != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
   ## Packages
@@ -40,10 +44,8 @@ before_install:
 before_script:
   ## Composer
   - composer self-update
+  - if [[ "$EXTRA_CHECKS" == "1" ]]; then mv -f composer.7.2.json composer.json; fi
   - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist
-  ## PHPDocumentor
-  ## - mkdir -p build/docs
-  ## - mkdir -p build/coverage
 
 script:
   # Search for PHP syntax errors.
