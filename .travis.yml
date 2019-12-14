@@ -1,12 +1,10 @@
 sudo: false
-
-dist: trusty
+dist: xenial
 
 language: php
 
 ## Cache composer downloads.
 cache:
-  apt: true
   directories:
     # Cache directory for older Composer versions.
     - $HOME/.composer/cache/files
@@ -16,43 +14,38 @@ cache:
 php:
   - 7.0
   - 7.1
-  - 7.2
-  - 7.3
-  - 7.4snapshot
+  - 7.4
   - nightly
 
 
 matrix:
   fast_finish: true
   include:
+    - php: 7.2
+      env: EXTRA_CHECKS=1
+    - php: 7.3
+      env: COVERAGE=1
     - php: 5.6
       env: COVERAGE=1
-      dist: precise
+      dist: trusty
   allow_failures:
-    - php: 7.4snapshot
     - php: nightly
 
 before_install:
   - |
-    if [[ $TRAVIS_PHP_VERSION == "7.2" || $TRAVIS_PHP_VERSION == "7.3" || $TRAVIS_PHP_VERSION == "7.4snapshot" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
+    if [[ $TRAVIS_PHP_VERSION == "7.2" ||$TRAVIS_PHP_VERSION == "7.3" || $TRAVIS_PHP_VERSION == "7.4" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
      export EXTRA_CHECKS=1
     fi
   # Speed up build time by disabling Xdebug when its not needed.
-  - if [[ $COVERAGE != "1" && $EXTRA_CHECKS != 1 ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
-  - test "$TRAVIS_PHP_VERSION" != "nightly" || export COMPOSER_FLAGS="$COMPOSER_FLAGS --ignore-platform-reqs"
-
+  - if [[ $COVERAGE != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
   ## Packages
-  ## crashes 5.6
-  # - sudo apt-get -qq update
+  - sudo apt-get -qq update
 
 before_script:
   ## Composer
   - composer self-update
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then mv -f composer.7.2.json composer.json; fi
-  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist $COMPOSER_FLAGS
-  ## PHPDocumentor
-  ## - mkdir -p build/docs
-  ## - mkdir -p build/coverage
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist
 
 script:
   # Search for PHP syntax errors.

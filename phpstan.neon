@@ -3,3 +3,4 @@ parameters:
         - '#Property [A-Za-z\\]+::\$[A-Za-z]+ has no typehint specified#'
         - '#Method [A-Za-z\\]+::[A-Za-z]+\(\) has no return typehint specified#'
         - '#Method [A-Za-z\\]+::[A-Za-z]+\(\) has parameter \$[A-Za-z0-9]+ with no typehint specified#'
+    checkMissingIterableValueType: false
