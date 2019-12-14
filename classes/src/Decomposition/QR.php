@@ -6,15 +6,15 @@ use Matrix\Matrix;
 
 class QR
 {
-    private $QR;
+    private $qrMatrix;
     private $rows;
     private $columns;
 
-    private $Rdiagonal = [];
+    private $rDiagonal = [];
 
     public function __construct(Matrix $matrix)
     {
-        $this->QR = $matrix->toArray();
+        $this->qrMatrix = $matrix->toArray();
         $this->rows = $matrix->rows;
         $this->columns = $matrix->columns;
 
@@ -23,47 +23,56 @@ class QR
 
     public function getQ()
     {
-        $Q = [];
+        $qGrid = [];
 
         for ($k = $this->columns - 1; $k >= 0; --$k) {
             for ($i = 0; $i < $this->rows; ++$i) {
-                $Q[$i][$k] = 0.0;
+                $qGrid[$i][$k] = 0.0;
             }
-            $Q[$k][$k] = 1.0;
+            $qGrid[$k][$k] = 1.0;
+
             for ($j = $k; $j < $this->columns; ++$j) {
-                if ($this->QR[$k][$k] != 0) {
+                if ($this->qrMatrix[$k][$k] !== 0.0) {
                     $s = 0.0;
                     for ($i = $k; $i < $this->rows; ++$i) {
-                        $s += $this->QR[$i][$k] * $Q[$i][$j];
+                        $s += $this->qrMatrix[$i][$k] * $qGrid[$i][$j];
                     }
-                    $s = -$s / $this->QR[$k][$k];
+                    $s = -$s / $this->qrMatrix[$k][$k];
                     for ($i = $k; $i < $this->rows; ++$i) {
-                        $Q[$i][$j] += $s * $this->QR[$i][$k];
+                        $qGrid[$i][$j] += $s * $this->qrMatrix[$i][$k];
                     }
                 }
             }
         }
 
-        return new Matrix($Q);
+        array_walk(
+            $qGrid,
+            function (&$row) {
+                $row = array_reverse($row);
+                $row[] = -1.0 * array_pop($row);
+            }
+        );
+
+        return new Matrix($qGrid);
     }
 
     public function getR()
     {
-        $R = [];
+        $rGrid = [];
 
-        for ($i = 0; $i < $this->columns; ++$i) {
-            for ($j = 0; $j < $this->columns; ++$j) {
-                if ($i < $j) {
-                    $R[$i][$j] = $this->QR[$i][$j];
-                } elseif ($i == $j) {
-                    $R[$i][$j] = $this->Rdiagonal[$i];
+        for ($column = 0; $column < $this->columns; ++$column) {
+            for ($row = 0; $row < $this->rows; ++$row) {
+                if ($column < $row) {
+                    $rGrid[$column][$row] = $this->qrMatrix[$column][$row];
+                } elseif ($column === $row) {
+                    $rGrid[$column][$row] = $this->rDiagonal[$column];
                 } else {
-                    $R[$i][$j] = 0.0;
+                    $rGrid[$column][$row] = 0.0;
                 }
             }
         }
 
-        return new Matrix($R);
+        return new Matrix($rGrid);
     }
 
     private function hypo($a, $b)
@@ -87,30 +96,30 @@ class QR
             // Compute 2-norm of k-th column without under/overflow.
             $nrm = 0.0;
             for ($i = $k; $i < $this->rows; ++$i) {
-                $nrm = $this->hypo($nrm, $this->QR[$i][$k]);
+                $nrm = $this->hypo($nrm, $this->qrMatrix[$i][$k]);
             }
-            if ($nrm != 0.0) {
+            if ($nrm !== 0.0) {
                 // Form k-th Householder vector.
-                if ($this->QR[$k][$k] < 0) {
+                if ($this->qrMatrix[$k][$k] < 0.0) {
                     $nrm = -$nrm;
                 }
                 for ($i = $k; $i < $this->rows; ++$i) {
-                    $this->QR[$i][$k] /= $nrm;
+                    $this->qrMatrix[$i][$k] /= $nrm;
                 }
-                $this->QR[$k][$k] += 1.0;
+                $this->qrMatrix[$k][$k] += 1.0;
                 // Apply transformation to remaining columns.
                 for ($j = $k + 1; $j < $this->columns; ++$j) {
                     $s = 0.0;
                     for ($i = $k; $i < $this->rows; ++$i) {
-                        $s += $this->QR[$i][$k] * $this->QR[$i][$j];
+                        $s += $this->qrMatrix[$i][$k] * $this->qrMatrix[$i][$j];
                     }
-                    $s = -$s / $this->QR[$k][$k];
+                    $s = -$s / $this->qrMatrix[$k][$k];
                     for ($i = $k; $i < $this->rows; ++$i) {
-                        $this->QR[$i][$j] += $s * $this->QR[$i][$k];
+                        $this->qrMatrix[$i][$j] += $s * $this->qrMatrix[$i][$k];
                     }
                 }
             }
-            $this->Rdiagonal[$k] = -$nrm;
+            $this->rDiagonal[$k] = -$nrm;
         }
     }
 }

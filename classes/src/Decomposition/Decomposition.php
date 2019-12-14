@@ -9,9 +9,12 @@ class Decomposition
     const LU = 'LU';
     const QR = 'QR';
 
+    /**
+     * @throws \Exception
+     */
     public static function decomposition($type, Matrix $matrix)
     {
-        switch ($type) {
+        switch (strtoupper($type)) {
             case self::LU:
                 return new LU($matrix);
             case self::QR:

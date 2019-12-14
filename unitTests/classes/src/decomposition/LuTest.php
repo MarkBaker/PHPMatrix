@@ -7,11 +7,13 @@ use Matrix\Matrix as Matrix;
 
 class LuTest extends BaseTestAbstract
 {
-    /**
-     * @dataProvider dataProvider
-     */
-    public function testBasicLUDecomposition($expected, $grid)
+    public function testBasicLUDecomposition()
     {
+        $grid = [
+            [1, -2],
+            [-3, 4]
+        ];
+
         $matrix = new Matrix($grid);
         $decomposition = new LU($matrix);
 
