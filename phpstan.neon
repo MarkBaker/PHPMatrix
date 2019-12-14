@@ -2,4 +2,4 @@ parameters:
     ignoreErrors:
         - '#Property [A-Za-z\\]+::\$[A-Za-z]+ has no typehint specified#'
         - '#Method [A-Za-z\\]+::[A-Za-z]+\(\) has no return typehint specified#'
-        - '#Function [A-Za-z\\]+::[A-Za-z]+\(\) has parameter \$[A-Za-z0-9_-]+ with no value type#'
+    - checkMissingIterableValueType: false
