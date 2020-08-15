@@ -78,9 +78,58 @@ class LuTest extends BaseTestAbstract
         $this->assertMatrixValues($P, count($expected['P']), count($expected['P'][0]), $expected['P']);
     }
 
+    /**
+     * @dataProvider dataProvider
+     */
+    public function testLUDecompositionResolve($expected, $grid)
+    {
+        $matrix = new Matrix($grid);
+        $decomposition = new LU($matrix);
+
+        $L = $decomposition->getL();
+        $U = $decomposition->getU();
+        $P = $decomposition->getP();
+
+        $result1 = $P->inverse()->multiply($L->multiply($U));
+        $this->assertEquals($matrix, $result1);
+
+        $matrix2 = $P->multiply($matrix);
+        $result2 = $L->multiply($U);
+        $this->assertEquals($matrix2, $result2);
+    }
+
     public function dataProvider()
     {
         return [
+            'All the Ones' => [
+                [
+                    'U' => [
+                        [1, 1, 1, 1],
+                        [0, -2, -2, 0],
+                        [0, 0, -2, -2],
+                        [0, 0, 0, -4]
+                    ],
+                    'L' => [
+                        [1, 0, 0, 0],
+                        [1, 1, 0, 0],
+                        [1, 0, 1, 0],
+                        [1, 1, -1, 1]
+                    ],
+                    'P' => [
+                        [1, 0, 0, 0],
+                        [0, 0, 1, 0],
+                        [0, 1, 0, 0],
+                        [0, 0, 0, 1]
+                    ],
+                    'pivots' => [0, 2, 1, 3]
+                ],
+                [
+                    [1, 1, 1, 1],
+                    [1, 1, -1, -1],
+                    [1, -1, -1, 1],
+                    [1, -1, 1, -1]
+                ],
+            ],
             'Simple 3x3 Matrix' => [
                 [
                     'U' => [
@@ -276,11 +325,11 @@ class LuTest extends BaseTestAbstract
                         [0.6, 0.5]
                     ],
                     'P' => [
-                        [0, 1, 0],
                         [0, 0, 1],
-                        [1, 0, 0]
+                        [1, 0, 0],
+                        [0, 1, 0]
                     ],
-                    'pivots' => [1, 2, 0]
+                    'pivots' => [2, 0, 1]
                 ],
                 [
                     [1, 2],
@@ -330,15 +379,15 @@ class LuTest extends BaseTestAbstract
                         [0.2857142857142857, -0.14285714285714293, -0.29032258064516125]
                     ],
                     'P' => [
-                        [0, 0, 0, 0, 1, 0, 0],
-                        [0, 0, 0, 1, 0, 0, 0],
-                        [1, 0, 0, 0, 0, 0, 0],
-                        [0, 1, 0, 0, 0, 0, 0],
                         [0, 0, 1, 0, 0, 0, 0],
+                        [0, 0, 0, 1, 0, 0, 0],
+                        [0, 0, 0, 0, 1, 0, 0],
+                        [0, 1, 0, 0, 0, 0, 0],
+                        [1, 0, 0, 0, 0, 0, 0],
                         [0, 0, 0, 0, 0, 1, 0],
                         [0, 0, 0, 0, 0, 0, 1]
                     ],
-                    'pivots' => [4, 3, 0, 1, 2, 5, 6]
+                    'pivots' => [2, 3, 4, 1, 0, 5, 6]
                 ],
                 [
                     [1, 2, 3],

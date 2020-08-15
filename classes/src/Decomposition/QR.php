@@ -32,7 +32,7 @@ class QR
             $qGrid[$k][$k] = 1.0;
 
             for ($j = $k; $j < $this->columns; ++$j) {
-                if ($this->qrMatrix[$k][$k] !== 0.0) {
+                if (isset($this->qrMatrix[$k][$k]) && $this->qrMatrix[$k][$k] !== 0.0) {
                     $s = 0.0;
                     for ($i = $k; $i < $this->rows; ++$i) {
                         $s += $this->qrMatrix[$i][$k] * $qGrid[$i][$j];
@@ -63,7 +63,7 @@ class QR
         for ($column = 0; $column < $this->columns; ++$column) {
             for ($row = 0; $row < $this->rows; ++$row) {
                 if ($column < $row) {
-                    $rGrid[$column][$row] = $this->qrMatrix[$column][$row];
+                    $rGrid[$column][$row] = isset($this->qrMatrix[$column][$row]) ? $this->qrMatrix[$column][$row] : 0.0;
                 } elseif ($column === $row) {
                     $rGrid[$column][$row] = $this->rDiagonal[$column];
                 } else {

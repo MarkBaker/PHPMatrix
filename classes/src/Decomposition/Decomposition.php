@@ -8,6 +8,7 @@ class Decomposition
 {
     const LU = 'LU';
     const QR = 'QR';
+    const CHOLESKY = 'CHOLESKY';
 
     /**
      * @throws \Exception

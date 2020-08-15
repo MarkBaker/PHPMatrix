@@ -51,9 +51,47 @@ class QrTest extends BaseTestAbstract
         $this->assertMatrixValues($R, count($expected['R']), count($expected['R'][0]), $expected['R']);
     }
 
+    /**
+     * @dataProvider dataProvider
+     */
+    public function testQRDecompositionResolve($expected, $grid)
+    {
+        $matrix = new Matrix($grid);
+        $decomposition = new QR($matrix);
+
+        $Q = $decomposition->getQ();
+        $R = $decomposition->getR();
+
+        $result = $Q->multiply($R);
+        $this->assertEquals($matrix, $result);
+    }
+
     public function dataProvider()
     {
         return [
+            'All the Ones' => [
+                [
+                    'Q' => [
+                        [-0.5, -0.5, -0.5, -0.5],
+                        [-0.5, -0.5, 0.5, 0.5],
+                        [-0.5, 0.5, 0.5, -0.5],
+                        [-0.5, 0.5, -0.5, 0.5]
+                    ],
+                    'R' => [
+                        [-2, 0, 0, 0],
+                        [0, -2, 0, 0],
+                        [0, 0, -2, 0],
+                        [0, 0, 0, -2]
+                    ],
+                ],
+                [
+                    [1, 1, 1, 1],
+                    [1, 1, -1, -1],
+                    [1, -1, -1, 1],
+                    [1, -1, 1, -1]
+                ],
+            ],
+/*
             'Simple 3x3 Matrix' => [
                 [
                     'Q' => [
@@ -211,6 +249,7 @@ class QrTest extends BaseTestAbstract
                     [5, 6]
                 ],
             ],
+*/
         ];
     }
 }

@@ -37,6 +37,10 @@ together with functions for
  - minors
  - trace
  - transpose
+ - Decomposition
+   - LU Decomposition with partial row pivoting,
+   
+     such that [P].[A] = [L].[U] and [A] = [P]<sup>|</sup>.[L].[U]
 
 
 ## TO DO
@@ -45,6 +49,8 @@ together with functions for
  - EigenValues
  - EigenVectors
  - Decomposition
+   - QR Decomposition
+   - Cholesky Decomposition
 
 ---
 
