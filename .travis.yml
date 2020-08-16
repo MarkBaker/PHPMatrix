@@ -11,13 +11,6 @@ cache:
     # Cache directory for more recent Composer versions.
     - $HOME/.cache/composer/files
 
-php:
-  - 7.0
-  - 7.1
-  - 7.4
-  - nightly
-
-
 matrix:
   fast_finish: true
   include:
@@ -25,17 +18,12 @@ matrix:
       env: EXTRA_CHECKS=1
     - php: 7.3
       env: COVERAGE=1
-    - php: 5.6
-      env: COVERAGE=1
-      dist: trusty
-  allow_failures:
+    - php: 7.4
+      env: EXTRA_CHECKS=1
     - php: nightly
+      env: EXTRA_CHECKS=1
 
 before_install:
-  - |
-    if [[ $TRAVIS_PHP_VERSION == "7.2" ||$TRAVIS_PHP_VERSION == "7.3" || $TRAVIS_PHP_VERSION == "7.4" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
-     export EXTRA_CHECKS=1
-    fi
   # Speed up build time by disabling Xdebug when its not needed.
   - if [[ $COVERAGE != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
   ## Packages
@@ -44,7 +32,6 @@ before_install:
 before_script:
   ## Composer
   - composer self-update
-  - if [[ "$EXTRA_CHECKS" == "1" ]]; then mv -f composer.7.2.json composer.json; fi
   - if [[ $TRAVIS_PHP_VERSION != "nightly" ]]; then COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist; fi
   - if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --ignore-platform-reqs; fi
 
