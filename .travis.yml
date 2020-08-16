@@ -39,7 +39,6 @@ before_install:
 before_script:
   ## Composer
   - composer self-update
-  - if [[ "$EXTRA_CHECKS" == "1" ]]; then mv -f composer.7.2.json composer.json; fi
   - if [[ $TRAVIS_PHP_VERSION != "nightly" ]]; then COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist; fi
   - if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --ignore-platform-reqs; fi
 
