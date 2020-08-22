@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php"
+         backupGlobals="true"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         verbose="true"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false">
+    <php>
+        <ini name="memory_limit" value="2048M"/>
+    </php>
+    <testsuites>
+        <testsuite name="Matrix Unit Test Suite">
+            <directory suffix="Test.php">./classes/src</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../classes/src</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="./unitTests/codeCoverage" lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-clover" target="./unitTests/codeCoverage/codeCoverage.xml"/>
+    </logging>
+</phpunit> 
