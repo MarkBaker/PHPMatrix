@@ -12,25 +12,21 @@ cache:
     - $HOME/.cache/composer/files
 
 php:
-  - 7.4
+  - 7.3
   - nightly
-
 
 matrix:
   fast_finish: true
   include:
     - php: 7.2
       env: EXTRA_CHECKS=1
-    - php: 7.3
-      env: COVERAGE=1
+    - php: 7.4
+      env: COVERAGE=1 EXTRA_CHECKS=1
   allow_failures:
     - php: nightly
 
-before_install:
   - |
-    if [[ $TRAVIS_PHP_VERSION == "7.2" ||$TRAVIS_PHP_VERSION == "7.3" || $TRAVIS_PHP_VERSION == "7.4" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
-     export EXTRA_CHECKS=1
-    fi
+before_install:
   # Speed up build time by disabling Xdebug when its not needed.
   - if [[ $COVERAGE != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
   ## Packages
@@ -39,34 +35,28 @@ before_install:
 before_script:
   ## Composer
   - composer self-update
-  - if [[ "$EXTRA_CHECKS" == "1" ]]; then mv -f composer.7.2.json composer.json; fi
   - if [[ $TRAVIS_PHP_VERSION != "nightly" ]]; then COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist; fi
   - if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --ignore-platform-reqs; fi
+  ## PHPDocumentor
+  ## - mkdir -p build/docs
+  ## - mkdir -p build/coverage
 
 script:
   # Search for PHP syntax errors.
   - find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
   ## PHPUnit
-  - if [[ "$COVERAGE" == "1" && $TRAVIS_PHP_VERSION == "7.2" ]]; then phpunit -c phpunit.xml.dist --coverage-text --coverage-html ./build/coverage; fi
-  - if [[ "$COVERAGE" == "1" && $TRAVIS_PHP_VERSION != "7.2" ]]; then ./vendor/bin/phpunit -c phpunit.xml.dist --coverage-text --coverage-html ./build/coverage; fi
-  - if [[ "$COVERAGE" != "1" ]]; then ./vendor/bin/phpunit -c phpunit.xml.dist; fi
+  - if [[ "$COVERAGE" == "1" && $TRAVIS_PHP_VERSION == "7.2" ]]; then phpunit -c ./unitTests/ --coverage-text --coverage-html ./build/coverage; fi
+  - if [[ "$COVERAGE" == "1" && $TRAVIS_PHP_VERSION != "7.2" ]]; then ./vendor/bin/phpunit -c ./unitTests/ --coverage-text --coverage-html ./build/coverage; fi
+  - if [[ "$COVERAGE" != "1" ]]; then ./vendor/bin/phpunit -c ./unitTests/; fi
   # Validate the composer.json file.
   # @link https://getcomposer.org/doc/03-cli.md#validate
   - composer validate --no-check-all
   ## PHP_CodeSniffer
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1; fi
-  ## PHP Copy/Paste Detector
-  # - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpcpd ./classes/src/; fi
   ## PHP Mess Detector
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpmd ./classes/src/ text ./phpmd.xml.dist; fi
   ## PHPLOC
   - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phploc ./classes/src/; fi
-  ## PHPDocumentor
-  ## - if [[ "$EXTRA_CHECKS" == "1" ]]; then ./vendor/bin/phpdoc -q -d ./classes/src -t ./build/docs --template="responsive-twig"; fi
-  ## PHPStan
-  - if [[ "$EXTRA_CHECKS" == "1" ]]; then composer phpstan; fi
-  ## Infection
-  # - if [[ "$EXTRA_CHECKS" == "1" ]]; then composer infection; fi
 
 notifications:
   email: false
