@@ -388,7 +388,7 @@ class Matrix
     {
         $functionName = strtolower(str_replace('_', '', $functionName));
 
-        if (in_array($functionName, self::$functions) || in_array($functionName, self::$operations)) {
+        if (in_array($functionName, self::$functions, true) || in_array($functionName, self::$operations, true)) {
             $functionName = "\\" . __NAMESPACE__ . "\\{$functionName}";
             if (is_callable($functionName)) {
                 $arguments = array_values(array_merge([$this], $arguments));
