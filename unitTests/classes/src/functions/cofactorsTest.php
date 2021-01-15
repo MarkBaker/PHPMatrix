@@ -3,6 +3,7 @@
 namespace MatrixTest\Functions;
 
 use Matrix\Matrix;
+use Matrix\Functions as MatrixFunctions;
 use MatrixTest\BaseTestAbstract;
 use function Matrix\cofactors;
 
@@ -16,7 +17,7 @@ class cofactorsTest extends BaseTestAbstract
     public function testCofactors($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = Functions::cofactors($matrix);
+        $result = MatrixFunctions::cofactors($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

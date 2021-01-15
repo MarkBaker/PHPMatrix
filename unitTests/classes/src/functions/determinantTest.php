@@ -4,6 +4,7 @@ namespace MatrixTest\Functions;
 
 use Matrix\Exception;
 use Matrix\Matrix;
+use Matrix\Functions as MatrixFunctions;
 use MatrixTest\BaseTestAbstract;
 use function Matrix\determinant;
 
@@ -17,7 +18,7 @@ class determinantTest extends BaseTestAbstract
     public function testDeterminant($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = Functions::determinant($matrix);
+        $result = MatrixFunctions::determinant($matrix);
 
         $this->assertEquals($expected, $result);
         // Verify that the original matrix remains unchanged

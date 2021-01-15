@@ -2,7 +2,7 @@
 
 namespace MatrixTest\Functions;
 
-use Matrix\Functions;
+use Matrix\Functions as MatrixFunctions;
 use Matrix\Matrix;
 use function Matrix\transpose;
 use MatrixTest\BaseTestAbstract;
@@ -17,7 +17,7 @@ class transposeTest extends BaseTestAbstract
     public function testTranspose($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = Functions::transpose($matrix);
+        $result = MatrixFunctions::transpose($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
