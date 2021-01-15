@@ -1,10 +1,10 @@
 <?php
 
-namespace Matrix\Test\functions;
+namespace MatrixTest\Functions;
 
 use Matrix\Exception;
 use Matrix\Matrix;
-use Matrix\Test\BaseTestAbstract;
+use MatrixTest\BaseTestAbstract;
 use function Matrix\adjoint;
 use function Matrix\antidiagonal;
 use function Matrix\cofactors;

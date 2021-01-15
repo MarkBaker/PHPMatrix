@@ -1,9 +1,10 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
 use Matrix\Functions;
 use Matrix\Matrix;
+use MatrixTest\BaseTestAbstract;
 
 class minorsTest extends BaseTestAbstract
 {

@@ -1,8 +1,9 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Operations;
 
 use Matrix\Matrix;
+use MatrixTest\BaseTestAbstract;
 
 class addTest extends BaseTestAbstract
 {

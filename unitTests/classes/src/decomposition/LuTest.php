@@ -1,9 +1,10 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Decomposition;
 
 use Matrix\Decomposition\LU;
 use Matrix\Matrix as Matrix;
+use MatrixTest\BaseTestAbstract;
 
 class LuTest extends BaseTestAbstract
 {

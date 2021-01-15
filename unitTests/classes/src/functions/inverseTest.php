@@ -1,8 +1,9 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
 use Matrix\Matrix;
+use MatrixTest\BaseTestAbstract;
 use function Matrix\inverse;
 
 class inverseTest extends BaseTestAbstract

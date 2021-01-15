@@ -1,8 +1,9 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
 use Matrix\Matrix;
+use MatrixTest\BaseTestAbstract;
 use function Matrix\identity;
 
 class identityTest extends BaseTestAbstract

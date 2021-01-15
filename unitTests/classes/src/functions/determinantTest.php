@@ -1,9 +1,10 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
 use Matrix\Exception;
 use Matrix\Matrix;
+use MatrixTest\BaseTestAbstract;
 use function Matrix\determinant;
 
 class determinantTest extends BaseTestAbstract

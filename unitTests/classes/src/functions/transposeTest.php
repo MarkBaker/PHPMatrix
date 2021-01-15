@@ -1,10 +1,11 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
 use Matrix\Functions;
 use Matrix\Matrix;
 use function Matrix\transpose;
+use MatrixTest\BaseTestAbstract;
 
 class transposeTest extends BaseTestAbstract
 {
