@@ -2,6 +2,7 @@
 
 namespace MatrixTest\Functions;
 
+use Matrix\Exception;
 use Matrix\Matrix;
 use Matrix\Functions as MatrixFunctions;
 use MatrixTest\BaseTestAbstract;

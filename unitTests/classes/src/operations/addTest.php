@@ -4,6 +4,7 @@ namespace MatrixTest\Operations;
 
 use Matrix\Matrix;
 use MatrixTest\BaseTestAbstract;
+use function Matrix\add;
 
 class addTest extends BaseTestAbstract
 {
