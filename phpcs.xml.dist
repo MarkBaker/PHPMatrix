@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
-<ruleset name="PHPMatrix">
+<ruleset
+    name="PHPMatrix"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
+>
     <description>The code standard for PHPMatrix is PSR2.</description>
+
+    <!-- ##### Coding Standard check #####-->
+    <rule ref="PSR2"/>
 
     <!--
     #############################################################################
@@ -34,13 +41,8 @@
     -->
 
     <!-- ##### Check PHP cross-version compatibility ##### -->
-    <config name="testVersion" value="5.6-"/>
-    <rule ref="PHPCompatibility"/>
-
-
-    <!-- ##### Coding Standard check #####-->
-    <rule ref="PSR2"/>
-
+    <rule ref="PHPCompatibility" />
+    <config name="testVersion" value="7.2"/>
 
     <!--
     #############################################################################
