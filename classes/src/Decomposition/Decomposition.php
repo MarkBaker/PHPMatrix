@@ -2,16 +2,16 @@
 
 namespace Matrix\Decomposition;
 
+use Matrix\Exception;
 use Matrix\Matrix;
 
 class Decomposition
 {
     const LU = 'LU';
     const QR = 'QR';
-    const CHOLESKY = 'CHOLESKY';
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public static function decomposition($type, Matrix $matrix)
     {
@@ -21,7 +21,7 @@ class Decomposition
             case self::QR:
                 return new QR($matrix);
             default:
-                throw new \Exception('Invalid Decomposition');
+                throw new Exception('Invalid Decomposition');
         }
     }
 }

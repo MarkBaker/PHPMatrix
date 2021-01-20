@@ -21,18 +21,38 @@ class QR
         $this->decompose();
     }
 
+    public function getHouseholdVectors()
+    {
+        $householdVectors = [];
+        for ($row = 0; $row < $this->rows; ++$row) {
+            for ($column = 0; $column < $this->columns; ++$column) {
+                if ($row >= $column) {
+                    $householdVectors[$row][$column] = $this->qrMatrix[$row][$column];
+                } else {
+                    $householdVectors[$row][$column] = 0.0;
+                }
+            }
+        }
+
+        return new Matrix($householdVectors);
+    }
+
     public function getQ()
     {
         $qGrid = [];
 
+        $rowCount = $this->rows;
         for ($k = $this->columns - 1; $k >= 0; --$k) {
             for ($i = 0; $i < $this->rows; ++$i) {
                 $qGrid[$i][$k] = 0.0;
             }
             $qGrid[$k][$k] = 1.0;
+            if ($this->columns > $this->rows) {
+                $qGrid = array_slice($qGrid, 0, $this->rows);
+            }
 
             for ($j = $k; $j < $this->columns; ++$j) {
-                if (isset($this->qrMatrix[$k][$k]) && $this->qrMatrix[$k][$k] !== 0.0) {
+                if (isset($this->qrMatrix[$k], $this->qrMatrix[$k][$k]) && $this->qrMatrix[$k][$k] != 0.0) {
                     $s = 0.0;
                     for ($i = $k; $i < $this->rows; ++$i) {
                         $s += $this->qrMatrix[$i][$k] * $qGrid[$i][$j];
@@ -47,9 +67,9 @@ class QR
 
         array_walk(
             $qGrid,
-            function (&$row) {
+            function (&$row) use ($rowCount) {
                 $row = array_reverse($row);
-                $row[] = -1.0 * array_pop($row);
+                $row = array_slice($row, 0, $rowCount);
             }
         );
 
@@ -60,16 +80,20 @@ class QR
     {
         $rGrid = [];
 
-        for ($column = 0; $column < $this->columns; ++$column) {
-            for ($row = 0; $row < $this->rows; ++$row) {
-                if ($column < $row) {
-                    $rGrid[$column][$row] = isset($this->qrMatrix[$column][$row]) ? $this->qrMatrix[$column][$row] : 0.0;
-                } elseif ($column === $row) {
-                    $rGrid[$column][$row] = $this->rDiagonal[$column];
+        for ($row = 0; $row < $this->columns; ++$row) {
+            for ($column = 0; $column < $this->columns; ++$column) {
+                if ($row < $column) {
+                    $rGrid[$row][$column] = $this->qrMatrix[$row][$column] ?? 0.0;
+                } elseif ($row === $column) {
+                    $rGrid[$row][$column] = $this->rDiagonal[$row] ?? 0.0;
                 } else {
-                    $rGrid[$column][$row] = 0.0;
+                    $rGrid[$row][$column] = 0.0;
                 }
             }
+        }
+
+        if ($this->columns > $this->rows) {
+            $rGrid = array_slice($rGrid, 0, $this->rows);
         }
 
         return new Matrix($rGrid);
@@ -80,7 +104,7 @@ class QR
         if (abs($a) > abs($b)) {
             $r = $b / $a;
             $r = abs($a) * sqrt(1 + $r * $r);
-        } elseif ($b != 0) {
+        } elseif ($b != 0.0) {
             $r = $a / $b;
             $r = abs($b) * sqrt(1 + $r * $r);
         } else {
@@ -90,21 +114,24 @@ class QR
         return $r;
     }
 
+    /**
+     * QR Decomposition computed by Householder reflections.
+     */
     private function decompose()
     {
         for ($k = 0; $k < $this->columns; ++$k) {
             // Compute 2-norm of k-th column without under/overflow.
-            $nrm = 0.0;
+            $norm = 0.0;
             for ($i = $k; $i < $this->rows; ++$i) {
-                $nrm = $this->hypo($nrm, $this->qrMatrix[$i][$k]);
+                $norm = $this->hypo($norm, $this->qrMatrix[$i][$k]);
             }
-            if ($nrm !== 0.0) {
+            if ($norm != 0.0) {
                 // Form k-th Householder vector.
                 if ($this->qrMatrix[$k][$k] < 0.0) {
-                    $nrm = -$nrm;
+                    $norm = -$norm;
                 }
                 for ($i = $k; $i < $this->rows; ++$i) {
-                    $this->qrMatrix[$i][$k] /= $nrm;
+                    $this->qrMatrix[$i][$k] /= $norm;
                 }
                 $this->qrMatrix[$k][$k] += 1.0;
                 // Apply transformation to remaining columns.
@@ -119,7 +146,7 @@ class QR
                     }
                 }
             }
-            $this->rDiagonal[$k] = -$nrm;
+            $this->rDiagonal[$k] = -$norm;
         }
     }
 }

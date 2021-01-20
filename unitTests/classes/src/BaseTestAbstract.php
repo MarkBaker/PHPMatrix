@@ -7,6 +7,8 @@ use PHPUnit\Framework\TestCase;
 
 abstract class BaseTestAbstract extends TestCase
 {
+    protected const PRECISION = 1.0e-15;
+
     protected function assertIsMatrixObject($object)
     {
         self::assertInstanceOf(Matrix::class, $object);
@@ -21,8 +23,18 @@ abstract class BaseTestAbstract extends TestCase
 
     protected function assertMatrixValues(Matrix $matrix, $rows, $columns, array $grid)
     {
-        self::assertEquals($rows, $matrix->rows);
-        self::assertEquals($columns, $matrix->columns);
-        self::assertEquals($grid, $matrix->toArray());
+        self::assertEquals($rows, $matrix->rows, 'Row mismatch');
+        self::assertEquals($columns, $matrix->columns, 'Column mismatch');
+
+        $matrixGrid = $matrix->toArray();
+        foreach ($grid as $row => $vector) {
+            foreach($vector as $column => $expectedValue) {
+                self::assertSame(
+                    $expectedValue,
+                    $matrixGrid[$row][$column],
+                    "Invalid result at row {$row} and column {$column}"
+                );
+            }
+        }
     }
 }
