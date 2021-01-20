@@ -28,7 +28,7 @@ abstract class BaseTestAbstract extends TestCase
 
         $matrixGrid = $matrix->toArray();
         foreach ($grid as $row => $vector) {
-            foreach($vector as $column => $expectedValue) {
+            foreach ($vector as $column => $expectedValue) {
                 self::assertSame(
                     (float) $expectedValue,
                     (float) $matrixGrid[$row][$column],
