@@ -30,8 +30,8 @@ abstract class BaseTestAbstract extends TestCase
         foreach ($grid as $row => $vector) {
             foreach($vector as $column => $expectedValue) {
                 self::assertSame(
-                    $expectedValue,
-                    $matrixGrid[$row][$column],
+                    (float) $expectedValue,
+                    (float) $matrixGrid[$row][$column],
                     "Invalid result at row {$row} and column {$column}"
                 );
             }
