@@ -1,8 +1,11 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
+use Matrix\Exception;
 use Matrix\Matrix;
+use Matrix\Functions as MatrixFunctions;
+use MatrixTest\BaseTestAbstract;
 use function Matrix\identity;
 
 class identityTest extends BaseTestAbstract
@@ -15,7 +18,7 @@ class identityTest extends BaseTestAbstract
     public function testIdentity($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = Functions::identity($matrix);
+        $result = MatrixFunctions::identity($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

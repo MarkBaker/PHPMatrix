@@ -1,9 +1,11 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
 use Matrix\Exception;
 use Matrix\Matrix;
+use Matrix\Functions as MatrixFunctions;
+use MatrixTest\BaseTestAbstract;
 use function Matrix\antidiagonal;
 
 class antidiagonalTest extends BaseTestAbstract
@@ -16,7 +18,7 @@ class antidiagonalTest extends BaseTestAbstract
     public function testAntidiagonal($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = Functions::antidiagonal($matrix);
+        $result = MatrixFunctions::antidiagonal($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

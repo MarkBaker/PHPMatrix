@@ -1,8 +1,11 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
+use Matrix\Exception;
 use Matrix\Matrix;
+use Matrix\Functions as MatrixFunctions;
+use MatrixTest\BaseTestAbstract;
 use function Matrix\diagonal;
 
 class diagonalTest extends BaseTestAbstract
@@ -15,7 +18,7 @@ class diagonalTest extends BaseTestAbstract
     public function testDiagonal($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = Functions::diagonal($matrix);
+        $result = MatrixFunctions::diagonal($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

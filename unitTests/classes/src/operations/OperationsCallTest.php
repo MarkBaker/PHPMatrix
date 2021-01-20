@@ -1,11 +1,10 @@
 <?php
 
-namespace Matrix\Test\functions;
+namespace MatrixTest\Operations;
 
 use Matrix\Exception;
 use Matrix\Matrix;
-use Matrix\Operators\DirectSum;
-use Matrix\Test\BaseTestAbstract;
+use MatrixTest\BaseTestAbstract;
 use function Matrix\add;
 use function Matrix\directsum;
 use function Matrix\divideby;

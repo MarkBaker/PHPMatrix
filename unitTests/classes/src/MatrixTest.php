@@ -1,6 +1,6 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest;
 
 use Matrix\Exception;
 use Matrix\Matrix;
