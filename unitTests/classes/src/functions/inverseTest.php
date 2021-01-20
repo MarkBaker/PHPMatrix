@@ -1,8 +1,11 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
+use Matrix\Exception;
 use Matrix\Matrix;
+use Matrix\Functions as MatrixFunctions;
+use MatrixTest\BaseTestAbstract;
 use function Matrix\inverse;
 
 class inverseTest extends BaseTestAbstract
@@ -15,7 +18,7 @@ class inverseTest extends BaseTestAbstract
     public function testInverse($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = Functions::inverse($matrix);
+        $result = MatrixFunctions::inverse($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

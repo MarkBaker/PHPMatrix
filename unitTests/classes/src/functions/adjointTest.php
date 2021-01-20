@@ -1,9 +1,11 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
 use Matrix\Exception;
+use Matrix\Functions as MatrixFunctions;
 use Matrix\Matrix;
+use MatrixTest\BaseTestAbstract;
 use function Matrix\adjoint;
 
 class adjointTest extends BaseTestAbstract
@@ -16,7 +18,7 @@ class adjointTest extends BaseTestAbstract
     public function testAdjoint($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = Functions::adjoint($matrix);
+        $result = MatrixFunctions::adjoint($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

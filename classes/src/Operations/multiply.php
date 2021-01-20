@@ -2,7 +2,7 @@
 
 /**
  *
- * Function code for the matrix subtraction operation
+ * Function code for the matrix multiplication operation
  *
  * @copyright  Copyright (c) 2018 Mark Baker (https://github.com/MarkBaker/PHPMatrix)
  * @license    https://opensource.org/licenses/MIT    MIT
@@ -10,19 +10,19 @@
 
 namespace Matrix;
 
-use Matrix\Operators\Subtraction;
+use Matrix\Operators\Multiplication;
 
 /**
- * Subtracts two or more matrices
+ * Multiplies two or more matrices
  *
- * @param array<int, mixed> $matrixValues The matrices to subtract
+ * @param array<int, mixed> $matrixValues The matrices to multiply
  * @return Matrix
  * @throws Exception
  */
-function subtract(...$matrixValues)
+function multiply(...$matrixValues): Matrix
 {
     if (count($matrixValues) < 2) {
-        throw new Exception('Subtraction operation requires at least 2 arguments');
+        throw new Exception('Multiplication operation requires at least 2 arguments');
     }
 
     $matrix = array_shift($matrixValues);
@@ -31,10 +31,10 @@ function subtract(...$matrixValues)
         $matrix = new Matrix($matrix);
     }
     if (!$matrix instanceof Matrix) {
-        throw new Exception('Subtraction arguments must be Matrix or array');
+        throw new Exception('Multiplication arguments must be Matrix or array');
     }
 
-    $result = new Subtraction($matrix);
+    $result = new Multiplication($matrix);
 
     foreach ($matrixValues as $matrix) {
         $result->execute($matrix);

@@ -1,9 +1,12 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
-use Matrix\Functions;
+use Matrix\Exception;
+use Matrix\Functions as MatrixFunctions;
 use Matrix\Matrix;
+use MatrixTest\BaseTestAbstract;
+use function Matrix\trace;
 
 class traceTest extends BaseTestAbstract
 {
@@ -15,7 +18,7 @@ class traceTest extends BaseTestAbstract
     public function testTrace($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = Functions::trace($matrix);
+        $result = MatrixFunctions::trace($matrix);
 
         $this->assertEquals($expected, $result);
         // Verify that the original matrix remains unchanged

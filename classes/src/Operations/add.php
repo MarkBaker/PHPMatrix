@@ -2,7 +2,7 @@
 
 /**
  *
- * Function code for the matrix direct sum operation
+ * Function code for the matrix addition operation
  *
  * @copyright  Copyright (c) 2018 Mark Baker (https://github.com/MarkBaker/PHPMatrix)
  * @license    https://opensource.org/licenses/MIT    MIT
@@ -10,7 +10,7 @@
 
 namespace Matrix;
 
-use Matrix\Operators\DirectSum;
+use Matrix\Operators\Addition;
 
 /**
  * Adds two or more matrices
@@ -19,10 +19,10 @@ use Matrix\Operators\DirectSum;
  * @return Matrix
  * @throws Exception
  */
-function directsum(...$matrixValues)
+function add(...$matrixValues): Matrix
 {
     if (count($matrixValues) < 2) {
-        throw new Exception('DirectSum operation requires at least 2 arguments');
+        throw new Exception('Addition operation requires at least 2 arguments');
     }
 
     $matrix = array_shift($matrixValues);
@@ -31,10 +31,10 @@ function directsum(...$matrixValues)
         $matrix = new Matrix($matrix);
     }
     if (!$matrix instanceof Matrix) {
-        throw new Exception('DirectSum arguments must be Matrix or array');
+        throw new Exception('Addition arguments must be Matrix or array');
     }
 
-    $result = new DirectSum($matrix);
+    $result = new Addition($matrix);
 
     foreach ($matrixValues as $matrix) {
         $result->execute($matrix);

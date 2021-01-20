@@ -1,9 +1,12 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
-use Matrix\Functions;
+use Matrix\Exception;
+use Matrix\Functions as MatrixFunctions;
 use Matrix\Matrix;
+use MatrixTest\BaseTestAbstract;
+use function Matrix\minors;
 
 class minorsTest extends BaseTestAbstract
 {
@@ -15,7 +18,7 @@ class minorsTest extends BaseTestAbstract
     public function testMinors($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = Functions::minors($matrix);
+        $result = MatrixFunctions::minors($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

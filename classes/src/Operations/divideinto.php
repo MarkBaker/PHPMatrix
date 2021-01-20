@@ -4,7 +4,7 @@
  *
  * Function code for the matrix division operation
  *
- * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPComplex)
+ * @copyright  Copyright (c) 2013-2018 Mark Baker (https://github.com/MarkBaker/PHPMatrix)
  * @license    https://opensource.org/licenses/MIT    MIT
  */
 
@@ -15,17 +15,18 @@ use Matrix\Operators\Division;
 /**
  * Divides two or more matrix numbers
  *
- * @param array<int, mixed> $matrixValues The matrices to divide
+ * @param array<int, mixed> $matrixValues The numbers to divide
  * @return Matrix
  * @throws Exception
  */
-function divideby(...$matrixValues)
+function divideinto(...$matrixValues): Matrix
 {
     if (count($matrixValues) < 2) {
         throw new Exception('Division operation requires at least 2 arguments');
     }
 
-    $matrix = array_shift($matrixValues);
+    $matrix = array_pop($matrixValues);
+    $matrixValues = array_reverse($matrixValues);
 
     if (is_array($matrix)) {
         $matrix = new Matrix($matrix);

@@ -2,7 +2,7 @@
 
 /**
  *
- * Function code for the matrix multiplication operation
+ * Function code for the matrix direct sum operation
  *
  * @copyright  Copyright (c) 2018 Mark Baker (https://github.com/MarkBaker/PHPMatrix)
  * @license    https://opensource.org/licenses/MIT    MIT
@@ -10,19 +10,19 @@
 
 namespace Matrix;
 
-use Matrix\Operators\Multiplication;
+use Matrix\Operators\DirectSum;
 
 /**
- * Multiplies two or more matrices
+ * Adds two or more matrices
  *
- * @param array<int, mixed> $matrixValues The matrices to multiply
+ * @param array<int, mixed> $matrixValues The matrices to add
  * @return Matrix
  * @throws Exception
  */
-function multiply(...$matrixValues)
+function directsum(...$matrixValues): Matrix
 {
     if (count($matrixValues) < 2) {
-        throw new Exception('Multiplication operation requires at least 2 arguments');
+        throw new Exception('DirectSum operation requires at least 2 arguments');
     }
 
     $matrix = array_shift($matrixValues);
@@ -31,10 +31,10 @@ function multiply(...$matrixValues)
         $matrix = new Matrix($matrix);
     }
     if (!$matrix instanceof Matrix) {
-        throw new Exception('Multiplication arguments must be Matrix or array');
+        throw new Exception('DirectSum arguments must be Matrix or array');
     }
 
-    $result = new Multiplication($matrix);
+    $result = new DirectSum($matrix);
 
     foreach ($matrixValues as $matrix) {
         $result->execute($matrix);

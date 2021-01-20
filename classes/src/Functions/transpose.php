@@ -2,7 +2,7 @@
 
 /**
  *
- * Function code for the matrix diagonal() function
+ * Function code for the matrix transpose() function
  *
  * @copyright  Copyright (c) 2018 Mark Baker (https://github.com/MarkBaker/PHPMatrix)
  * @license    https://opensource.org/licenses/MIT    MIT
@@ -11,13 +11,13 @@
 namespace Matrix;
 
 /**
- * Returns the diagonal of a matrix or an array.
+ * Returns the transpose of a matrix or an array.
  *
  * @param Matrix|array $matrix Matrix or an array to treat as a matrix.
- * @return Matrix The new matrix
+ * @return Matrix The transposed matrix
  * @throws Exception If argument isn't a valid matrix or array.
  */
-function diagonal($matrix)
+function transpose($matrix): Matrix
 {
     if (is_array($matrix)) {
         $matrix = new Matrix($matrix);
@@ -26,5 +26,5 @@ function diagonal($matrix)
         throw new Exception('Must be Matrix or array');
     }
 
-    return Functions::diagonal($matrix);
+    return Functions::transpose($matrix);
 }

@@ -2,7 +2,7 @@
 
 /**
  *
- * Function code for the matrix inverse() function
+ * Function code for the matrix determinant() function
  *
  * @copyright  Copyright (c) 2018 Mark Baker (https://github.com/MarkBaker/PHPMatrix)
  * @license    https://opensource.org/licenses/MIT    MIT
@@ -11,13 +11,13 @@
 namespace Matrix;
 
 /**
- * Returns the inverse of a matrix or an array.
+ * Returns the determinant of a matrix or an array.
  *
  * @param Matrix|array $matrix Matrix or an array to treat as a matrix.
- * @return Matrix The new matrix
+ * @return float Matrix determinant
  * @throws Exception If argument isn't a valid matrix or array.
  */
-function inverse($matrix)
+function determinant($matrix): float
 {
     if (is_array($matrix)) {
         $matrix = new Matrix($matrix);
@@ -26,5 +26,5 @@ function inverse($matrix)
         throw new Exception('Must be Matrix or array');
     }
 
-    return Functions::inverse($matrix);
+    return Functions::determinant($matrix);
 }

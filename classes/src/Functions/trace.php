@@ -2,7 +2,7 @@
 
 /**
  *
- * Function code for the matrix identity() function
+ * Function code for the matrix trace() function
  *
  * @copyright  Copyright (c) 2018 Mark Baker (https://github.com/MarkBaker/PHPMatrix)
  * @license    https://opensource.org/licenses/MIT    MIT
@@ -11,13 +11,13 @@
 namespace Matrix;
 
 /**
- * Returns the identity of a matrix or an array.
+ * Returns the trace of a matrix or an array.
  *
  * @param Matrix|array $matrix Matrix or an array to treat as a matrix.
- * @return Matrix The identity matrix
+ * @return float The trace of the matrix
  * @throws Exception If argument isn't a valid matrix or array.
  */
-function identity($matrix)
+function trace($matrix): float
 {
     if (is_array($matrix)) {
         $matrix = new Matrix($matrix);
@@ -26,5 +26,5 @@ function identity($matrix)
         throw new Exception('Must be Matrix or array');
     }
 
-    return Functions::identity($matrix);
+    return Functions::trace($matrix);
 }
