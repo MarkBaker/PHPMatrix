@@ -33,6 +33,7 @@ namespace Matrix;
  * @method Matrix multiply(...$matrices)
  * @method Matrix divideby(...$matrices)
  * @method Matrix divideinto(...$matrices)
+ * @method Matrix directsum(...$matrices)
  */
 class Matrix
 {

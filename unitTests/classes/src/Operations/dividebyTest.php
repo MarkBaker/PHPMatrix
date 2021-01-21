@@ -1,19 +1,21 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Operations;
 
 use Matrix\Matrix;
+use MatrixTest\BaseTestAbstract;
+use function Matrix\divideby;
 
-class directsumTest extends BaseTestAbstract
+class dividebyTest extends BaseTestAbstract
 {
-    protected static $operationName = 'directsum';
+    protected static $operationName = 'divideby';
 
     /**
      * @dataProvider dataProvider
      */
-    public function testDirectSumFunction($expected, $value1, $value2)
+    public function testDivideByFunction($expected, $value1, $value2)
     {
-        $result = directsum($value1, $value2);
+        $result = divideby($value1, $value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
@@ -24,10 +26,10 @@ class directsumTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testDirectSumInvoker($expected, $value1, $value2)
+    public function testDivideByInvoker($expected, $value1, $value2)
     {
         $matrix = new Matrix($value1);
-        $result = $matrix->directsum($value2);
+        $result = $matrix->divideby($value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($matrix);
@@ -41,8 +43,8 @@ class directsumTest extends BaseTestAbstract
     {
         return [
             [
-                [[1, 2, 3, 0, 0], [4, 5, 6, 0, 0], [0, 0, 0, 7, 8], [0, 0, 0, 9, 10]],
-                [[1, 2, 3], [4, 5, 6]], [[7, 8], [9, 10]],
+                [[2.5, -1.0], [6.0, -2.5]],
+                [[1, 2], [3, 4]], [[-2, 4], [-6, 8]],
             ],
         ];
     }

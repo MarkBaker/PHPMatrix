@@ -1,19 +1,21 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Operations;
 
 use Matrix\Matrix;
+use MatrixTest\BaseTestAbstract;
+use function Matrix\directsum;
 
-class addTest extends BaseTestAbstract
+class directsumTest extends BaseTestAbstract
 {
-    protected static $operationName = 'addition';
+    protected static $operationName = 'directsum';
 
     /**
      * @dataProvider dataProvider
      */
-    public function testAdditionFunction($expected, $value1, $value2)
+    public function testDirectSumFunction($expected, $value1, $value2)
     {
-        $result = add($value1, $value2);
+        $result = directsum($value1, $value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
@@ -24,10 +26,10 @@ class addTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testAdditionInvoker($expected, $value1, $value2)
+    public function testDirectSumInvoker($expected, $value1, $value2)
     {
         $matrix = new Matrix($value1);
-        $result = $matrix->add($value2);
+        $result = $matrix->directsum($value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($matrix);
@@ -41,8 +43,8 @@ class addTest extends BaseTestAbstract
     {
         return [
             [
-                [[-1, 6], [-3, 12]],
-                [[1, 2], [3, 4]], [[-2, 4], [-6, 8]],
+                [[1, 2, 3, 0, 0], [4, 5, 6, 0, 0], [0, 0, 0, 7, 8], [0, 0, 0, 9, 10]],
+                [[1, 2, 3], [4, 5, 6]], [[7, 8], [9, 10]],
             ],
         ];
     }

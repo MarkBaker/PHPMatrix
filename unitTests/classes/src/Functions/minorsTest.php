@@ -1,22 +1,24 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
 use Matrix\Exception;
+use Matrix\Functions as MatrixFunctions;
 use Matrix\Matrix;
-use function Matrix\antidiagonal;
+use MatrixTest\BaseTestAbstract;
+use function Matrix\minors;
 
-class antidiagonalTest extends BaseTestAbstract
+class minorsTest extends BaseTestAbstract
 {
-    protected static $functionName = 'antidiagonal';
+    protected static $functionName = 'minors';
 
     /**
      * @dataProvider dataProvider
      */
-    public function testAntidiagonal($expected, $grid)
+    public function testMinors($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = Functions::antidiagonal($matrix);
+        $result = MatrixFunctions::minors($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
@@ -29,10 +31,10 @@ class antidiagonalTest extends BaseTestAbstract
     /**
      * @dataProvider dataProviderSingle
      */
-    public function testAntidiagonalFunction($expected, $grid)
+    public function testMinorsFunction($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = antidiagonal($matrix);
+        $result = minors($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
@@ -45,10 +47,10 @@ class antidiagonalTest extends BaseTestAbstract
     /**
      * @dataProvider dataProviderSingle
      */
-    public function testAntidiagonalInvoker($expected, $grid)
+    public function testMinorsInvoker($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = $matrix->antidiagonal();
+        $result = $matrix->minors();
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($matrix);
@@ -62,31 +64,51 @@ class antidiagonalTest extends BaseTestAbstract
     {
         return [
             [
-                [[-1]],
-                [[-1]],
-            ],
-            [
-                [[null, 2], [3, null]],
+                [[4, 3], [2, 1]],
                 [[1, 2], [3, 4]],
             ],
             [
-                [[null, null, 6], [null, 5, null], [4, null, null]],
-                [[8, 1, 6], [3, 5, 7], [4, 9, 2]],
+                [[3, 4], [5, 2]],
+                [[2, 5], [4, 3]],
             ],
             [
-                [[null, null, 7], [null, 4, null], [-8, null, null]],
-                [[9, -6, 7], [-9, 4, 0], [-8, -6, 4]],
+                [[6, 4], [8, 3]],
+                [[3, 8], [4, 6]],
             ],
             [
-                [[null, null, 3.4], [null, 5.6, null], [7.8, null, null]],
+                [[-53, -22, 7], [-52, -8, 68], [-23, 38, 37]],
+                [[8, 1, 6], [3, 5, 7], [4, 9, 2]]
+            ],
+            [
+                [[-2, 0, 1], [9, 2, -3], [5, 1, -2]],
+                [[1, 3, 1], [1, 1, 2], [2, 3, 4]],
+            ],
+            [
+                [[15, -8, -25], [9, -14, -15], [-17, 6, 13]],
+                [[2, 3, 4], [-1, 5, 1], [5, 0, 3]],
+            ],
+            [
+                [[16, 18, -28], [-36, 92, 63], [86, -102, -18]],
+                [[9, -9, -8], [-6, 4, -6], [7, 0, 4]],
+            ],
+            [
+                [[-9.23, 11.76, -3.63], [9.56, -15.72, 7.26], [-3.63, 7.26, -3.63]],
                 [[1.2, -2.3, 3.4], [-4.5, 5.6, -6.7], [7.8, -8.9, 9.0]],
             ],
             [
-                [[null, null, -3.45], [null, -5.67, null], [-7.89, null, null]],
+                [[-9.2553, 12.4086, -4.1523], [9.6216, -16.1382, 7.5156], [-3.6963, 7.3926, -3.6963]],
                 [[-1.23, 2.34, -3.45], [4.56, -5.67, 6.78], [-7.89, 8.90, -9.01]],
             ],
             [
-                [[null, null, null, 4], [null, null, 7, null], [null, 10, null, null], [13, null, null, null]],
+                [[-106, 136, 170, -132], [-88, -242, -220, -66], [-110, -220, -110, 0], [-92, 62, 160, 66]],
+                [[1, 2, 3, 4], [12, 13, 14, 5], [11, 16, 15, 6], [10, 9, 8, 7]],
+            ],
+            [
+                [[-60, 74, 78, -24], [-41, -29, 75, 27], [39, 17, -29, 59], [152, 44, -24, -26]],
+                [[1, 4, -1, 0], [2, 3, 5, -2], [0, 3, 1, 6], [3, 0, 2, 1]],
+            ],
+            [
+                [[-136, 408, 408, -136], [408, -1224, -1224, 408], [408, -1224, -1224, 408], [-136, 408, 408, -136]],
                 [[1, 15, 14, 4], [12, 6, 7, 9], [8, 10, 11, 5], [13, 3, 2, 16]],
             ],
         ];
@@ -98,12 +120,12 @@ class antidiagonalTest extends BaseTestAbstract
         return [array_pop($tests)];
     }
 
-    public function testAntidiagonalInvalid()
+    public function testMinorsInvalid()
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Anti-Diagonal can only be extracted from a square matrix');
+        $this->expectExceptionMessage('Minors can only be calculated for a square matrix');
 
         $matrix = new Matrix([[1, 2, 3], [4, 5, 6]]);
-        $matrix->antidiagonal();
+        $result = $matrix->minors();
     }
 }

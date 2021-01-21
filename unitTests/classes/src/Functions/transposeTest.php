@@ -1,21 +1,23 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Functions;
 
+use Matrix\Functions as MatrixFunctions;
 use Matrix\Matrix;
-use function Matrix\identity;
+use MatrixTest\BaseTestAbstract;
+use function Matrix\transpose;
 
-class identityTest extends BaseTestAbstract
+class transposeTest extends BaseTestAbstract
 {
-    protected static $functionName = 'identity';
+    protected static $functionName = 'transpose';
 
     /**
      * @dataProvider dataProvider
      */
-    public function testIdentity($expected, $grid)
+    public function testTranspose($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = Functions::identity($matrix);
+        $result = MatrixFunctions::transpose($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
@@ -28,10 +30,10 @@ class identityTest extends BaseTestAbstract
     /**
      * @dataProvider dataProviderSingle
      */
-    public function testIdentityFunction($expected, $grid)
+    public function testTransposeFunction($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = identity($matrix);
+        $result = transpose($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
@@ -44,10 +46,10 @@ class identityTest extends BaseTestAbstract
     /**
      * @dataProvider dataProviderSingle
      */
-    public function testIdentityInvoker($expected, $grid)
+    public function testTransposeInvoker($expected, $grid)
     {
         $matrix = new Matrix($grid);
-        $result = $matrix->identity();
+        $result = $matrix->transpose();
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($matrix);
@@ -60,18 +62,13 @@ class identityTest extends BaseTestAbstract
     public function dataProvider()
     {
         return [
-            [
-                [[1]],
-                [[1]],
-            ],
-            [
-                [[1, null], [null, 1]],
-                [[1, 2], [3, 4]],
-            ],
-            [
-                [[1, null, null], [null, 1, null], [null, null, 1]],
-                [[8, 1, 6], [3, 5, 7], [4, 9, 2]],
-            ],
+            // phpcs:disable Generic.Files.LineLength
+            [[[1, 3], [2, 4]],                                                  [[1, 2], [3, 4]]],
+            [[[8, 3, 4], [1, 5, 9], [6, 7, 2]],                                 [[8, 1, 6], [3, 5, 7], [4, 9, 2]]],
+            [[[9, -9, -8], [-6, 4, -6], [7, 0, 4]],                             [[9, -6, 7], [-9, 4, 0], [-8, -6, 4]]],
+            [[[1.2, -4.5, 7.8], [-2.3, 5.6, -8.9], [3.4, -6.7, 9.0]],           [[1.2, -2.3, 3.4], [-4.5, 5.6, -6.7], [7.8, -8.9, 9.0]]],
+            [[[-1.23, 4.56, -7.89], [2.34, -5.67, 8.90], [-3.45, 6.78, -9.01]], [[-1.23, 2.34, -3.45], [4.56, -5.67, 6.78], [-7.89, 8.90, -9.01]]]
+            // phpcs:enable
         ];
     }
 
@@ -79,14 +76,5 @@ class identityTest extends BaseTestAbstract
     {
         $tests = $this->dataProvider();
         return [array_pop($tests)];
-    }
-
-    public function testIdentityInvalid()
-    {
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Identity can only be created for a square matrix');
-
-        $matrix = new Matrix([[1,2,3], [4,5,6]]);
-        $result = $matrix->identity();
     }
 }
