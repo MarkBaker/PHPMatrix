@@ -26,7 +26,7 @@ class LU
      *
      * @return Matrix Lower triangular factor
      */
-    public function getL()
+    public function getL(): Matrix
     {
         $lower = [];
 
@@ -51,7 +51,7 @@ class LU
      *
      * @return Matrix Upper triangular factor
      */
-    public function getU()
+    public function getU(): Matrix
     {
         $upper = [];
 
@@ -74,7 +74,7 @@ class LU
      *
      * @return Matrix Pivot matrix
      */
-    public function getP()
+    public function getP(): Matrix
     {
         $pMatrix = [];
 
@@ -93,7 +93,7 @@ class LU
      *
      * @return array Pivot vector
      */
-    public function getPivot()
+    public function getPivot(): array
     {
         return $this->pivot;
     }
@@ -103,7 +103,7 @@ class LU
      *
      * @return bool true if U, and hence A, is nonsingular
      */
-    public function isNonsingular()
+    public function isNonsingular(): bool
     {
         for ($diagonal = 0; $diagonal < $this->columns; ++$diagonal) {
             if ($this->luMatrix[$diagonal][$diagonal] === 0.0) {
@@ -114,7 +114,7 @@ class LU
         return true;
     }
 
-    private function buildPivot()
+    private function buildPivot(): void
     {
         for ($row = 0; $row < $this->rows; ++$row) {
             $this->pivot[$row] = $row;
@@ -136,7 +136,7 @@ class LU
         }
     }
 
-    private function localisedReferenceColumn($column)
+    private function localisedReferenceColumn($column): array
     {
         $luColumn = [];
 
@@ -147,7 +147,7 @@ class LU
         return $luColumn;
     }
 
-    private function applyTransformations($column, array $luColumn)
+    private function applyTransformations($column, array $luColumn): void
     {
         for ($row = 0; $row < $this->rows; ++$row) {
             $luRow = $this->luMatrix[$row];
@@ -161,7 +161,7 @@ class LU
         }
     }
 
-    private function findPivot($column, array $luColumn)
+    private function findPivot($column, array $luColumn): int
     {
         $pivot = $column;
         for ($row = $column + 1; $row < $this->rows; ++$row) {
@@ -173,7 +173,7 @@ class LU
         return $pivot;
     }
 
-    private function pivotExchange($pivot, $column)
+    private function pivotExchange($pivot, $column): void
     {
         for ($kValue = 0; $kValue < $this->columns; ++$kValue) {
             $tValue = $this->luMatrix[$pivot][$kValue];
@@ -186,7 +186,7 @@ class LU
         $this->pivot[$column] = $lValue;
     }
 
-    private function computeMultipliers($diagonal)
+    private function computeMultipliers($diagonal): void
     {
         if (($diagonal < $this->rows) && ($this->luMatrix[$diagonal][$diagonal] != 0.0)) {
             for ($row = $diagonal + 1; $row < $this->rows; ++$row) {
