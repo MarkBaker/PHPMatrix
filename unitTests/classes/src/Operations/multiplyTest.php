@@ -1,19 +1,21 @@
 <?php
 
-namespace Matrix\Test;
+namespace MatrixTest\Operations;
 
 use Matrix\Matrix;
+use MatrixTest\BaseTestAbstract;
+use function Matrix\multiply;
 
-class divideintoTest extends BaseTestAbstract
+class multiplyTest extends BaseTestAbstract
 {
-    protected static $operationName = 'divideinto';
+    protected static $operationName = 'multiplication';
 
     /**
      * @dataProvider dataProvider
      */
-    public function testDivideIntoFunction($expected, $value1, $value2)
+    public function testMultiplicationFunction($expected, $value1, $value2)
     {
-        $result = divideinto($value1, $value2);
+        $result = multiply($value1, $value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
@@ -24,10 +26,10 @@ class divideintoTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testDivideIntoInvoker($expected, $value1, $value2)
+    public function testMultiplicationInvoker($expected, $value1, $value2)
     {
         $matrix = new Matrix($value1);
-        $result = $matrix->divideinto($value2);
+        $result = $matrix->multiply($value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($matrix);
@@ -41,7 +43,7 @@ class divideintoTest extends BaseTestAbstract
     {
         return [
             [
-                [[10, -4], [24, -10]],
+                [[-14, 20], [-30, 44]],
                 [[1, 2], [3, 4]], [[-2, 4], [-6, 8]],
             ],
         ];
