@@ -67,6 +67,122 @@ class QrTest extends BaseTestAbstract
         $this->assertEquals($matrix, $result);
     }
 
+    /**
+     * @dataProvider solveDataProvider
+     */
+    public function testQRDecompositionSolve($expected, $grid, $target)
+    {
+        $matrix = new Matrix($grid);
+        $decomposition = new QR($matrix);
+        $target = new Matrix($target);
+
+        $result = $decomposition->solve($target);
+        $this->assertEquals($expected, $result->toArray());
+
+        $resolve = $matrix->multiply($result);
+        $this->assertEquals($target, $resolve);
+    }
+
+    public function solveDataProvider()
+    {
+        return [
+            [
+                [
+                    [5],
+                    [3],
+                    [-2]
+                ],
+                [
+                    [1, 1, 1],
+                    [0, 2, 5],
+                    [2, 5, -1],
+                ],
+                [
+                    [6],
+                    [-4],
+                    [27],
+                ],
+            ],
+            [
+                [
+                    [-0.36363636363636476],
+                    [0.9545454545454576],
+                    [-0.31818181818182023]
+                ],
+                [
+                    [-1, 2, 4],
+                    [5, 6, 6],
+                    [-3, 5, 9],
+                ],
+                [
+                    [1],
+                    [2],
+                    [3],
+                ],
+            ],
+            [
+                [
+                    [1.5],
+                    [-3.5],
+                    [0.5]
+                ],
+                [
+                    [1, 0, 1],
+                    [2, 0, 0],
+                    [0, -1, 1],
+                    [0, -2, 0],
+                ],
+                [
+                    [2],
+                    [3],
+                    [4],
+                    [7],
+                ],
+            ],
+            [
+                [
+                    [1.5, 0.0],
+                    [-3.5, -4.0],
+                    [0.5, 1.0]
+                ],
+                [
+                    [1, 0, 1],
+                    [2, 0, 0],
+                    [0, -1, 1],
+                    [0, -2, 0],
+                ],
+                [
+                    [2, 1],
+                    [3, 0],
+                    [4, 5],
+                    [7, 8],
+                ],
+            ],
+            [
+                [
+                    [0.47492549995617495],
+                    [0.34208056076134497],
+                ],
+                [
+                    [1.0, 1.0],
+                    [1.0, 0.7408],
+                    [1.0, 0.4493],
+                    [1.0, 0.3329],
+                    [1.0, 0.2019],
+                    [1.0, 0.1003],
+                ],
+                [
+                    [0.8170060607175199],
+                    [0.7283387793681793],
+                    [0.6286222959062473],
+                    [0.5888041186336267],
+                    [0.5439915651738905],
+                    [0.5092361802005378],
+                ],
+            ],
+        ];
+    }
+
     public function dataProvider()
     {
         return [

@@ -99,6 +99,102 @@ class LuTest extends BaseTestAbstract
         $this->assertEquals($matrix2, $result2);
     }
 
+    /**
+     * @dataProvider solveDataProvider
+     */
+    public function testLUDecompositionSolve($expected, $grid, $target)
+    {
+        $matrix = new Matrix($grid);
+        $decomposition = new LU($matrix);
+        $target = new Matrix($target);
+
+        $result = $decomposition->solve($target);
+        $this->assertEquals($expected, $result->toArray());
+
+        $resolve = $matrix->multiply($result);
+        $this->assertEquals($target, $resolve);
+    }
+
+    public function solveDataProvider()
+    {
+        return [
+            [
+                [
+                    [5],
+                    [3],
+                    [-2]
+                ],
+                [
+                    [1, 1, 1],
+                    [0, 2, 5],
+                    [2, 5, -1],
+                ],
+                [
+                    [6],
+                    [-4],
+                    [27],
+                ],
+            ],
+            [
+                [
+                    [-0.36363636363636476],
+                    [0.9545454545454576],
+                    [-0.31818181818182023]
+                ],
+                [
+                    [-1, 2, 4],
+                    [5, 6, 6],
+                    [-3, 5, 9],
+                ],
+                [
+                    [1],
+                    [2],
+                    [3],
+                ],
+            ],
+            [
+                [
+                    [1.5],
+                    [-3.5],
+                    [0.5],
+                    [0.0],
+                ],
+                [
+                    [1, 0, 1, 0],
+                    [2, 0, 0, 2],
+                    [0, -1, 1, 0],
+                    [0, -2, 0, -2],
+                ],
+                [
+                    [2],
+                    [3],
+                    [4],
+                    [7],
+                ],
+            ],
+            [
+                [
+                    [1.5, 0.0],
+                    [-3.5, -4.0],
+                    [0.5, 1.0],
+                    [0.0, 0.0],
+                ],
+                [
+                    [1, 0, 1, 0],
+                    [2, 0, 0, 2],
+                    [0, -1, 1, 0],
+                    [0, -2, 0, -2],
+                ],
+                [
+                    [2, 1],
+                    [3, 0],
+                    [4, 5],
+                    [7, 8],
+                ],
+            ],
+        ];
+    }
+
     public function dataProvider()
     {
         return [
