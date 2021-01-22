@@ -10,6 +10,9 @@
 
 namespace Matrix;
 
+use Matrix\Decomposition\LU;
+use Matrix\Decomposition\QR;
+
 /**
  * Matrix object.
  *
@@ -329,6 +332,23 @@ class Matrix
     public function toArray(): array
     {
         return $this->grid;
+    }
+
+    /**
+     * Solve A*X = B.
+     *
+     * @param Matrix $B Right hand side
+     *
+     * @throws Exception
+     * @return Matrix ... Solution if A is square, least squares solution otherwise
+     */
+    public function solve(Matrix $B): Matrix
+    {
+        if ($this->columns === $this->rows) {
+            return (new LU($this))->solve($B);
+        }
+
+        return (new QR($this))->solve($B);
     }
 
     protected static $getters = [
