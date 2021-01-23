@@ -1,28 +1,24 @@
 <?php
 
 use Matrix\Matrix;
-use Matrix\Decomposition\LU;
+use Matrix\Decomposition\QR;
 
 include __DIR__ . '/../vendor/autoload.php';
 
 $grid = [
-    [1, 0, 1, 0],
-    [2, 0, 0, 2],
-    [0, -1, 1, 0],
-    [0, -2, 0, -2],
+    [1, 2],
+    [3, 4],
 ];
 
 $targetGrid = [
-    [2, 1],
-    [3, 0],
-    [4, 5],
-    [7, 8],
+    [-1],
+    [-2],
 ];
 
 $matrix = new Matrix($grid);
 $target = new Matrix($targetGrid);
 
-$decomposition = new LU($matrix);
+$decomposition = new QR($matrix);
 
 $X = $decomposition->solve($target);
 
