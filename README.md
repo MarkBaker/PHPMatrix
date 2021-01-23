@@ -5,9 +5,7 @@ PHPMatrix
 
 PHP Class for handling Matrices
 
-Master: [![Build Status](https://travis-ci.org/MarkBaker/PHPMatrix.png?branch=master)](http://travis-ci.org/MarkBaker/PHPMatrix)
-
-Develop: [![Build Status](https://travis-ci.org/MarkBaker/PHPMatrix.png?branch=develop)](http://travis-ci.org/MarkBaker/PHPMatrix)
+[![Build Status](https://travis-ci.org/MarkBaker/PHPMatrix.png?branch=2.0)](http://travis-ci.org/MarkBaker/PHPMatrix)
 
 [![Matrix Transform](https://imgs.xkcd.com/comics/matrix_transform.png)](https://xkcd.com/184/)
 
@@ -37,6 +35,9 @@ together with functions for
  - minors
  - trace
  - transpose
+ - solve
+
+   Given Matrices A and B, calculate X for A.X = B
    
 and classes for
 
@@ -51,10 +52,11 @@ and classes for
 ## TO DO
 
  - power() function
- - EigenValues
- - EigenVectors
  - Decomposition
    - Cholesky Decomposition
+   - EigenValue Decomposition 
+     - EigenValues
+     - EigenVectors
 
 ---
 
