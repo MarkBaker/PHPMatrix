@@ -212,6 +212,8 @@ class LU
      *
      * @param Matrix $B a Matrix with as many rows as A and any number of columns
      *
+     * @throws Exception
+     *
      * @return Matrix X so that L*U*X = B(piv,:)
      */
     public function solve(Matrix $B): Matrix

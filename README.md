@@ -52,10 +52,11 @@ and classes for
 ## TO DO
 
  - power() function
- - EigenValues
- - EigenVectors
  - Decomposition
    - Cholesky Decomposition
+   - EigenValue Decomposition 
+     - EigenValues
+     - EigenVectors
 
 ---
 

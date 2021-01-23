@@ -167,6 +167,8 @@ class QR
      *
      * @param Matrix $B a Matrix with as many rows as A and any number of columns
      *
+     * @throws Exception
+     *
      * @return Matrix matrix that minimizes the two norm of Q*R*X-B
      */
     public function solve(Matrix $B): Matrix
