@@ -2,6 +2,7 @@
 
 namespace Matrix\Decomposition;
 
+use Matrix\Exception;
 use Matrix\Matrix;
 
 class QR
@@ -148,5 +149,43 @@ class QR
             }
             $this->rDiagonal[$k] = -$norm;
         }
+    }
+
+    public function isFullRank(): bool
+    {
+        for ($j = 0; $j < $this->columns; ++$j) {
+            if ($this->rDiagonal[$j] == 0.0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Least squares solution of A*X = B.
+     *
+     * @param Matrix $B a Matrix with as many rows as A and any number of columns
+     *
+     * @throws Exception
+     *
+     * @return Matrix matrix that minimizes the two norm of Q*R*X-B
+     */
+    public function solve(Matrix $B): Matrix
+    {
+        if ($B->rows !== $this->rows) {
+            throw new Exception('Matrix row dimensions are not equal');
+        }
+
+        if (!$this->isFullRank()) {
+            throw new Exception('Can only perform this operation on a full-rank matrix');
+        }
+
+        // Compute Y = transpose(Q)*B
+        $Y = $this->getQ()->transpose()
+            ->multiply($B);
+        // Solve R*X = Y;
+        return $this->getR()->inverse()
+            ->multiply($Y);
     }
 }
