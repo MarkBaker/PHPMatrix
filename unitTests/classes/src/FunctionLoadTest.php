@@ -2,7 +2,7 @@
 
 namespace MatrixTest;
 
-class functionLoadTest extends BaseTestAbstract
+class FunctionLoadTest extends BaseTestAbstract
 {
     /**
      * @dataProvider functionFileProvider
@@ -17,7 +17,13 @@ class functionLoadTest extends BaseTestAbstract
     {
         $functionFolderName = realpath(__DIR__ . '/../../../classes/src/Functions');
         $functionFileList = glob($functionFolderName . '/*.php');
-        $functionFileList = array_map(function ($filename) { return [$filename];}, $functionFileList);
+        $functionFileList = array_map(
+            function ($filename) {
+                return [$filename];
+            },
+            $functionFileList
+        );
+
         return $functionFileList;
     }
 
@@ -34,7 +40,13 @@ class functionLoadTest extends BaseTestAbstract
     {
         $functionFolderName = realpath(__DIR__ . '/../../../classes/src/Operations');
         $functionFileList = glob($functionFolderName . '/*.php');
-        $functionFileList = array_map(function ($filename) { return [$filename];}, $functionFileList);
+        $functionFileList = array_map(
+            function ($filename) {
+                return [$filename];
+            },
+            $functionFileList
+        );
+
         return $functionFileList;
     }
 }
