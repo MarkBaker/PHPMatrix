@@ -35,6 +35,14 @@ class MultiplicationTest extends BaseTestAbstract
         ]);
     }
 
+    protected function getTestMatrix4()
+    {
+        return new Matrix([
+            [1, 2],
+            ['invalid', 4],
+        ]);
+    }
+
     public function testGetResult()
     {
         $original = $this->getTestGrid1();
@@ -139,6 +147,32 @@ class MultiplicationTest extends BaseTestAbstract
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Matrices have mismatched dimensions');
         $result = $multiplier->execute($this->getTestMatrix3())
+            ->result();
+    }
+
+    public function testMultiplyScalarNonNumericMatrix()
+    {
+        $matrix = $this->getTestMatrix4();
+
+        $multiplier = new Multiplication($matrix);
+        $multiplicand = 4;
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid argument for multiplication');
+        $result = $multiplier->execute($multiplicand)
+            ->result();
+    }
+
+    public function testMultiplyNonNumericScalar()
+    {
+        $matrix = $this->getTestMatrix4();
+
+        $multiplier = new Multiplication($matrix);
+        $multiplicand = 4;
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid argument for multiplication');
+        $result = $multiplier->execute($multiplicand)
             ->result();
     }
 }

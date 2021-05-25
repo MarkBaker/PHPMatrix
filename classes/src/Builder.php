@@ -57,9 +57,9 @@ class Builder
      * @return Matrix
      * @throws Exception
      */
-    public static function createIdentityMatrix($dimensions)
+    public static function createIdentityMatrix($dimensions, $fillValue = null)
     {
-        $grid = static::createFilledMatrix(null, $dimensions)->toArray();
+        $grid = static::createFilledMatrix($fillValue, $dimensions)->toArray();
 
         for ($x = 0; $x < $dimensions; ++$x) {
             $grid[$x][$x] = 1;
