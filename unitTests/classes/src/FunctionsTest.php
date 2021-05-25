@@ -122,14 +122,22 @@ class FunctionsTest extends BaseTestAbstract
         $inverted3x3 = Functions::inverse($this->matrix3x3);
         $this->assertEquals($expectedInverted3x3, $inverted3x3);
         $this->assertEquals($this->matrix3x3, Functions::inverse($inverted3x3));
+    }
+
+    public function testInverseNotSquare(): void
+    {
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Inverse can only be calculated for a square matrix');
         Functions::inverse($this->matrix2x4);
+    }
+
+    public function testInverseNotSquare2(): void
+    {
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Inverse can only be calculated for a matrix with a non-zero determinant');
-        Functions::inverse($this->matrix1x1);
+        Functions::inverse(new Matrix([0]));
     }
 
     public function testMinors()
