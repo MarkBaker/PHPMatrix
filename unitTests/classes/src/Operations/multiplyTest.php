@@ -3,6 +3,7 @@
 namespace MatrixTest\Operations;
 
 use Matrix\Matrix;
+use Matrix\Operations;
 use MatrixTest\BaseTestAbstract;
 use function Matrix\multiply;
 
@@ -13,9 +14,9 @@ class multiplyTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testMultiplicationFunction($expected, $value1, $value2)
+    public function testMultiplicationFunctionStatic($expected, $value1, $value2)
     {
-        $result = multiply($value1, $value2);
+        $result = Operations::multiply($value1, $value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

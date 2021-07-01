@@ -14,26 +14,10 @@ class transposeTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testTranspose($expected, $grid)
+    public function testTransposeStatic($expected, $grid)
     {
         $matrix = new Matrix($grid);
         $result = MatrixFunctions::transpose($matrix);
-
-        //    Must return an object of the correct type...
-        $this->assertIsMatrixObject($result);
-        //    ... containing the correct data
-        $this->assertMatrixValues($result, count($expected), count($expected[0]), $expected);
-        // Verify that the original matrix remains unchanged
-        $this->assertOriginalMatrixIsUnchanged($grid, $matrix);
-    }
-
-    /**
-     * @dataProvider dataProviderSingle
-     */
-    public function testTransposeFunction($expected, $grid)
-    {
-        $matrix = new Matrix($grid);
-        $result = transpose($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

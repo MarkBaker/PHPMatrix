@@ -15,26 +15,10 @@ class antidiagonalTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testAntidiagonal($expected, $grid)
+    public function testAntidiagonalStatic($expected, $grid)
     {
         $matrix = new Matrix($grid);
         $result = MatrixFunctions::antidiagonal($matrix);
-
-        //    Must return an object of the correct type...
-        $this->assertIsMatrixObject($result);
-        //    ... containing the correct data
-        $this->assertMatrixValues($result, count($expected), count($expected[0]), $expected);
-        // Verify that the original matrix remains unchanged
-        $this->assertOriginalMatrixIsUnchanged($grid, $matrix);
-    }
-
-    /**
-     * @dataProvider dataProviderSingle
-     */
-    public function testAntidiagonalFunction($expected, $grid)
-    {
-        $matrix = new Matrix($grid);
-        $result = antidiagonal($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

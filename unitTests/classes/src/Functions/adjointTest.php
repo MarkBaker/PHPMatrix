@@ -15,26 +15,10 @@ class adjointTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testAdjoint($expected, $grid)
+    public function testAdjointStatic($expected, $grid)
     {
         $matrix = new Matrix($grid);
         $result = MatrixFunctions::adjoint($matrix);
-
-        //    Must return an object of the correct type...
-        $this->assertIsMatrixObject($result);
-        //    ... containing the correct data
-        $this->assertMatrixValues($result, count($expected), count($expected[0]), $expected);
-        // Verify that the original matrix remains unchanged
-        $this->assertOriginalMatrixIsUnchanged($grid, $matrix);
-    }
-
-    /**
-     * @dataProvider dataProviderSingle
-     */
-    public function testAdjointFunction($expected, $grid)
-    {
-        $matrix = new Matrix($grid);
-        $result = adjoint($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

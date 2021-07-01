@@ -3,6 +3,7 @@
 namespace MatrixTest\Functions;
 
 use Matrix\Exception;
+use Matrix\Functions;
 use Matrix\Matrix;
 use MatrixTest\BaseTestAbstract;
 use function Matrix\adjoint;
@@ -26,16 +27,16 @@ class FunctionsCallTest extends BaseTestAbstract
         $matrix2 = new Matrix($matrix2Grid);
         $matrix3Grid = [[5, 7, 2], [-1, 4, 2], [5, 3, 6]];
         $matrix3 = new Matrix($matrix3Grid);
-        $this->assertEquals([[1024]], adjoint($matrix1Grid)->toArray());
-        $this->assertEquals([[1024]], adjoint($matrix1)->toArray());
-        $this->assertEquals([[4, -2], [-3, 1]], adjoint($matrix2Grid)->toArray());
-        $this->assertEquals([[4, -2], [-3, 1]], adjoint($matrix2)->toArray());
-        $this->assertEquals([[18, -36, 6], [16, 20, -12], [-23, 20, 27]], adjoint($matrix3Grid)->toArray());
-        $this->assertEquals([[18, -36, 6], [16, 20, -12], [-23, 20, 27]], adjoint($matrix3)->toArray());
+        $this->assertEquals([[1024]], Functions::adjoint($matrix1Grid)->toArray());
+        $this->assertEquals([[1024]], Functions::adjoint($matrix1)->toArray());
+        $this->assertEquals([[4, -2], [-3, 1]], Functions::adjoint($matrix2Grid)->toArray());
+        $this->assertEquals([[4, -2], [-3, 1]], Functions::adjoint($matrix2)->toArray());
+        $this->assertEquals([[18, -36, 6], [16, 20, -12], [-23, 20, 27]], Functions::adjoint($matrix3Grid)->toArray());
+        $this->assertEquals([[18, -36, 6], [16, 20, -12], [-23, 20, 27]], Functions::adjoint($matrix3)->toArray());
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Must be Matrix or array');
-        adjoint(1);
+        Functions::adjoint(1);
     }
 
     public function testAntidiagonal()
@@ -46,16 +47,16 @@ class FunctionsCallTest extends BaseTestAbstract
         $matrix2 = new Matrix($matrix2Grid);
         $matrix3Grid = [[5, 7, 2], [-1, 4, 2], [5, 3, 6]];
         $matrix3 = new Matrix($matrix3Grid);
-        $this->assertEquals([[1024]], antidiagonal($matrix1Grid)->toArray());
-        $this->assertEquals([[1024]], antidiagonal($matrix1)->toArray());
-        $this->assertEquals([[0, 2], [3, 0]], antidiagonal($matrix2Grid)->toArray());
-        $this->assertEquals([[0, 2], [3, 0]], antidiagonal($matrix2)->toArray());
-        $this->assertEquals([[0, 0, 2], [0, 4, 0], [5, 0, 0]], antidiagonal($matrix3Grid)->toArray());
-        $this->assertEquals([[0, 0, 2], [0, 4, 0], [5, 0, 0]], antidiagonal($matrix3)->toArray());
+        $this->assertEquals([[1024]], Functions::antidiagonal($matrix1Grid)->toArray());
+        $this->assertEquals([[1024]], Functions::antidiagonal($matrix1)->toArray());
+        $this->assertEquals([[0, 2], [3, 0]], Functions::antidiagonal($matrix2Grid)->toArray());
+        $this->assertEquals([[0, 2], [3, 0]], Functions::antidiagonal($matrix2)->toArray());
+        $this->assertEquals([[0, 0, 2], [0, 4, 0], [5, 0, 0]], Functions::antidiagonal($matrix3Grid)->toArray());
+        $this->assertEquals([[0, 0, 2], [0, 4, 0], [5, 0, 0]], Functions::antidiagonal($matrix3)->toArray());
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Must be Matrix or array');
-        antidiagonal(1);
+        Functions::antidiagonal(1);
     }
 
     public function testCofactors()
@@ -66,16 +67,16 @@ class FunctionsCallTest extends BaseTestAbstract
         $matrix2 = new Matrix($matrix2Grid);
         $matrix3Grid = [[5, 7, 2], [-1, 4, 2], [5, 3, 6]];
         $matrix3 = new Matrix($matrix3Grid);
-        $this->assertEquals([[1024]], cofactors($matrix1Grid)->toArray());
-        $this->assertEquals([[1024]], cofactors($matrix1)->toArray());
-        $this->assertEquals([[4, -3], [-2, 1]], cofactors($matrix2Grid)->toArray());
-        $this->assertEquals([[4, -3], [-2, 1]], cofactors($matrix2)->toArray());
-        $this->assertEquals([[18, 16, -23], [-36, 20, 20], [6, -12, 27]], cofactors($matrix3Grid)->toArray());
-        $this->assertEquals([[18, 16, -23], [-36, 20, 20], [6, -12, 27]], cofactors($matrix3)->toArray());
+        $this->assertEquals([[1024]], Functions::cofactors($matrix1Grid)->toArray());
+        $this->assertEquals([[1024]], Functions::cofactors($matrix1)->toArray());
+        $this->assertEquals([[4, -3], [-2, 1]], Functions::cofactors($matrix2Grid)->toArray());
+        $this->assertEquals([[4, -3], [-2, 1]], Functions::cofactors($matrix2)->toArray());
+        $this->assertEquals([[18, 16, -23], [-36, 20, 20], [6, -12, 27]], Functions::cofactors($matrix3Grid)->toArray());
+        $this->assertEquals([[18, 16, -23], [-36, 20, 20], [6, -12, 27]], Functions::cofactors($matrix3)->toArray());
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Must be Matrix or array');
-        cofactors(1);
+        Functions::cofactors(1);
     }
 
     public function testDeterminant()
@@ -86,16 +87,16 @@ class FunctionsCallTest extends BaseTestAbstract
         $matrix2 = new Matrix($matrix2Grid);
         $matrix3Grid = [[5, 7, 2], [-1, 4, 2], [5, 3, 6]];
         $matrix3 = new Matrix($matrix3Grid);
-        $this->assertEquals(1024.0, determinant($matrix1Grid));
-        $this->assertEquals(1024.0, determinant($matrix1));
-        $this->assertEquals(-2.0, determinant($matrix2Grid));
-        $this->assertEquals(-2.0, determinant($matrix2));
-        $this->assertEquals(156.0, determinant($matrix3Grid));
-        $this->assertEquals(156.0, determinant($matrix3));
+        $this->assertEquals(1024.0, Functions::determinant($matrix1Grid));
+        $this->assertEquals(1024.0, Functions::determinant($matrix1));
+        $this->assertEquals(-2.0, Functions::determinant($matrix2Grid));
+        $this->assertEquals(-2.0, Functions::determinant($matrix2));
+        $this->assertEquals(156.0, Functions::determinant($matrix3Grid));
+        $this->assertEquals(156.0, Functions::determinant($matrix3));
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Must be Matrix or array');
-        determinant(1);
+        Functions::determinant(1);
     }
 
     public function testDiagonal()
@@ -106,16 +107,16 @@ class FunctionsCallTest extends BaseTestAbstract
         $matrix2 = new Matrix($matrix2Grid);
         $matrix3Grid = [[5, 7, 2], [-1, 4, 2], [5, 3, 6]];
         $matrix3 = new Matrix($matrix3Grid);
-        $this->assertEquals([[1024]], diagonal($matrix1Grid)->toArray());
-        $this->assertEquals([[1024]], diagonal($matrix1)->toArray());
-        $this->assertEquals([[1, 0], [0, 4]], diagonal($matrix2Grid)->toArray());
-        $this->assertEquals([[1, 0], [0, 4]], diagonal($matrix2)->toArray());
-        $this->assertEquals([[5, 0, 0], [0, 4, 0], [0, 0, 6]], diagonal($matrix3Grid)->toArray());
-        $this->assertEquals([[5, 0, 0], [0, 4, 0], [0, 0, 6]], diagonal($matrix3)->toArray());
+        $this->assertEquals([[1024]], Functions::diagonal($matrix1Grid)->toArray());
+        $this->assertEquals([[1024]], Functions::diagonal($matrix1)->toArray());
+        $this->assertEquals([[1, 0], [0, 4]], Functions::diagonal($matrix2Grid)->toArray());
+        $this->assertEquals([[1, 0], [0, 4]], Functions::diagonal($matrix2)->toArray());
+        $this->assertEquals([[5, 0, 0], [0, 4, 0], [0, 0, 6]], Functions::diagonal($matrix3Grid)->toArray());
+        $this->assertEquals([[5, 0, 0], [0, 4, 0], [0, 0, 6]], Functions::diagonal($matrix3)->toArray());
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Must be Matrix or array');
-        diagonal(1);
+        Functions::diagonal(1);
     }
 
     public function testIdentity()
@@ -126,16 +127,16 @@ class FunctionsCallTest extends BaseTestAbstract
         $matrix2 = new Matrix($matrix2Grid);
         $matrix3Grid = [[5, 7, 2], [-1, 4, 2], [5, 3, 6]];
         $matrix3 = new Matrix($matrix3Grid);
-        $this->assertEquals([[1]], identity($matrix1Grid)->toArray());
-        $this->assertEquals([[1]], identity($matrix1)->toArray());
-        $this->assertEquals([[1, null], [null, 1]], identity($matrix2Grid)->toArray());
-        $this->assertEquals([[1, null], [null, 1]], identity($matrix2)->toArray());
-        $this->assertEquals([[1, null, null], [null, 1, null], [null, null, 1]], identity($matrix3Grid)->toArray());
-        $this->assertEquals([[1, null, null], [null, 1, null], [null, null, 1]], identity($matrix3)->toArray());
+        $this->assertEquals([[1]], Functions::identity($matrix1Grid)->toArray());
+        $this->assertEquals([[1]], Functions::identity($matrix1)->toArray());
+        $this->assertEquals([[1, null], [null, 1]], Functions::identity($matrix2Grid)->toArray());
+        $this->assertEquals([[1, null], [null, 1]], Functions::identity($matrix2)->toArray());
+        $this->assertEquals([[1, null, null], [null, 1, null], [null, null, 1]], Functions::identity($matrix3Grid)->toArray());
+        $this->assertEquals([[1, null, null], [null, 1, null], [null, null, 1]], Functions::identity($matrix3)->toArray());
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Must be Matrix or array');
-        identity(1);
+        Functions::identity(1);
     }
 
     public function testInverse()
@@ -146,17 +147,17 @@ class FunctionsCallTest extends BaseTestAbstract
         $matrix2 = new Matrix($matrix2Grid);
         $matrix3Grid = [[5, 7, 2], [-1, 4, 2], [5, 3, 6]];
         $matrix3 = new Matrix($matrix3Grid);
-        $this->assertEquals([[0.0009765625]], inverse($matrix1Grid)->toArray());
-        $this->assertEquals([[0.0009765625]], inverse($matrix1)->toArray());
-        $this->assertEquals([[-2.0, 1.0], [1.5, -0.5]], inverse($matrix2Grid)->toArray());
-        $this->assertEquals([[-2.0, 1.0], [1.5, -0.5]], inverse($matrix2)->toArray());
+        $this->assertEquals([[0.0009765625]], Functions::inverse($matrix1Grid)->toArray());
+        $this->assertEquals([[0.0009765625]], Functions::inverse($matrix1)->toArray());
+        $this->assertEquals([[-2.0, 1.0], [1.5, -0.5]], Functions::inverse($matrix2Grid)->toArray());
+        $this->assertEquals([[-2.0, 1.0], [1.5, -0.5]], Functions::inverse($matrix2)->toArray());
         $this->assertEquals(
             [
                 [0.11538461538461538, -0.23076923076923075, 0.038461538461538464],
                 [0.10256410256410256, 0.1282051282051282, -0.07692307692307693],
                 [-0.14743589743589744, 0.1282051282051282, 0.17307692307692307]
             ],
-            inverse($matrix3Grid)->toArray()
+            Functions::inverse($matrix3Grid)->toArray()
         );
         $this->assertEquals(
             [
@@ -164,12 +165,12 @@ class FunctionsCallTest extends BaseTestAbstract
                 [0.10256410256410256, 0.1282051282051282, -0.07692307692307693],
                 [-0.14743589743589744, 0.1282051282051282, 0.17307692307692307]
             ],
-            inverse($matrix3)->toArray()
+            Functions::inverse($matrix3)->toArray()
         );
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Must be Matrix or array');
-        inverse(1);
+        Functions::inverse(1);
     }
 
     public function testMinors()
@@ -180,16 +181,16 @@ class FunctionsCallTest extends BaseTestAbstract
         $matrix2 = new Matrix($matrix2Grid);
         $matrix3Grid = [[5, 7, 2], [-1, 4, 2], [5, 3, 6]];
         $matrix3 = new Matrix($matrix3Grid);
-        $this->assertEquals([[1024]], minors($matrix1Grid)->toArray());
-        $this->assertEquals([[1024]], minors($matrix1)->toArray());
-        $this->assertEquals([[4, 3], [2, 1]], minors($matrix2Grid)->toArray());
-        $this->assertEquals([[4, 3], [2, 1]], minors($matrix2)->toArray());
-        $this->assertEquals([[18, -16, -23], [36, 20, -20], [6, 12, 27]], minors($matrix3Grid)->toArray());
-        $this->assertEquals([[18, -16, -23], [36, 20, -20], [6, 12, 27]], minors($matrix3)->toArray());
+        $this->assertEquals([[1024]], Functions::minors($matrix1Grid)->toArray());
+        $this->assertEquals([[1024]], Functions::minors($matrix1)->toArray());
+        $this->assertEquals([[4, 3], [2, 1]], Functions::minors($matrix2Grid)->toArray());
+        $this->assertEquals([[4, 3], [2, 1]], Functions::minors($matrix2)->toArray());
+        $this->assertEquals([[18, -16, -23], [36, 20, -20], [6, 12, 27]], Functions::minors($matrix3Grid)->toArray());
+        $this->assertEquals([[18, -16, -23], [36, 20, -20], [6, 12, 27]], Functions::minors($matrix3)->toArray());
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Must be Matrix or array');
-        minors(1);
+        Functions::minors(1);
     }
 
     public function testTrace()
@@ -200,16 +201,16 @@ class FunctionsCallTest extends BaseTestAbstract
         $matrix2 = new Matrix($matrix2Grid);
         $matrix3Grid = [[5, 7, 2], [-1, 4, 2], [5, 3, 6]];
         $matrix3 = new Matrix($matrix3Grid);
-        $this->assertEquals(1024, trace($matrix1Grid));
-        $this->assertEquals(1024, trace($matrix1));
-        $this->assertEquals(5, trace($matrix2Grid));
-        $this->assertEquals(5, trace($matrix2));
-        $this->assertEquals(15, trace($matrix3Grid));
-        $this->assertEquals(15, trace($matrix3));
+        $this->assertEquals(1024, Functions::trace($matrix1Grid));
+        $this->assertEquals(1024, Functions::trace($matrix1));
+        $this->assertEquals(5, Functions::trace($matrix2Grid));
+        $this->assertEquals(5, Functions::trace($matrix2));
+        $this->assertEquals(15, Functions::trace($matrix3Grid));
+        $this->assertEquals(15, Functions::trace($matrix3));
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Must be Matrix or array');
-        trace(1);
+        Functions::trace(1);
     }
 
     public function testTranspose()
@@ -220,15 +221,15 @@ class FunctionsCallTest extends BaseTestAbstract
         $matrix2 = new Matrix($matrix2Grid);
         $matrix3Grid = [[5, 7, 2], [-1, 4, 2], [5, 3, 6]];
         $matrix3 = new Matrix($matrix3Grid);
-        $this->assertEquals([[1024]], transpose($matrix1Grid)->toArray());
-        $this->assertEquals([[1024]], transpose($matrix1)->toArray());
-        $this->assertEquals([[1, 3], [2, 4]], transpose($matrix2Grid)->toArray());
-        $this->assertEquals([[1, 3], [2, 4]], transpose($matrix2)->toArray());
-        $this->assertEquals([[5, -1, 5], [7, 4, 3], [2, 2, 6]], transpose($matrix3Grid)->toArray());
-        $this->assertEquals([[5, -1, 5], [7, 4, 3], [2, 2, 6]], transpose($matrix3)->toArray());
+        $this->assertEquals([[1024]], Functions::transpose($matrix1Grid)->toArray());
+        $this->assertEquals([[1024]], Functions::transpose($matrix1)->toArray());
+        $this->assertEquals([[1, 3], [2, 4]], Functions::transpose($matrix2Grid)->toArray());
+        $this->assertEquals([[1, 3], [2, 4]], Functions::transpose($matrix2)->toArray());
+        $this->assertEquals([[5, -1, 5], [7, 4, 3], [2, 2, 6]], Functions::transpose($matrix3Grid)->toArray());
+        $this->assertEquals([[5, -1, 5], [7, 4, 3], [2, 2, 6]], Functions::transpose($matrix3)->toArray());
         $this->expectException(Exception::class);
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Must be Matrix or array');
-        transpose(1);
+        Functions::transpose(1);
     }
 }

@@ -3,6 +3,7 @@
 namespace MatrixTest\Operations;
 
 use Matrix\Matrix;
+use Matrix\Operations;
 use MatrixTest\BaseTestAbstract;
 use function Matrix\divideby;
 
@@ -13,9 +14,9 @@ class dividebyTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testDivideByFunction($expected, $value1, $value2)
+    public function testDivideByFunctionStatic($expected, $value1, $value2)
     {
-        $result = divideby($value1, $value2);
+        $result = Operations::divideby($value1, $value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

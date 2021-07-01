@@ -15,26 +15,10 @@ class cofactorsTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testCofactors($expected, $grid)
+    public function testCofactorsStatic($expected, $grid)
     {
         $matrix = new Matrix($grid);
         $result = MatrixFunctions::cofactors($matrix);
-
-        //    Must return an object of the correct type...
-        $this->assertIsMatrixObject($result);
-        //    ... containing the correct data
-        $this->assertMatrixValues($result, count($expected), count($expected[0]), $expected);
-        // Verify that the original matrix remains unchanged
-        $this->assertOriginalMatrixIsUnchanged($grid, $matrix);
-    }
-
-    /**
-     * @dataProvider dataProviderSingle
-     */
-    public function testCofactorsFunction($expected, $grid)
-    {
-        $matrix = new Matrix($grid);
-        $result = cofactors($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

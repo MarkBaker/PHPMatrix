@@ -28,7 +28,6 @@ use Matrix\Decomposition\QR;
  * @method Matrix diagonal()
  * @method Matrix identity()
  * @method Matrix inverse()
- * @method Matrix pseudoInverse()
  * @method Matrix minors()
  * @method float trace()
  * @method Matrix transpose()
@@ -411,12 +410,13 @@ class Matrix
     {
         $functionName = strtolower(str_replace('_', '', $functionName));
 
-        if (in_array($functionName, self::$functions, true) || in_array($functionName, self::$operations, true)) {
-            $functionName = "\\" . __NAMESPACE__ . "\\{$functionName}";
-            if (is_callable($functionName)) {
-                $arguments = array_values(array_merge([$this], $arguments));
-                return call_user_func_array($functionName, $arguments);
-            }
+        // Test for function calls
+        if (in_array($functionName, self::$functions, true)) {
+            return Functions::$functionName($this, ...$arguments);
+        }
+        // Test for operation calls
+        if (in_array($functionName, self::$operations, true)) {
+            return Operations::$functionName($this, ...$arguments);
         }
         throw new Exception('Function or Operation does not exist');
     }
