@@ -15,26 +15,10 @@ class minorsTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testMinors($expected, $grid)
+    public function testMinorsStatic($expected, $grid)
     {
         $matrix = new Matrix($grid);
         $result = MatrixFunctions::minors($matrix);
-
-        //    Must return an object of the correct type...
-        $this->assertIsMatrixObject($result);
-        //    ... containing the correct data
-        $this->assertMatrixValues($result, count($expected), count($expected[0]), $expected);
-        // Verify that the original matrix remains unchanged
-        $this->assertOriginalMatrixIsUnchanged($grid, $matrix);
-    }
-
-    /**
-     * @dataProvider dataProviderSingle
-     */
-    public function testMinorsFunction($expected, $grid)
-    {
-        $matrix = new Matrix($grid);
-        $result = minors($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

@@ -15,26 +15,10 @@ class diagonalTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testDiagonal($expected, $grid)
+    public function testDiagonalStatic($expected, $grid)
     {
         $matrix = new Matrix($grid);
         $result = MatrixFunctions::diagonal($matrix);
-
-        //    Must return an object of the correct type...
-        $this->assertIsMatrixObject($result);
-        //    ... containing the correct data
-        $this->assertMatrixValues($result, count($expected), count($expected[0]), $expected);
-        // Verify that the original matrix remains unchanged
-        $this->assertOriginalMatrixIsUnchanged($grid, $matrix);
-    }
-
-    /**
-     * @dataProvider dataProviderSingle
-     */
-    public function testDiagonalFunction($expected, $grid)
-    {
-        $matrix = new Matrix($grid);
-        $result = diagonal($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

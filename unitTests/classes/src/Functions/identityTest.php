@@ -15,26 +15,10 @@ class identityTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testIdentity($expected, $grid)
+    public function testIdentityStatic($expected, $grid)
     {
         $matrix = new Matrix($grid);
         $result = MatrixFunctions::identity($matrix);
-
-        //    Must return an object of the correct type...
-        $this->assertIsMatrixObject($result);
-        //    ... containing the correct data
-        $this->assertMatrixValues($result, count($expected), count($expected[0]), $expected);
-        // Verify that the original matrix remains unchanged
-        $this->assertOriginalMatrixIsUnchanged($grid, $matrix);
-    }
-
-    /**
-     * @dataProvider dataProviderSingle
-     */
-    public function testIdentityFunction($expected, $grid)
-    {
-        $matrix = new Matrix($grid);
-        $result = identity($matrix);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

@@ -15,23 +15,10 @@ class traceTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testTrace($expected, $grid)
+    public function testTraceStatic($expected, $grid)
     {
         $matrix = new Matrix($grid);
         $result = MatrixFunctions::trace($matrix);
-
-        $this->assertEquals($expected, $result);
-        // Verify that the original matrix remains unchanged
-        $this->assertOriginalMatrixIsUnchanged($grid, $matrix);
-    }
-
-    /**
-     * @dataProvider dataProviderSingle
-     */
-    public function testTraceFunction($expected, $grid)
-    {
-        $matrix = new Matrix($grid);
-        $result = trace($matrix);
 
         $this->assertEquals($expected, $result);
         // Verify that the original matrix remains unchanged

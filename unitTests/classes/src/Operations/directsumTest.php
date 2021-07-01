@@ -3,6 +3,7 @@
 namespace MatrixTest\Operations;
 
 use Matrix\Matrix;
+use Matrix\Operations;
 use MatrixTest\BaseTestAbstract;
 use function Matrix\directsum;
 
@@ -13,9 +14,9 @@ class directsumTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testDirectSumFunction($expected, $value1, $value2)
+    public function testDirectSumFunctionStatic($expected, $value1, $value2)
     {
-        $result = directsum($value1, $value2);
+        $result = Operations::directsum($value1, $value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

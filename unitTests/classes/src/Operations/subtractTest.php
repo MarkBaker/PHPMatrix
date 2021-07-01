@@ -3,6 +3,7 @@
 namespace MatrixTest\Operations;
 
 use Matrix\Matrix;
+use Matrix\Operations;
 use MatrixTest\BaseTestAbstract;
 use function Matrix\subtract;
 
@@ -13,9 +14,9 @@ class subtractTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testSubtractionFunction($expected, $value1, $value2)
+    public function testSubtractionFunctionStatic($expected, $value1, $value2)
     {
-        $result = subtract($value1, $value2);
+        $result = Operations::subtract($value1, $value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

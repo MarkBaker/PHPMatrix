@@ -6,13 +6,13 @@ use Matrix\Decomposition\QR;
 include __DIR__ . '/../vendor/autoload.php';
 
 $grid = [
-    [1, 2],
-    [3, 4],
+    [0, 1],
+    [-1, 0],
 ];
 
 $targetGrid = [
     [-1],
-    [-2],
+    [2],
 ];
 
 $matrix = new Matrix($grid);

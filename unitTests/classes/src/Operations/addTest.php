@@ -3,6 +3,7 @@
 namespace MatrixTest\Operations;
 
 use Matrix\Matrix;
+use Matrix\Operations;
 use MatrixTest\BaseTestAbstract;
 use function Matrix\add;
 
@@ -13,9 +14,9 @@ class addTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testAdditionFunction($expected, $value1, $value2)
+    public function testAdditionStatic($expected, $value1, $value2)
     {
-        $result = add($value1, $value2);
+        $result = Operations::add($value1, $value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);

@@ -15,23 +15,10 @@ class determinantTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testDeterminant($expected, $grid)
+    public function testDeterminantStatic($expected, $grid)
     {
         $matrix = new Matrix($grid);
         $result = MatrixFunctions::determinant($matrix);
-
-        $this->assertEquals($expected, $result);
-        // Verify that the original matrix remains unchanged
-        $this->assertOriginalMatrixIsUnchanged($grid, $matrix);
-    }
-
-    /**
-     * @dataProvider dataProviderSingle
-     */
-    public function testDeterminantFunction($expected, $grid)
-    {
-        $matrix = new Matrix($grid);
-        $result = determinant($matrix);
 
         $this->assertEquals($expected, $result);
         // Verify that the original matrix remains unchanged

@@ -3,6 +3,7 @@
 namespace MatrixTest\Operations;
 
 use Matrix\Matrix;
+use Matrix\Operations;
 use MatrixTest\BaseTestAbstract;
 use function Matrix\divideinto;
 
@@ -13,9 +14,9 @@ class divideintoTest extends BaseTestAbstract
     /**
      * @dataProvider dataProvider
      */
-    public function testDivideIntoFunction($expected, $value1, $value2)
+    public function testDivideIntoFunctionStatic($expected, $value1, $value2)
     {
-        $result = divideinto($value1, $value2);
+        $result = Operations::divideinto($value1, $value2);
 
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($result);
