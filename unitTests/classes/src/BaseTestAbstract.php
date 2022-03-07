@@ -16,22 +16,23 @@ abstract class BaseTestAbstract extends TestCase
 
     protected function assertOriginalMatrixIsUnchanged(array $grid, Matrix $matrix, $message = '')
     {
-        self::assertEquals($grid, $matrix->toArray(), $message);
-        self::assertEquals(count($grid), $matrix->rows, $message);
-        self::assertEquals(count($grid[0]), $matrix->columns, $message);
+        self::assertSame($grid, $matrix->toArray(), $message);
+        self::assertSame(count($grid), $matrix->rows, $message);
+        self::assertSame(count($grid[0]), $matrix->columns, $message);
     }
 
     protected function assertMatrixValues(Matrix $matrix, $rows, $columns, array $grid)
     {
-        self::assertEquals($rows, $matrix->rows, 'Row mismatch');
-        self::assertEquals($columns, $matrix->columns, 'Column mismatch');
+        self::assertSame($rows, $matrix->rows, 'Row mismatch');
+        self::assertSame($columns, $matrix->columns, 'Column mismatch');
 
         $matrixGrid = $matrix->toArray();
         foreach ($grid as $row => $vector) {
             foreach ($vector as $column => $expectedValue) {
-                self::assertSame(
+                self::assertEqualsWithDelta(
                     (float) $expectedValue,
                     (float) $matrixGrid[$row][$column],
+                    1.0e-12,
                     "Invalid result at row {$row} and column {$column}"
                 );
             }
