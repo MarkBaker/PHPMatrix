@@ -16,7 +16,7 @@ class MatrixTest extends BaseTestAbstract
         //    Must return an object of the correct type...
         $this->assertIsMatrixObject($matrixObject);
         //    ... containing the correct data
-        $this->assertMatrixValues($matrixObject, ceil($cells / $columns), $columns, $this->buildArray($cells, $columns));
+        $this->assertMatrixValues($matrixObject, (int) ceil($cells / $columns), $columns, $this->buildArray($cells, $columns));
     }
 
     public function testRowsDefault()

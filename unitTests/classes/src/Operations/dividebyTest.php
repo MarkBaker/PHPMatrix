@@ -2,10 +2,10 @@
 
 namespace MatrixTest\Operations;
 
+use Matrix\Exception;
 use Matrix\Matrix;
 use Matrix\Operations;
 use MatrixTest\BaseTestAbstract;
-use function Matrix\divideby;
 
 class dividebyTest extends BaseTestAbstract
 {
@@ -44,8 +44,58 @@ class dividebyTest extends BaseTestAbstract
     {
         return [
             [
-                [[2.5, -1.0], [6.0, -2.5]],
-                [[1, 2], [3, 4]], [[-2, 4], [-6, 8]],
+                'square - 2x2 * 2x2' => [[2.5, -1.0], [6.0, -2.5]],
+                [[1, 2], [3, 4]],
+                [[-2, 4], [-6, 8]],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderException
+     */
+    public function testDivideByException($value1, $value2)
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Division can only be calculated for a square matrix');
+
+        Operations::divideby($value1, $value2);
+    }
+
+    public function dataProviderException()
+    {
+        return [
+            'row vector/column vector' => [
+                [[1, 2, 3]],
+                [[4], [5], [6]],
+            ],
+            'column vector/row vector' => [
+                [[1], [2], [3]],
+                [[4, 5, 6]],
+            ],
+            'matrix 3x2 + 2x3' => [
+                [[1, 2, 3], [4, 5, 6]],
+                [[7, 10], [8, 11], [9, 12]],
+            ],
+            'matrix 2x3 / 3x2' => [
+                [[1, 4], [2, 5], [3, 6]],
+                [[7, 8, 9], [10, 11, 12]],
+            ],
+            'row vector/row vector' => [
+                [[1, 2, 3]],
+                [[4, 5, 6]],
+            ],
+            'column vector/column vector' => [
+                [[1], [2], [3]],
+                [[4], [5], [6]],
+            ],
+            'matrix 3x2 + 3x2' => [
+                [[1, 2, 3], [4, 5, 6]],
+                [[7, 8, 9], [10, 11, 12]],
+            ],
+            'matrix 2x3 / 2x3' => [
+                [[1, 4], [2, 5], [3, 6]],
+                [[7, 10], [8, 11], [9, 12]],
             ],
         ];
     }
