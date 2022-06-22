@@ -43,5 +43,10 @@
         "versions": "phpcs --report-width=200 --standard=PHPCompatibility --report=summary,full classes/src/ --runtime-set testVersion 7.2- -n",
         "coverage": "phpunit -c phpunit.xml.dist --coverage-text --coverage-html ./build/coverage"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
 }
