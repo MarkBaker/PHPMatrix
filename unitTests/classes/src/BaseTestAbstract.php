@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 abstract class BaseTestAbstract extends TestCase
 {
-    protected const PRECISION = 1.0e-15;
+    protected const PRECISION = 1.0e-12;
 
     protected function assertIsMatrixObject($object)
     {
@@ -29,11 +29,11 @@ abstract class BaseTestAbstract extends TestCase
         $matrixGrid = $matrix->toArray();
         foreach ($grid as $row => $vector) {
             foreach ($vector as $column => $expectedValue) {
-                self::assertSame(
+                self::assertEqualsWithDelta(
                     (float) $expectedValue,
                     (float) $matrixGrid[$row][$column],
-                    "Invalid result at row {$row} and column {$column}"
-                );
+                    self::PRECISION,
+                    "Invalid result at row {$row} and column {$column}"                );
             }
         }
     }
