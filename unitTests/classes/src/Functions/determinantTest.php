@@ -20,7 +20,7 @@ class determinantTest extends BaseTestAbstract
         $matrix = new Matrix($grid);
         $result = MatrixFunctions::determinant($matrix);
 
-        $this->assertEquals($expected, $result);
+        $this->assertEqualsWithDelta($expected, $result, self::PRECISION);
         // Verify that the original matrix remains unchanged
         $this->assertOriginalMatrixIsUnchanged($grid, $matrix);
     }
@@ -33,7 +33,7 @@ class determinantTest extends BaseTestAbstract
         $matrix = new Matrix($grid);
         $result = $matrix->determinant();
 
-        $this->assertEquals($expected, $result);
+        $this->assertEqualsWithDelta($expected, $result, self::PRECISION);
         // Verify that the original matrix remains unchanged
         $this->assertOriginalMatrixIsUnchanged($grid, $matrix);
     }

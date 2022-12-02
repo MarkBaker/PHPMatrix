@@ -64,7 +64,7 @@ class QrTest extends BaseTestAbstract
         $R = $decomposition->getR();
         $result = $Q->multiply($R);
 
-        $this->assertEquals($matrix, $result);
+        $this->assertEqualsWithDelta($matrix, $result, self::PRECISION);
     }
 
     /**
@@ -77,10 +77,10 @@ class QrTest extends BaseTestAbstract
         $target = new Matrix($target);
 
         $result = $decomposition->solve($target);
-        $this->assertEquals($expected, $result->toArray());
+        $this->assertEqualsWithDelta($expected, $result->toArray(), self::PRECISION);
 
         $resolve = $matrix->multiply($result);
-        $this->assertEquals($target, $resolve);
+        $this->assertEqualsWithDelta($target, $resolve, self::PRECISION);
     }
 
     public function solveDataProvider()
