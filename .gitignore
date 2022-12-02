@@ -12,9 +12,8 @@ analysis
 phpcs.xml
 .phpcs.xml
 
-## Don't commit the vendor directory nor the lock file (as this is a library).
+## Don't commit the vendor directory
 /vendor/
-composer.lock
 
 .phpunit.result.cache
 logs
