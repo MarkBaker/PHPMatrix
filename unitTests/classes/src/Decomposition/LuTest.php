@@ -61,7 +61,7 @@ class LuTest extends BaseTestAbstract
         $decomposition = new LU($matrix);
 
         $pivots = $decomposition->getPivot();
-        $this->assertEquals($expected['pivots'], $pivots);
+        $this->assertEqualsWithDelta($expected['pivots'], $pivots, self::PRECISION);
     }
 
     /**
@@ -92,11 +92,11 @@ class LuTest extends BaseTestAbstract
         $P = $decomposition->getP();
 
         $result1 = $P->inverse()->multiply($L->multiply($U));
-        $this->assertEquals($matrix, $result1);
+        $this->assertEqualsWithDelta($matrix, $result1, self::PRECISION);
 
         $matrix2 = $P->multiply($matrix);
         $result2 = $L->multiply($U);
-        $this->assertEquals($matrix2, $result2);
+        $this->assertEqualsWithDelta($matrix2, $result2, self::PRECISION);
     }
 
     /**
@@ -109,10 +109,10 @@ class LuTest extends BaseTestAbstract
         $target = new Matrix($target);
 
         $result = $decomposition->solve($target);
-        $this->assertEquals($expected, $result->toArray());
+        $this->assertEqualsWithDelta($expected, $result->toArray(), self::PRECISION);
 
         $resolve = $matrix->multiply($result);
-        $this->assertEquals($target, $resolve);
+        $this->assertEqualsWithDelta($target, $resolve, self::PRECISION);
     }
 
     public function solveDataProvider()

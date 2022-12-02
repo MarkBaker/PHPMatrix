@@ -103,16 +103,16 @@ class FunctionsTest extends BaseTestAbstract
             [0.0009765625]
         ]);
         $inverted1x1 = Functions::inverse($this->matrix1x1);
-        $this->assertEquals($expectedInverted1x1, $inverted1x1);
-        $this->assertEquals($this->matrix1x1, Functions::inverse($inverted1x1));
+        $this->assertEqualsWithDelta($expectedInverted1x1, $inverted1x1, self::PRECISION);
+        $this->assertEqualsWithDelta($this->matrix1x1, Functions::inverse($inverted1x1), self::PRECISION);
 
         $expectedInverted2x2 = new Matrix([
             [0.17857142857142855, -0.14285714285714285],
             [-0.10714285714285714, 0.2857142857142857]
         ]);
         $inverted2x2 = Functions::inverse($this->matrix2x2);
-        $this->assertEquals($expectedInverted2x2, $inverted2x2);
-        $this->assertEquals($this->matrix2x2, Functions::inverse($inverted2x2));
+        $this->assertEqualsWithDelta($expectedInverted2x2, $inverted2x2, self::PRECISION);
+        $this->assertEqualsWithDelta($this->matrix2x2, Functions::inverse($inverted2x2), self::PRECISION);
 
         $expectedInverted3x3 = new Matrix([
             [1.75, -2.0, 1.25],
@@ -120,8 +120,8 @@ class FunctionsTest extends BaseTestAbstract
             [0.25, 0.0, -0.25]
         ]);
         $inverted3x3 = Functions::inverse($this->matrix3x3);
-        $this->assertEquals($expectedInverted3x3, $inverted3x3);
-        $this->assertEquals($this->matrix3x3, Functions::inverse($inverted3x3));
+        $this->assertEqualsWithDelta($expectedInverted3x3, $inverted3x3, self::PRECISION);
+        $this->assertEqualsWithDelta($this->matrix3x3, Functions::inverse($inverted3x3), self::PRECISION);
     }
 
     public function testInverseNotSquare(): void
