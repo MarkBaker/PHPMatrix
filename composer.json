@@ -11,6 +11,12 @@
             "email": "mark@demon-angel.eu"
         }
     ],
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
     "require": {
         "php": "^7.1 || ^8.0"
     },
