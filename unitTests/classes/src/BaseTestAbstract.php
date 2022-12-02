@@ -33,7 +33,8 @@ abstract class BaseTestAbstract extends TestCase
                     (float) $expectedValue,
                     (float) $matrixGrid[$row][$column],
                     self::PRECISION,
-                    "Invalid result at row {$row} and column {$column}"                );
+                    "Invalid result at row {$row} and column {$column}"
+                );
             }
         }
     }
